@@ -1,12 +1,21 @@
 # -*- coding: utf-8 -*-
 """Genera el sitio estático (HTML + CSS) a partir del contenido extraído del Wix."""
-import json, os, re, sys, unicodedata
+import hashlib, json, os, re, sys, unicodedata
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WIX = 'https://sofia771199.wixsite.com/sofialozanoavila'
 ESCALON = 860   # ancho a partir del cual se usa la maquetación original
 
 pages = json.load(open(os.path.join(ROOT, '_build', 'content.json'), encoding='utf-8'))
+
+
+def version(ruta):
+    """Huella del contenido de un archivo, para añadirla al enlace.
+
+    Sin esto el navegador puede seguir usando una hoja de estilos vieja
+    guardada en su caché, y el diseño se descuadra."""
+    with open(os.path.join(ROOT, ruta), 'rb') as f:
+        return hashlib.md5(f.read()).hexdigest()[:8]
 
 
 def ascii_slug(s):
@@ -292,7 +301,7 @@ TEMPLATE = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Forum&family=Nunito+Sans:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/site.css?v={vcss}">
 <style>
 {css}
 </style>
@@ -302,8 +311,8 @@ TEMPLATE = """<!doctype html>
 <main id="contenido">
 {body}
 </main>
-<script src="assets/js/escala.js" defer></script>
-<script src="assets/js/menu.js" defer></script>
+<script src="assets/js/escala.js?v={vesc}" defer></script>
+<script src="assets/js/menu.js?v={vmenu}" defer></script>
 </body>
 </html>
 """
@@ -323,6 +332,9 @@ for slug, page in pages.items():
         if desc:
             break
     html = TEMPLATE.format(
+        vcss=version('assets/css/site.css'),
+        vesc=version('assets/js/escala.js'),
+        vmenu=version('assets/js/menu.js'),
         title=page['title'],
         desc=desc or 'sofía lozano ávila — artista, Bogotá, Colombia.',
         css=css,

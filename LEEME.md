@@ -12,20 +12,29 @@ los enlaces, el menú y las imágenes.
 
 ---
 
-## 2. Publicarlo en Vercel
+## 2. Publicarlo (ya es automático)
 
-1. Entra a [vercel.com](https://vercel.com) y crea una cuenta (puedes usar tu correo).
-2. En el panel, busca la opción de desplegar **arrastrando una carpeta**
-   (*Deploy* → *Browse* / arrastrar y soltar).
-3. Arrastra **toda la carpeta `web`**.
-4. Vercel te da una dirección como `https://sofialozanoavila.vercel.app`.
+El sitio está conectado a GitHub y a Vercel:
 
-Para conectar tu propio dominio (por ejemplo `sofialozanoavila.com`), en Vercel
-entra a tu proyecto → *Settings* → *Domains*.
+```
+tu computador  →  GitHub  →  Vercel  →  sofialozanoavila.info
+```
 
-Cada vez que cambies algo, vuelve a arrastrar la carpeta y Vercel actualiza el sitio.
+Cada cambio que se guarde y se envíe a GitHub se publica solo en unos 30 segundos.
+No hay que arrastrar carpetas ni configurar nada.
 
----
+- Repositorio: https://github.com/sofialozanoavila/sofialozanoavila
+- Dominio: https://sofialozanoavila.info
+
+Para enviar un cambio, desde la carpeta `web`:
+
+```bash
+git add -A
+git commit -m "describe aquí el cambio"
+git push
+```
+
+Si no te manejas con la terminal, pídemelo y lo hago yo.
 
 ## 3. Qué hay en cada archivo
 
