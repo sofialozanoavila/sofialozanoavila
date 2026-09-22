@@ -106,22 +106,22 @@ NUEVAS = {
         'firma': 'Andrea Mu\u00f1oz',
         # (archivo, pie) en orden de aparición. Pie vacío = sin texto debajo.
         'fotos': [
-            ('protesis-01.jpg', ''),
-            ('protesis-02.jpg', ''),
-            ('protesis-03.jpg', ''),
-            ('protesis-04.jpg', ''),
-            ('protesis-05.jpg', ''),
-            ('protesis-06.jpg', ''),
-            ('protesis-07.jpg', ''),
-            ('protesis-08.jpg', ''),
-            ('protesis-09.jpg', ''),
-            ('protesis-10.jpg', ''),
-            ('protesis-11.jpg', ''),
-            ('protesis-12.jpg', ''),
-            ('protesis-13.jpg', ''),
-            ('protesis-14.jpg', ''),
-            ('protesis-15.jpg', ''),
-            ('protesis-16.jpg', ''),
+            ('protesis-15.jpg', 'Vista general.'),
+            ('protesis-14.jpg', 'Vista general.'),
+            ('protesis-03.jpg', 'Hornillas, 2026. Cerámica y nylon. 50 x 50 cm.'),
+            ('protesis-02.jpg', 'Detalle.'),
+            ('protesis-01.jpg', 'Detalle.'),
+            ('protesis-04.jpg', 'Fuente, 2026. Cerámica y nylon. 100 x 30 x 40 cm.'),
+            ('protesis-07.jpg', 'Detalle.'),
+            ('protesis-05.jpg', 'Detalle.'),
+            ('protesis-06.jpg', 'Detalle.'),
+            ('protesis-13.jpg', 'Gestos de pared, 2026. Serigrafía sobre papel.'),
+            ('protesis-09.jpg', 'Filtraciones, 2026. Dibujo. Lápiz sobre papel. 35 x 50 cm.'),
+            ('protesis-08.jpg', 'Detalle.'),
+            ('protesis-16.jpg', 'Clavija, Cable y Clavija (sola), 2026. Cerámica.'),
+            ('protesis-12.jpg', 'Clavija, 2026. Cerámica sobre acrílico. 28 x 17 cm.'),
+            ('protesis-10.jpg', 'Detalle.'),
+            ('protesis-11.jpg', 'Cable, 2026. Cerámica. 8 x 4 cm.'),
         ],
     },
 }
@@ -144,8 +144,8 @@ TXT_PIE = ('<p class="font_8" style="font-size:12px; line-height:1.4em;">'
            '<span style="letter-spacing:0em;">%s</span></span></span></p>')
 
 
-def pieza(cid, tipo, fila, left, ancho, abajo, **extra):
-    geo = {'grid-area': '%d / 1 / %d / 2' % (fila, fila + 1),
+def pieza(cid, tipo, fila, left, ancho, abajo, filas=1, **extra):
+    geo = {'grid-area': '%d / 1 / %d / 2' % (fila, fila + filas),
            'left': '%dpx' % left,
            'width': '%dpx' % ancho,
            'margin': '0px 0px %dpx 0px' % abajo}
@@ -175,26 +175,20 @@ def render_nueva(slug, cfg):
     if cfg.get('firma'):
         cuerpo += [TXT_VACIO, TXT_PARRAFO % cfg['firma']]
 
-    fotos = list(cfg.get('fotos', []))
-    if cuerpo:
-        hijos.append(pieza('n-texto', 'text', fila, 0, 419, 10, html=''.join(cuerpo)))
-    if fotos:
-        archivo, pie = fotos.pop(0)
-        hijos.append(foto_pieza('n-foto0', fila, archivo, 11))
-        fila += 1
-        if pie:
-            hijos.append(pieza('n-pie0', 'text', fila, 439, 541, 9, html=TXT_PIE % pie))
-            fila += 1
-    else:
-        fila += 1
-
-    for n, (archivo, pie) in enumerate(fotos, start=1):
+    # Las fotos y sus pies ocupan una fila cada uno, con el mismo margen entre
+    # ellos. El texto se extiende a lo largo de todas esas filas, de modo que
+    # no impone la altura de ninguna.
+    primera = fila
+    for n, (archivo, pie) in enumerate(cfg.get('fotos', [])):
         hijos.append(foto_pieza('n-foto%d' % n, fila, archivo, 13))
         fila += 1
         if pie:
-            hijos.append(pieza('n-pie%d' % n, 'text', fila, 439, 541, 9,
+            hijos.append(pieza('n-pie%d' % n, 'text', fila, 439, 541, 13,
                                html=TXT_PIE % pie))
             fila += 1
+    if cuerpo:
+        hijos.append(pieza('n-texto', 'text', primera, 0, 419, 10,
+                           filas=max(fila - primera, 1), html=''.join(cuerpo)))
 
     sec = {'id': 'seccion-' + slug, 'children': hijos, 'lienzo': (-53, 1033),
            'mesh': {'grid-template-rows': 'repeat(%d, min-content) 1fr' % max(fila - 1, 1)}}
