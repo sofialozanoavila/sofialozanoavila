@@ -295,6 +295,87 @@ a:hover { opacity: .65; }
   line-height: 1.4em !important;
 }
 
+/* --- catálogo de piezas disponibles ----------------------------------- */
+.sec-catalogo { padding: 0 0 90px; }
+.sec-catalogo .lienzo { width: 1033px; margin: 0 auto; }
+.sec-catalogo .cabecera { margin-bottom: 56px; }
+.sec-catalogo .volver { margin-left: 53px; }
+.sec-catalogo .volver p { font-size: 40px; line-height: 1; }
+.sec-catalogo .titulo { margin-left: 0; }
+.sec-catalogo .titulo h1 {
+  font: var(--font_0);
+  font-size: 34px;
+  font-family: 'open sans', sans-serif;
+  margin: 6px 0 0;
+  color: rgb(var(--color_18));
+}
+
+.catalogo {
+  list-style: none;
+  margin: 0 0 0 53px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 56px 36px;
+}
+.catalogo .marco {
+  aspect-ratio: 1 / 1;
+  background: rgb(var(--color_11));
+  margin-bottom: 14px;
+}
+.catalogo img { width: 100%; height: 100%; object-fit: contain; }
+
+.catalogo h3 {
+  font: var(--font_8);
+  font-family: almarai, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 3px;
+  color: rgb(var(--color_18));
+}
+.catalogo .datos,
+.catalogo .nota {
+  font-family: var(--sans-light);
+  font-size: 12px;
+  line-height: 1.45em;
+  color: rgb(65, 65, 65);
+  margin: 0;
+}
+.catalogo .nota { font-style: italic; }
+.catalogo .precio {
+  font-family: almarai, sans-serif;
+  font-size: 14px;
+  margin: 8px 0 0;
+  color: rgb(var(--color_18));
+}
+.catalogo .consultar {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: almarai, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgb(var(--color_18));
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 2px;
+  transition: opacity .25s ease;
+}
+.catalogo .consultar:hover { opacity: .5; }
+
+@media (max-width: 859px) {
+  .sec-catalogo { padding: 0 20px 60px; }
+  .sec-catalogo .lienzo { width: auto; }
+  .sec-catalogo .volver { margin-left: 0; }
+  .sec-catalogo .cabecera { margin-bottom: 36px; }
+  .sec-catalogo .titulo h1 { font-size: 28px; }
+  .catalogo { grid-template-columns: repeat(2, 1fr); gap: 36px 20px; margin-left: 0; }
+}
+
+@media (max-width: 460px) {
+  .catalogo { grid-template-columns: 1fr; gap: 40px; }
+}
+
 /* --- página de contacto ----------------------------------------------- */
 .sec-contacto { padding: 0 0 80px; }
 .sec-contacto .lienzo { width: 1033px; margin: 0 auto; }

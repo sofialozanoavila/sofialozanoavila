@@ -29,6 +29,61 @@ def ascii_slug(s):
 
 SLUG = {k: ('index' if k == 'home' else ascii_slug(k)) for k in pages}
 
+# --- versión en inglés -------------------------------------------------------
+# El sitio se genera dos veces: el español en la raíz y el inglés en /en/.
+# Los nombres de las obras no se traducen: son títulos propios de las piezas.
+# Mientras los textos de proyecto sigan sin traducir, la versión en inglés se
+# genera solo en local: no se publica ni aparece el cambio de idioma.
+PUBLICAR_EN = False
+IDIOMAS = ('es', 'en') if PUBLICAR_EN else ('es',)
+
+MENU_EN = {
+    'PROYECTOS': 'PROJECTS',
+    'piezas disponibles': 'available works',
+    'Contacto': 'Contact',
+}
+
+TITULO_EN = {
+    'index': 'sofía lozano ávila | artist',
+    'proyectos': 'projects | sofialozanoavila',
+    'paisaje-interior': 'available works | sofialozanoavila',
+    'contacto': 'contact | sofialozanoavila',
+    'cv': 'cv | sofialozanoavila',
+}
+
+# Sustituciones de texto visible, por página. Solo cadenas que aparecen
+# completas dentro de una misma etiqueta.
+TEXTO_EN = {
+    'index': [
+        ('>proyectos', '>projects'),
+        ('>contacto', '>contact'),
+        ('>Artista<', '>Artist<'),
+    ],
+    'proyectos': [
+        ('>proyectos', '>projects'),
+        ('>contacto', '>contact'),
+    ],
+    'paisaje-interior': [
+        ('>piezas disponibles<', '>available works<'),
+        ('Cerámica. Dimensiones variables.', 'Ceramic. Dimensions variable.'),
+    ],
+}
+
+# Enlaces que aparecen en varias páginas
+COMUNES_EN = [
+    ('\u27ac piezas disponibles', '\u27ac available works'),
+    ('Vista general.', 'General view.'),
+    ('Detalle.', 'Detail.'),
+]
+
+DESC_EN = 'sofía lozano ávila — artist, Bogotá, Colombia.'
+
+
+def ruta_idioma(idioma, destino):
+    """Enlace a la misma página en el otro idioma."""
+    return ('en/' + destino) if idioma == 'es' else ('../' + destino)
+
+
 # --- menú superior, en el mismo orden que el sitio original -------------------
 MENU = [
     ('sofía lozano ávila', ''), ('PROYECTOS', 'proyectos'),
@@ -272,6 +327,67 @@ def medidas(ruta):
     raise SystemExit('no pude leer las medidas de ' + ruta)
 
 
+# --- catálogo de piezas disponibles ------------------------------------------
+# Datos y fotografías tomados del portafolio de obra disponible. Los precios
+# llevan ya el aumento de 100.000 pesos acordado.
+CORREO = 'sofia771199@gmail.com'
+
+CATALOGO = [
+    ('pieza-01.jpg', 'Flor borrachero', 'Cerámica', '12 x 12 x 12 cm', 2026, 180000, ''),
+    ('pieza-02.jpg', 'Pocillo', 'Cerámica', '8 x 8 x 10 cm', 2022, 150000, ''),
+    ('pieza-03.jpg', 'Concha', 'Cerámica', '16,5 x 10,5 cm', 2026, 180000, ''),
+    ('pieza-04.jpg', 'Caja 2', 'Cerámica', '16,5 x 11 cm', 2026, 180000, ''),
+    ('pieza-05.jpg', 'De la serie moños', 'Cerámica', '', 2026, 160000, ''),
+    ('pieza-06.jpg', 'De la serie moños', 'Cerámica', '5 x 6 x 4 cm', 2026, 160000, ''),
+    ('pieza-07.jpg', 'Banda elástica', 'Cerámica', '12 x 5 x 3 cm', 2026, 160000, ''),
+    ('pieza-08.jpg', 'Moños', 'Cerámica', '30 x 20 x 6 cm', 2026, 380000, 'Serie completa'),
+    ('pieza-09.jpg', 'Palas', 'Cerámica', '30 x 25 x 5 cm', 2025, 600000, 'Queda una disponible'),
+    ('pieza-11.jpg', 'Apariciones', 'Cerámica y tierra', '50 x 50 x 50 cm', 2025, 2100000,
+     'Instalación completa'),
+    ('pieza-12.jpg', 'Apariciones', 'Cerámica', '10 x 10 x 8 cm', 2025, 170000,
+     'Por pieza · serie completa 400.000'),
+]
+
+
+def pesos(n):
+    return '$' + '{:,}'.format(n).replace(',', '.') + ' COP'
+
+
+def render_catalogo(idioma='es'):
+    en = idioma == 'en'
+    consultar = 'Enquire' if en else 'Consultar'
+    asunto = 'Enquiry about' if en else 'Consulta sobre'
+    titulo = 'available works' if en else 'piezas disponibles'
+
+    fichas = []
+    for archivo, nombre, tecnica, medidas, ano, precio, nota in CATALOGO:
+        datos = ' · '.join(x for x in (tecnica, medidas, str(ano)) if x)
+        correo = ('mailto:%s?subject=%s %s'
+                  % (CORREO, asunto.replace(' ', '%20'), nombre.replace(' ', '%20')))
+        fichas.append(
+            '<li>'
+            '<div class="marco"><img src="assets/img/%s" alt="%s" width="1000" height="750" loading="lazy"></div>'
+            '<h3>%s</h3>'
+            '<p class="datos">%s</p>'
+            '%s'
+            '<p class="precio">%s</p>'
+            '<a class="consultar" href="%s">%s</a>'
+            '</li>'
+            % (archivo, nombre, nombre, datos,
+               ('<p class="nota">%s</p>' % nota) if nota else '',
+               pesos(precio), correo, consultar))
+
+    return ('<section class="sec sec-catalogo" data-ancho="1033">\n'
+            '<div class="lienzo">\n'
+            '<div class="cabecera">'
+            '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
+            '<div class="rt titulo"><h1>%s</h1></div>'
+            '</div>\n'
+            '<ul class="catalogo">\n%s\n</ul>\n'
+            '</div>\n'
+            '</section>' % (titulo, '\n'.join(fichas)))
+
+
 # --- página de contacto ------------------------------------------------------
 # Venía de Wix con dos PNG grandes de sobre y cámara. Se rehace con iconos
 # vectoriales de trazo fino, del mismo tamaño que la letra.
@@ -481,6 +597,9 @@ def render_page(slug, page):
     if slug == 'contacto':
         return render_contacto(CONTACTO), '', 0
 
+    if slug == 'paisaje-interior':
+        return render_catalogo(), '', 0
+
     if slug in GALERIA:
         return render_galeria(GALERIA[slug], page), '', 0
 
@@ -533,12 +652,16 @@ def render_page(slug, page):
     return '\n'.join(body), desktop, int(widest)
 
 
-def header_html(active):
+def header_html(active, idioma):
     items = []
     for label, target in MENU:
         href = (SLUG.get(target, ascii_slug(target)) if target else 'index') + '.html'
         cur = ' aria-current="page"' if href == active + '.html' else ''
+        if idioma == 'en':
+            label = MENU_EN.get(label, label)
         items.append('<li><a href="%s"%s>%s</a></li>' % (href, cur, label))
+    if PUBLICAR_EN:
+        items.append(selector_idioma(idioma, active + '.html'))
     return ('<header class="site-header">\n'
             '<button class="abrir-menu" type="button" aria-expanded="false" '
             'aria-controls="menu-sitio">menú</button>\n'
@@ -548,8 +671,15 @@ def header_html(active):
             '</ul>\n</nav>\n</header>' % '\n'.join(items))
 
 
+def selector_idioma(idioma, destino):
+    """Enlace al otro idioma, como última entrada del menú."""
+    otro = 'EN' if idioma == 'es' else 'ES'
+    return ('<li class="idioma"><a href="%s" hreflang="%s">%s</a></li>'
+            % (ruta_idioma(idioma, destino), 'en' if idioma == 'es' else 'es', otro))
+
+
 TEMPLATE = """<!doctype html>
-<html lang="es">
+<html lang="{lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -559,7 +689,7 @@ TEMPLATE = """<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Forum&family=Nunito+Sans:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/site.css?v={vcss}">
+<link rel="stylesheet" href="{pre}assets/css/site.css?v={vcss}">
 <style>
 {css}
 </style>
@@ -569,8 +699,8 @@ TEMPLATE = """<!doctype html>
 <main id="contenido">
 {body}
 </main>
-<script src="assets/js/escala.js?v={vesc}" defer></script>
-<script src="assets/js/menu.js?v={vmenu}" defer></script>
+<script src="{pre}assets/js/escala.js?v={vesc}" defer></script>
+<script src="{pre}assets/js/menu.js?v={vmenu}" defer></script>
 </body>
 </html>
 """
@@ -593,19 +723,37 @@ for slug, page in pages.items():
                 break
         if desc:
             break
-    html = TEMPLATE.format(
-        vcss=version('assets/css/site.css'),
-        vesc=version('assets/js/escala.js'),
-        vmenu=version('assets/js/menu.js'),
-        title=TITULOS.get(out, page['title']),
-        desc=desc or 'sofía lozano ávila — artista, Bogotá, Colombia.',
-        css=css,
-        header='' if page['landing'] else header_html(out),
-        bodyclass=('landing' if page['landing'] else 'inner') + ' p-' + out,
-        body=body,
-    )
-    html = html.replace('\u21a9', FLECHA)
-    for viejo, nuevo in TEXTOS.get(out, []):
-        html = html.replace(viejo, nuevo)
-    open(os.path.join(ROOT, out + '.html'), 'w', encoding='utf-8').write(html)
-    print('->', out + '.html')
+
+    for idioma in IDIOMAS:
+        pre = '' if idioma == 'es' else '../'
+        html = TEMPLATE.format(
+            lang=idioma,
+            pre=pre,
+            vcss=version('assets/css/site.css'),
+            vesc=version('assets/js/escala.js'),
+            vmenu=version('assets/js/menu.js'),
+            title=(TITULO_EN.get(out) if idioma == 'en' else None)
+                  or TITULOS.get(out, page['title']),
+            desc=(DESC_EN if idioma == 'en'
+                  else (desc or 'sofía lozano ávila — artista, Bogotá, Colombia.')),
+            css=css,
+            header='' if page['landing'] else header_html(out, idioma),
+            bodyclass=('landing' if page['landing'] else 'inner') + ' p-' + out,
+            body=body,
+        )
+        html = html.replace('\u21a9', FLECHA)
+        for viejo_txt, nuevo_txt in TEXTOS.get(out, []):
+            html = html.replace(viejo_txt, nuevo_txt)
+
+        if idioma == 'en':
+            for viejo_txt, nuevo_txt in COMUNES_EN + TEXTO_EN.get(out, []):
+                html = html.replace(viejo_txt, nuevo_txt)
+            # las páginas de /en/ apuntan a los recursos de la carpeta madre
+            html = html.replace('"assets/', '"../assets/')
+            destino = os.path.join(ROOT, 'en')
+            os.makedirs(destino, exist_ok=True)
+        else:
+            destino = ROOT
+
+        open(os.path.join(destino, out + '.html'), 'w', encoding='utf-8').write(html)
+    print('->', out + '.html  (es + en)')
