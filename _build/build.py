@@ -8,6 +8,10 @@ ESCALON = 860   # ancho a partir del cual se usa la maquetación original
 
 pages = json.load(open(os.path.join(ROOT, '_build', 'content.json'), encoding='utf-8'))
 
+# Página heredada de Wix: tenía el título «prótesis» pero dentro el contenido
+# de «medir el aire» copiado. La sustituye la página protesis.html.
+pages.pop('copia-de-medir-el-aire', None)
+
 
 def version(ruta):
     """Huella del contenido de un archivo, para añadirla al enlace.
@@ -27,7 +31,8 @@ SLUG = {k: ('index' if k == 'home' else ascii_slug(k)) for k in pages}
 
 # --- menú superior, en el mismo orden que el sitio original -------------------
 MENU = [
-    ('sofía lozano ávila', ''), ('PROYECTOS', 'proyectos'), ('Antejardín', 'antejardín'),
+    ('sofía lozano ávila', ''), ('PROYECTOS', 'proyectos'),
+    ('prótesis', 'protesis'), ('Antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
     ('TIENDA', 'paisaje-interior'), ('bache', 'bache'),
     ('vasija/ver/vaciar', 'vasija-ver-vaciar'), ('procedimiento fértil', 'procedimiento-fertil'),
@@ -55,6 +60,8 @@ def local_href(url):
 
 
 def img_file(c):
+    if c.get('archivo'):
+        return c['archivo']
     mid = re.search(r'/media/([^/~]+)~mv2\.(\w+)', c['src'])
     crop = re.search(r'/v1/fill/w_(\d+),h_(\d+)', c['hi'])
     name = (f"{mid.group(1)}_{crop.group(1)}x{crop.group(2)}.{mid.group(2)}"
@@ -64,6 +71,170 @@ def img_file(c):
 
 def px(v, default=None):
     return v if v else default
+
+
+# Entradas del listado de proyectos que aún no eran enlaces
+ENLAZAR = {
+    'proyectos': [('2026 / pr&oacute;tesis', 'protesis.html')],
+}
+
+
+def enlazar(slug, h):
+    for etiqueta, destino in ENLAZAR.get(slug, []):
+        patron = r'(<span[^>]*>\s*)*<span[^>]*>' + re.escape(etiqueta) + r'</span>(\s*</span>)*'
+        m = re.search(patron, h)
+        if m:
+            h = h[:m.start()] + '<a href="%s">%s</a>' % (destino, m.group(0)) + h[m.end():]
+    return h
+
+
+# --- páginas nuevas (proyectos que no vienen de Wix) -------------------------
+# Se maquetan con la misma geometría que las páginas de proyecto existentes:
+# columna de texto a la izquierda (ancho 419, en x=0) y columna de imágenes a
+# la derecha (ancho 541, en x=439), dentro del lienzo de 980 px.
+NUEVAS = {
+    'protesis': {
+        'titulo': 'Prótesis',
+        'volver': 'proyectos',
+        'ficha': ['3 de Septiembre - 15 de Octubre 2026',
+                  'Emblematic Art Gallery - Bogot\u00e1'],
+        'texto': [
+            'Habitar las ruinas de lo que alguna vez fue la cocina es el punto de partida para “Prótesis”. Este espacio, que aún conserva vestigios fantasmales de su función original como tubos de gas cercenados, tomas eléctricas mudas y una ventana al patio interior, se activa a través de un profundo deseo de completar lo que falta. Entendiendo la cocina como un archivo doméstico que custodia la memoria de gestos repetidos, la artista fija su mirada en los objetos “secundarios”.',
+            'Clavijas, cables y conexiones se materializan sutilmente en cerámica, ocupando el vacío de los circuitos interrumpidos. La propuesta se despliega en piezas que dialogan orgánicamente: serigrafías que actúan como restauraciones ficticias del antiguo papel tapiz; una tubería suspendida y estructuras de estufas que, en su proceso de creación, adquirieron la apariencia de huesos, cual injertos sobre la arquitectura de la casa.',
+            'En conjunto, esta propuesta aborda la cocina como un cuerpo fragmentado. A través de estas piezas frágiles y suspendidas, como susurros materiales, la artista crea una vida extraña que nos devuelve, por un instante, la pulsión de un tiempo doméstico ya extinguido.',
+        ],
+        'firma': 'Andrea Mu\u00f1oz',
+        # (archivo, pie) en orden de aparición. Pie vacío = sin texto debajo.
+        'fotos': [
+            ('protesis-01.jpg', ''),
+            ('protesis-02.jpg', ''),
+            ('protesis-03.jpg', ''),
+            ('protesis-04.jpg', ''),
+            ('protesis-05.jpg', ''),
+            ('protesis-06.jpg', ''),
+            ('protesis-07.jpg', ''),
+            ('protesis-08.jpg', ''),
+            ('protesis-09.jpg', ''),
+            ('protesis-10.jpg', ''),
+            ('protesis-11.jpg', ''),
+            ('protesis-12.jpg', ''),
+            ('protesis-13.jpg', ''),
+            ('protesis-14.jpg', ''),
+            ('protesis-15.jpg', ''),
+            ('protesis-16.jpg', ''),
+        ],
+    },
+}
+
+TXT_TITULO = ('<h1 class="font_0" style="font-size:34px;"><span style="color:#000000;">'
+              '<span style="font-family:open sans,sans-serif;">'
+              '<span style="font-size:34px;">%s</span></span></span></h1>')
+TXT_VOLVER = ('<p class="font_8" style="font-size:40px; line-height:normal;">'
+              '<a href="%s.html"><span style="color:#FF0006;"><span style="font-size:40px;">'
+              '<span style="letter-spacing:normal;">↩</span></span></span></a></p>')
+TXT_FICHA = ('<p class="font_8" style="font-size:11px;"><span style="font-size:11px;">'
+             '<span style="font-family:madefor-display-bold,helveticaneuew01-65medi,sans-serif;">'
+             '<span style="color:#414141;">%s</span></span></span></p>')
+TXT_PARRAFO = ('<p class="font_8" style="font-size:14px;"><span style="font-size:14px;">'
+               '<span style="font-weight:300;"><span style="font-family:almarai,sans-serif;">'
+               '%s</span></span></span></p>')
+TXT_VACIO = ('<p class="font_8" style="font-size:14px;">&nbsp;</p>')
+TXT_PIE = ('<p class="font_8" style="font-size:12px; line-height:1.4em;">'
+           '<span style="color:#414141;"><span style="font-size:12px;">'
+           '<span style="letter-spacing:0em;">%s</span></span></span></p>')
+
+
+def pieza(cid, tipo, fila, left, ancho, abajo, **extra):
+    geo = {'grid-area': '%d / 1 / %d / 2' % (fila, fila + 1),
+           'left': '%dpx' % left,
+           'width': '%dpx' % ancho,
+           'margin': '0px 0px %dpx 0px' % abajo}
+    return dict(extra, id=cid, type=tipo, geo=geo)
+
+
+def render_nueva(slug, cfg):
+    """Construye una página de proyecto desde cero, con el formato del sitio."""
+    hijos, fila = [], 1
+
+    hijos.append(pieza('n-volver', 'text', fila, 0, 310, 0,
+                       html=TXT_VOLVER % cfg.get('volver', 'proyectos')))
+    fila += 1
+    hijos.append(pieza('n-titulo', 'text', fila, -53, 568, 25,
+                       html=TXT_TITULO % cfg['titulo']))
+    fila += 1
+    if cfg.get('ficha'):
+        hijos.append(pieza('n-ficha', 'text', fila, 0, 425, 13,
+                           html=''.join(TXT_FICHA % l for l in cfg['ficha'])))
+        fila += 1
+
+    cuerpo = []
+    for i, par in enumerate(cfg.get('texto', [])):
+        if i:
+            cuerpo.append(TXT_VACIO)
+        cuerpo.append(TXT_PARRAFO % par)
+    if cfg.get('firma'):
+        cuerpo += [TXT_VACIO, TXT_PARRAFO % cfg['firma']]
+
+    fotos = list(cfg.get('fotos', []))
+    if cuerpo:
+        hijos.append(pieza('n-texto', 'text', fila, 0, 419, 10, html=''.join(cuerpo)))
+    if fotos:
+        archivo, pie = fotos.pop(0)
+        hijos.append(foto_pieza('n-foto0', fila, archivo, 11))
+        fila += 1
+        if pie:
+            hijos.append(pieza('n-pie0', 'text', fila, 439, 541, 9, html=TXT_PIE % pie))
+            fila += 1
+    else:
+        fila += 1
+
+    for n, (archivo, pie) in enumerate(fotos, start=1):
+        hijos.append(foto_pieza('n-foto%d' % n, fila, archivo, 13))
+        fila += 1
+        if pie:
+            hijos.append(pieza('n-pie%d' % n, 'text', fila, 439, 541, 9,
+                               html=TXT_PIE % pie))
+            fila += 1
+
+    sec = {'id': 'seccion-' + slug, 'children': hijos, 'lienzo': (-53, 1033),
+           'mesh': {'grid-template-rows': 'repeat(%d, min-content) 1fr' % max(fila - 1, 1)}}
+    return {'title': '%s | sofialozanoavila' % cfg['titulo'],
+            'landing': False, 'sections': [sec]}
+
+
+def foto_pieza(cid, fila, archivo, abajo):
+    """Coloca una foto en la columna derecha, a su proporción real."""
+    from struct import unpack
+    ruta = os.path.join(ROOT, 'assets', 'img', archivo)
+    ancho, alto = medidas(ruta)
+    escala = 541.0 / ancho
+    p = pieza(cid, 'image', fila, 439, 541, abajo)
+    p['geo']['height'] = '%dpx' % round(alto * escala)
+    p['archivo'] = 'assets/img/' + archivo
+    p['w'], p['h'], p['alt'] = 541, int(round(alto * escala)), ''
+    p['href'] = None
+    return p
+
+
+def medidas(ruta):
+    """Ancho y alto de un JPEG o PNG, leyendo sus cabeceras."""
+    with open(ruta, 'rb') as f:
+        datos = f.read()
+    if datos[:8] == b'\x89PNG\r\n\x1a\n':
+        return int.from_bytes(datos[16:20], 'big'), int.from_bytes(datos[20:24], 'big')
+    i = 2
+    while i < len(datos):
+        if datos[i] != 0xFF:
+            i += 1
+            continue
+        marca = datos[i + 1]
+        if marca in (0xC0, 0xC1, 0xC2, 0xC3, 0xC5, 0xC6, 0xC7,
+                     0xC9, 0xCA, 0xCB, 0xCD, 0xCE, 0xCF):
+            alto = int.from_bytes(datos[i + 5:i + 7], 'big')
+            ancho = int.from_bytes(datos[i + 7:i + 9], 'big')
+            return ancho, alto
+        i += 2 + int.from_bytes(datos[i + 2:i + 4], 'big')
+    raise SystemExit('no pude leer las medidas de ' + ruta)
 
 
 # --- páginas en modo galería -------------------------------------------------
@@ -237,6 +408,8 @@ def render_page(slug, page):
         mesh = sec.get('mesh') or {}
         sid = sec['id']
         x0, stage = stage_box(sec['children'])
+        if sec.get('lienzo'):
+            x0, stage = sec['lienzo']
         widest = max(widest, stage)
         rules = ['display:grid', 'grid-template-columns:%gpx' % stage,
                  'justify-content:center', 'position:static', 'width:100%']
@@ -255,7 +428,7 @@ def render_page(slug, page):
             if c['type'] == 'text':
                 h = re.sub(r'href="([^"]*)"',
                            lambda m: 'href="%s"' % local_href(m.group(1)), c['html'])
-                h = h.replace(' target="_self"', '')
+                h = enlazar(slug, h.replace(' target="_self"', ''))
                 parts.append('<div id="%s" class="rt">%s</div>' % (c['id'], h))
             else:
                 f = img_file(c)
@@ -319,6 +492,10 @@ TEMPLATE = """<!doctype html>
 
 os.makedirs(os.path.join(ROOT, 'assets', 'css'), exist_ok=True)
 os.makedirs(os.path.join(ROOT, 'assets', 'js'), exist_ok=True)
+
+for slug, cfg in NUEVAS.items():
+    pages[slug] = render_nueva(slug, cfg)
+    SLUG[slug] = slug
 
 for slug, page in pages.items():
     out = SLUG[slug]
