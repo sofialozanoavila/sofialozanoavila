@@ -113,3 +113,22 @@ si prefieres. Si la borras, el sitio sigue funcionando igual.
 - **Páginas heredadas de Wix**: `copia-de-antejardin.html` y `copia-de-medir-el-aire.html`
   conservan el nombre que tenían allá. Si quieres, puedes renombrarlas — recuerda
   actualizar los enlaces que apuntan a ellas en `proyectos.html`.
+
+---
+
+## Sobre `vercel.json` y la caché
+
+Ese archivo le dice al navegador cuánto tiempo puede guardarse cada cosa:
+
+- **`/assets/img/`** se guarda un año. Cada nombre de archivo corresponde a una
+  imagen concreta que nunca cambia, así que no hay riesgo.
+- **`/assets/css/` y `/assets/js/`** se comprueban siempre. Si se cachearan,
+  el navegador seguiría usando la hoja de estilos vieja y el diseño se
+  descuadraría.
+
+Además, los enlaces al CSS y al JS llevan una huella del contenido
+(`site.css?v=0dcec18c`). Cuando el archivo cambia, la huella cambia y el
+navegador está obligado a bajar la versión nueva.
+
+Nota: `vercel.json` **no admite comentarios** ni campos que no estén en su
+formato. Si se añade uno, el despliegue falla con un error de validación.

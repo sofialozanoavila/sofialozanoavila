@@ -1,14 +1,12 @@
 {
   "headers": [
     {
-      "comment": "Las imágenes sí pueden cachearse para siempre: cada nombre de archivo corresponde a un recorte concreto y nunca cambia de contenido.",
       "source": "/assets/img/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     },
     {
-      "comment": "La hoja de estilos y los scripts sí cambian, así que el navegador debe comprobar siempre si hay versión nueva.",
       "source": "/assets/(css|js)/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
