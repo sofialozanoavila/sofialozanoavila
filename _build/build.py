@@ -73,6 +73,17 @@ def px(v, default=None):
     return v if v else default
 
 
+# Nombres estables para algunas piezas, y así poder darles estilo propio
+# (los identificadores comp-… vienen de Wix y no dicen nada por sí solos).
+CLASES = {
+    'index': {
+        'comp-lrjn9lv2': 'enlaces',   # proyectos · contacto · CV · tienda
+        'comp-lrfas7qe': 'nombre',    # sofía lozano ávila
+        'comp-mtx3uuyd': 'lugar',     # Artista / Bogotá, Colombia
+    },
+}
+
+
 # Entradas del listado de proyectos que aún no eran enlaces
 ENLAZAR = {
     'proyectos': [('2026 / pr&oacute;tesis', 'protesis.html')],
@@ -423,7 +434,9 @@ def render_page(slug, page):
                 h = re.sub(r'href="([^"]*)"',
                            lambda m: 'href="%s"' % local_href(m.group(1)), c['html'])
                 h = enlazar(slug, h.replace(' target="_self"', ''))
-                parts.append('<div id="%s" class="rt">%s</div>' % (c['id'], h))
+                extra = CLASES.get(slug, {}).get(c['id'], '')
+                parts.append('<div id="%s" class="rt%s">%s</div>'
+                             % (c['id'], ' ' + extra if extra else '', h))
             else:
                 f = img_file(c)
                 alt = c['alt'].replace('"', '&quot;')

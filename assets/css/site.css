@@ -337,6 +337,13 @@ a:hover { opacity: .65; }
   }
   .sec > .pic img { height: auto; }
   .site-header { padding: 13px 16px; }
+
+  /* Inicio: en el escritorio «Artista / Bogotá, Colombia» va arriba a la
+     derecha, lejos del nombre. Apilado en el celular quedaba justo debajo y
+     en negrita a 25 px competía con él, así que baja y se reduce. */
+  .landing .lugar { margin-top: 44px; }
+  .landing .lugar p,
+  .landing .lugar span { font-size: 16px !important; }
   .abrir-menu { display: block; margin: 0 auto; text-decoration: underline; }
   .site-header nav { display: none; padding-top: 10px; }
   .site-header[data-abierto="true"] nav { display: block; }
