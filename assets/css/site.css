@@ -268,12 +268,21 @@ a:hover { opacity: .65; }
 }
 
 /* --- página de proyectos ---------------------------------------------
-   El nombre iba a 35 px y los enlaces de al lado a 20 px, así que no se
-   leían como una misma línea de cabecera. Se igualan en tamaño y altura. */
-.nombre-proyectos { margin-top: 17px !important; }
+   La cabecera son dos bloques separados: el nombre a la izquierda y los
+   enlaces a la derecha. Iban a tamaños distintos (35 y 20 px) y con
+   interlineados distintos, así que las letras no se apoyaban en el mismo
+   renglón. Se igualan tamaño, interlineado y altura de arranque. */
+.nombre-proyectos,
+.enlaces-proyectos { margin-top: 17px !important; }
+
 .nombre-proyectos h1,
 .nombre-proyectos p,
-.nombre-proyectos span { font-size: 20px !important; }
+.nombre-proyectos span,
+.enlaces-proyectos p,
+.enlaces-proyectos span {
+  font-size: 18px !important;
+  line-height: 1.4em !important;
+}
 
 /* --- páginas en modo galería (la tienda) -----------------------------
    Usa el mismo lienzo de 1033 px que las páginas de proyecto, para que el
