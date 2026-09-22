@@ -34,7 +34,7 @@ MENU = [
     ('sofía lozano ávila', ''), ('PROYECTOS', 'proyectos'),
     ('prótesis', 'protesis'), ('Antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
-    ('TIENDA', 'paisaje-interior'), ('bache', 'bache'),
+    ('piezas disponibles', 'paisaje-interior'), ('bache', 'bache'),
     ('vasija/ver/vaciar', 'vasija-ver-vaciar'), ('procedimiento fértil', 'procedimiento-fertil'),
     ('de dudosa procedencia', 'de-dudosa-procedencia'), ('semi preciosas', 'semi-preciosas'),
     ('revisitar', 'revisitar'), ('inventario sobre lo que no veo', 'inventario-sobre-lo-que-no-veo'),
@@ -71,6 +71,19 @@ def img_file(c):
 
 def px(v, default=None):
     return v if v else default
+
+
+# «TIENDA» pasa a llamarse «piezas disponibles» en todo el sitio. El texto
+# venía dentro del HTML heredado de Wix, así que se sustituye al generar.
+TEXTOS = {
+    'paisaje-interior': [('>TIENDA<', '>piezas disponibles<')],
+    'index': [('\u27ac tienda', '\u27ac piezas disponibles')],
+    'proyectos': [('\u27ac tienda', '\u27ac piezas disponibles')],
+}
+
+TITULOS = {
+    'paisaje-interior': 'piezas disponibles | sofialozanoavila',
+}
 
 
 # Nombres estables para algunas piezas, y así poder darles estilo propio
@@ -584,7 +597,7 @@ for slug, page in pages.items():
         vcss=version('assets/css/site.css'),
         vesc=version('assets/js/escala.js'),
         vmenu=version('assets/js/menu.js'),
-        title=page['title'],
+        title=TITULOS.get(out, page['title']),
         desc=desc or 'sofía lozano ávila — artista, Bogotá, Colombia.',
         css=css,
         header='' if page['landing'] else header_html(out),
@@ -592,5 +605,7 @@ for slug, page in pages.items():
         body=body,
     )
     html = html.replace('\u21a9', FLECHA)
+    for viejo, nuevo in TEXTOS.get(out, []):
+        html = html.replace(viejo, nuevo)
     open(os.path.join(ROOT, out + '.html'), 'w', encoding='utf-8').write(html)
     print('->', out + '.html')
