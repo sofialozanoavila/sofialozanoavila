@@ -281,7 +281,8 @@ ICONO_INSTAGRAM = (
 CONTACTO = {
     'volver': 'index.html',
     'enlaces': [
-        (ICONO_CORREO, 'sofia771199@gmail.com', 'mailto:sofia771199@gmail.com', False),
+        (ICONO_CORREO, 'sofia<i>771199</i>@gmail.com',
+         'mailto:sofia771199@gmail.com', False),
         (ICONO_INSTAGRAM, '@sofialozanoaa',
          'https://www.instagram.com/sofialozanoaa/?hl=es-la', True),
     ],
@@ -539,6 +540,7 @@ TEMPLATE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com">

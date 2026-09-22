@@ -323,6 +323,9 @@ a:hover { opacity: .65; }
 }
 .contactos svg { width: 1.05em; height: 1.05em; flex: 0 0 auto; }
 .contactos span { border-bottom: 1px solid transparent; transition: border-color .25s ease; }
+/* Los dígitos del correo van en su propia etiqueta para que el celular no los
+   lea como un número de teléfono. No debe verse ninguna diferencia. */
+.contactos i { font-style: inherit; }
 .contactos a:hover { opacity: 1; }
 .contactos a:hover span { border-bottom-color: currentColor; }
 
