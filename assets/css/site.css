@@ -192,6 +192,17 @@ a:hover { opacity: .65; }
 .rt a { text-decoration: none; }
 .rt a:hover { text-decoration: underline; }
 
+/* --- flecha de volver ------------------------------------------------
+   Dibujo vectorial en lugar del carácter ↩, que algunos móviles convierten
+   en emoji. El alto se ata al tamaño de letra del bloque que la contiene. */
+.flecha {
+  width: 0.78em;
+  height: 0.58em;
+  display: inline-block;
+  vertical-align: -0.04em;
+  overflow: visible;
+}
+
 /* --- imágenes -------------------------------------------------------- */
 .pic { overflow: hidden; }
 .pic img { width: 100%; height: 100%; object-fit: cover; }
