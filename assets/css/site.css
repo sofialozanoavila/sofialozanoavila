@@ -292,14 +292,22 @@ a:hover { opacity: .65; }
   aspect-ratio: 1 / 1;
   background: rgb(var(--color_11));
 }
-.galeria img { width: 100%; height: 100%; object-fit: contain; }
+/* La foto se apoya en el borde inferior del marco: así el pie queda pegado a
+   la imagen y no flotando bajo un hueco vacío. El aire sobrante queda arriba,
+   y los pies de una misma fila siguen alineados entre sí. */
+.galeria img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+}
 .galeria figcaption {
   font: var(--font_8);
   font-family: var(--sans-light);
   font-size: 12px;
   line-height: 1.4em;
   color: rgb(65, 65, 65);
-  margin-top: 9px;
+  margin-top: 0.5mm;
 }
 
 @media (max-width: 859px) {
