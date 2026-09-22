@@ -295,6 +295,44 @@ a:hover { opacity: .65; }
   line-height: 1.4em !important;
 }
 
+/* --- página de contacto ----------------------------------------------- */
+.sec-contacto { padding: 0 0 80px; }
+.sec-contacto .lienzo { width: 1033px; margin: 0 auto; }
+.sec-contacto .volver { margin-left: 53px; }
+/* mismo tamaño de flecha que en las páginas de proyecto */
+.sec-contacto .volver p { font-size: 40px; line-height: 1; }
+
+.contactos {
+  list-style: none;
+  margin: 48px 0 0 53px;
+  padding: 0;
+  font: var(--font_8);
+  font-family: almarai, sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+.contactos li + li { margin-top: 18px; }
+.contactos a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  text-decoration: none;
+  color: rgb(var(--color_18));
+  transition: opacity .25s ease;
+}
+.contactos svg { width: 1.05em; height: 1.05em; flex: 0 0 auto; }
+.contactos span { border-bottom: 1px solid transparent; transition: border-color .25s ease; }
+.contactos a:hover { opacity: 1; }
+.contactos a:hover span { border-bottom-color: currentColor; }
+
+@media (max-width: 859px) {
+  .sec-contacto { padding: 0 20px 60px; }
+  .sec-contacto .lienzo { width: auto; }
+  .sec-contacto .volver { margin-left: 0; }
+  .contactos { margin: 36px 0 0; font-size: 17px; }
+}
+
 /* --- páginas en modo galería (la tienda) -----------------------------
    Usa el mismo lienzo de 1033 px que las páginas de proyecto, para que el
    título y la flecha queden alineados igual que en el resto del sitio.

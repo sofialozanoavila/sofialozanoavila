@@ -259,6 +259,49 @@ def medidas(ruta):
     raise SystemExit('no pude leer las medidas de ' + ruta)
 
 
+# --- página de contacto ------------------------------------------------------
+# Venía de Wix con dos PNG grandes de sobre y cámara. Se rehace con iconos
+# vectoriales de trazo fino, del mismo tamaño que la letra.
+ICONO_CORREO = (
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"'
+    ' aria-hidden="true">'
+    '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/>'
+    '<path d="M3.5 8 L12 13.8 L20.5 8" stroke-linecap="round" stroke-linejoin="round"/>'
+    '</svg>'
+)
+ICONO_INSTAGRAM = (
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"'
+    ' aria-hidden="true">'
+    '<rect x="3" y="3" width="18" height="18" rx="5.2"/>'
+    '<circle cx="12" cy="12" r="4.1"/>'
+    '<circle cx="17.3" cy="6.7" r="1.15" fill="currentColor" stroke="none"/>'
+    '</svg>'
+)
+
+CONTACTO = {
+    'volver': 'index.html',
+    'enlaces': [
+        (ICONO_CORREO, 'sofia771199@gmail.com', 'mailto:sofia771199@gmail.com', False),
+        (ICONO_INSTAGRAM, '@sofialozanoaa',
+         'https://www.instagram.com/sofialozanoaa/?hl=es-la', True),
+    ],
+}
+
+
+def render_contacto(cfg):
+    filas = []
+    for icono, etiqueta, destino, fuera in cfg['enlaces']:
+        extra = ' target="_blank" rel="noopener"' if fuera else ''
+        filas.append('<li><a href="%s"%s>%s<span>%s</span></a></li>'
+                     % (destino, extra, icono, etiqueta))
+    return ('<section class="sec sec-contacto" data-ancho="1033">\n'
+            '<div class="lienzo">\n'
+            '<div class="rt volver"><p><a href="%s">\u21a9</a></p></div>\n'
+            '<ul class="contactos">\n%s\n</ul>\n'
+            '</div>\n'
+            '</section>' % (cfg['volver'], '\n'.join(filas)))
+
+
 # --- páginas en modo galería -------------------------------------------------
 # La tienda venía de Wix con las fotos superpuestas, con anchos distintos y
 # márgenes negativos. Se rehace como una rejilla regular: dos columnas, mismo
@@ -421,6 +464,9 @@ def comp_css(c, x0):
 
 
 def render_page(slug, page):
+    if slug == 'contacto':
+        return render_contacto(CONTACTO), '', 0
+
     if slug in GALERIA:
         return render_galeria(GALERIA[slug], page), '', 0
 
