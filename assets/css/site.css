@@ -363,6 +363,17 @@ a:hover { opacity: .65; }
 }
 .catalogo .consultar:hover { opacity: .5; }
 
+/* Piezas ya vendidas: se muestran, sin precio ni enlace de consulta. */
+.catalogo .vendida {
+  font-family: almarai, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgb(140, 140, 140);
+  margin: 8px 0 0;
+}
+.catalogo .agotada .marco { opacity: .62; }
+
 @media (max-width: 859px) {
   .sec-catalogo { padding: 0 20px 60px; }
   .sec-catalogo .lienzo { width: auto; }

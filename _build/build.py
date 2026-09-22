@@ -29,13 +29,63 @@ def ascii_slug(s):
 
 SLUG = {k: ('index' if k == 'home' else ascii_slug(k)) for k in pages}
 
+# Traducciones al inglés, párrafo a párrafo. Se sustituye solo el texto: las
+# etiquetas y los estilos del original se conservan intactos.
+TRAD = {}
+_ruta_trad = os.path.join(ROOT, '_build', 'textos-en.json')
+if os.path.exists(_ruta_trad):
+    TRAD = json.load(open(_ruta_trad, encoding='utf-8'))
+
+
+def escapar(t):
+    return t.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
+
+def traducir_pieza(origen, cid, cuerpo):
+    """Cambia el texto de cada párrafo por su versión en inglés.
+
+    Solo toca los nodos de texto: la cadena de etiquetas y estilos que Wix
+    generó se queda igual, así la traducción hereda el mismo diseño."""
+    tabla = TRAD.get(origen, {}).get(cid)
+    if not tabla:
+        return cuerpo
+
+    n = [0]
+
+    def un_parrafo(m):
+        etiqueta, atributos, interior = m.group(1), m.group(2), m.group(3)
+        i = n[0]
+        n[0] += 1
+        if i >= len(tabla) or not tabla[i]:
+            return m.group(0)
+        if interior.count('<a ') > 1:
+            # varios enlaces en un mismo párrafo: sustituir el texto entero
+            # los fundiría en uno. Esos casos se traducen aparte.
+            return m.group(0)
+        puesto = [False]
+
+        def un_texto(mm):
+            txt = mm.group(1)
+            if not txt.strip():
+                return mm.group(0)          # espacios y separadores, intactos
+            if puesto[0]:
+                return '><'                  # el resto del párrafo se vacía
+            puesto[0] = True
+            return '>' + escapar(tabla[i]) + '<'
+
+        interior = re.sub(r'>([^<>]*)<', un_texto, interior)
+        return '<%s%s>%s</%s>' % (etiqueta, atributos, interior, etiqueta)
+
+    return re.sub(r'<(p|h1|h2|h3)([^>]*)>(.*?)</\1>', un_parrafo, cuerpo, flags=re.S)
+
+
 # --- versión en inglés -------------------------------------------------------
 # El sitio se genera dos veces: el español en la raíz y el inglés en /en/.
 # Los nombres de las obras no se traducen: son títulos propios de las piezas.
 # Mientras los textos de proyecto sigan sin traducir, la versión en inglés se
 # genera solo en local: no se publica ni aparece el cambio de idioma.
 PUBLICAR_EN = False
-IDIOMAS = ('es', 'en') if PUBLICAR_EN else ('es',)
+IDIOMAS = ('es', 'en')
 
 MENU_EN = {
     'PROYECTOS': 'PROJECTS',
@@ -333,19 +383,23 @@ def medidas(ruta):
 CORREO = 'sofia771199@gmail.com'
 
 CATALOGO = [
-    ('pieza-01.jpg', 'Flor borrachero', 'Cerámica', '12 x 12 x 12 cm', 2026, 180000, ''),
-    ('pieza-02.jpg', 'Pocillo', 'Cerámica', '8 x 8 x 10 cm', 2022, 150000, ''),
-    ('pieza-03.jpg', 'Concha', 'Cerámica', '16,5 x 10,5 cm', 2026, 180000, ''),
-    ('pieza-04.jpg', 'Caja 2', 'Cerámica', '16,5 x 11 cm', 2026, 180000, ''),
-    ('pieza-05.jpg', 'De la serie moños', 'Cerámica', '', 2026, 160000, ''),
-    ('pieza-06.jpg', 'De la serie moños', 'Cerámica', '5 x 6 x 4 cm', 2026, 160000, ''),
-    ('pieza-07.jpg', 'Banda elástica', 'Cerámica', '12 x 5 x 3 cm', 2026, 160000, ''),
-    ('pieza-08.jpg', 'Moños', 'Cerámica', '30 x 20 x 6 cm', 2026, 380000, 'Serie completa'),
-    ('pieza-09.jpg', 'Palas', 'Cerámica', '30 x 25 x 5 cm', 2025, 600000, 'Queda una disponible'),
-    ('pieza-11.jpg', 'Apariciones', 'Cerámica y tierra', '50 x 50 x 50 cm', 2025, 2100000,
-     'Instalación completa'),
-    ('pieza-12.jpg', 'Apariciones', 'Cerámica', '10 x 10 x 8 cm', 2025, 170000,
+    ('flor-borrachero', 'Flor borrachero', 'Cerámica', '12 x 12 x 12 cm', 2026, 180000, ''),
+    ('pocillo', 'Pocillo', 'Cerámica', '8 x 8 x 10 cm', 2022, 150000, ''),
+    ('concha', 'Concha', 'Cerámica', '16,5 x 10,5 cm', 2026, 180000, ''),
+    ('caja-2', 'Caja 2', 'Cerámica', '16,5 x 11 cm', 2026, 180000, ''),
+    ('monos-1', 'De la serie moños', 'Cerámica', '', 2026, 160000, ''),
+    ('monos-2', 'De la serie moños', 'Cerámica', '5 x 6 x 4 cm', 2026, 160000, ''),
+    ('banda-elastica', 'Banda elástica', 'Cerámica', '12 x 5 x 3 cm', 2026, 160000, ''),
+    ('monos-serie', 'Moños', 'Cerámica', '30 x 20 x 6 cm', 2026, 380000, 'Serie completa'),
+    ('palas', 'Palas', 'Cerámica', '30 x 25 x 5 cm', 2025, 600000, 'Queda una disponible'),
+    ('apariciones-instalacion', 'Apariciones', 'Cerámica y tierra', '50 x 50 x 50 cm', 2025,
+     2100000, 'Instalación completa'),
+    ('apariciones-piezas', 'Apariciones', 'Cerámica', '10 x 10 x 8 cm', 2025, 170000,
      'Por pieza · serie completa 400.000'),
+    # Vendidas: se muestran, pero sin precio.
+    ('vertebra', 'Vértebra', 'Cerámica', '20 x 5 x 5 cm', 2024, None, ''),
+    ('caja', 'Caja', 'Cerámica', '15 x 8,5 x 4,5 cm', 2026, None, ''),
+    ('cuchara', 'Cuchara', 'Cerámica', '16 x 4 x 2 cm', 2025, None, ''),
 ]
 
 
@@ -360,22 +414,29 @@ def render_catalogo(idioma='es'):
     titulo = 'available works' if en else 'piezas disponibles'
 
     fichas = []
-    for archivo, nombre, tecnica, medidas, ano, precio, nota in CATALOGO:
+    for clave, nombre, tecnica, medidas, ano, precio, nota in CATALOGO:
+        archivo = 'pieza-%s.jpg' % clave
         datos = ' · '.join(x for x in (tecnica, medidas, str(ano)) if x)
         correo = ('mailto:%s?subject=%s %s'
                   % (CORREO, asunto.replace(' ', '%20'), nombre.replace(' ', '%20')))
+        if precio is None:
+            cierre = '<p class="vendida">%s</p>' % ('Sold' if en else 'Vendida')
+        else:
+            cierre = ('<p class="precio">%s</p>'
+                      '<a class="consultar" href="%s">%s</a>'
+                      % (pesos(precio), correo, consultar))
         fichas.append(
-            '<li>'
+            '<li%s>'
             '<div class="marco"><img src="assets/img/%s" alt="%s" width="1000" height="750" loading="lazy"></div>'
             '<h3>%s</h3>'
             '<p class="datos">%s</p>'
             '%s'
-            '<p class="precio">%s</p>'
-            '<a class="consultar" href="%s">%s</a>'
+            '%s'
             '</li>'
-            % (archivo, nombre, nombre, datos,
+            % (' class="agotada"' if precio is None else '',
+               archivo, nombre, nombre, datos,
                ('<p class="nota">%s</p>' % nota) if nota else '',
-               pesos(precio), correo, consultar))
+               cierre))
 
     return ('<section class="sec sec-catalogo" data-ancho="1033">\n'
             '<div class="lienzo">\n'
@@ -593,12 +654,12 @@ def comp_css(c, x0):
     return ';'.join(d)
 
 
-def render_page(slug, page):
+def render_page(slug, page, idioma='es', origen=None):
     if slug == 'contacto':
         return render_contacto(CONTACTO), '', 0
 
     if slug == 'paisaje-interior':
-        return render_catalogo(), '', 0
+        return render_catalogo(idioma), '', 0
 
     if slug in GALERIA:
         return render_galeria(GALERIA[slug], page), '', 0
@@ -629,6 +690,8 @@ def render_page(slug, page):
             if c['type'] == 'text':
                 h = re.sub(r'href="([^"]*)"',
                            lambda m: 'href="%s"' % local_href(m.group(1)), c['html'])
+                if idioma == 'en':
+                    h = traducir_pieza(origen, c['id'], h)
                 h = enlazar(slug, h.replace(' target="_self"', ''))
                 extra = CLASES.get(slug, {}).get(c['id'], '')
                 parts.append('<div id="%s" class="rt%s">%s</div>'
@@ -714,7 +777,6 @@ for slug, cfg in NUEVAS.items():
 
 for slug, page in pages.items():
     out = SLUG[slug]
-    body, css, bp = render_page(out, page)
     desc = ''
     for sec in page['sections']:
         for c in sec['children']:
@@ -725,6 +787,7 @@ for slug, page in pages.items():
             break
 
     for idioma in IDIOMAS:
+        body, css, bp = render_page(out, page, idioma, slug)
         pre = '' if idioma == 'es' else '../'
         html = TEMPLATE.format(
             lang=idioma,
