@@ -130,7 +130,7 @@ NUEVAS = {
             ('protesis-07.jpg', 'Detalle.'),
             ('protesis-05.jpg', 'Detalle.'),
             ('protesis-06.jpg', 'Detalle.'),
-            ('protesis-13.jpg', 'Gestos de pared, 2026. Serigrafía sobre papel.'),
+            ('protesis-13.jpg', 'Gestos de pared, 2026. Serigrafía sobre papel. Dimensiones variables.'),
             ('protesis-09.jpg', 'Filtraciones, 2026. Dibujo. Lápiz sobre papel. 35 x 50 cm.'),
             ('protesis-08.jpg', 'Detalle.'),
             ('protesis-16.jpg', 'Clavija, Cable y Clavija (sola), 2026. Cerámica.'),
