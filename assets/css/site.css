@@ -355,6 +355,22 @@ a:hover { opacity: .65; }
   .sec > .pic img { height: auto; }
   .site-header { padding: 13px 16px; }
 
+  /* Proyectos: el nombre y los enlaces comparten renglón también en el
+     celular. Se reducen lo necesario para que quepan los dos de lado a lado. */
+  body.p-proyectos .sec {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  body.p-proyectos .sec > * { flex: 0 0 100%; }
+  body.p-proyectos .nombre-proyectos,
+  body.p-proyectos .enlaces-proyectos { flex: 0 0 auto; white-space: nowrap; }
+  body.p-proyectos .nombre-proyectos h1,
+  body.p-proyectos .nombre-proyectos span,
+  body.p-proyectos .enlaces-proyectos p,
+  body.p-proyectos .enlaces-proyectos span { font-size: 12px !important; }
+
   /* Inicio: en el escritorio «Artista / Bogotá, Colombia» va arriba a la
      derecha, lejos del nombre. Apilado en el celular quedaba justo debajo y
      en negrita a 25 px competía con él, así que baja y se reduce. */

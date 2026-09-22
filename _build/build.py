@@ -527,7 +527,7 @@ for slug, page in pages.items():
         desc=desc or 'sofía lozano ávila — artista, Bogotá, Colombia.',
         css=css,
         header='' if page['landing'] else header_html(out),
-        bodyclass='landing' if page['landing'] else 'inner',
+        bodyclass=('landing' if page['landing'] else 'inner') + ' p-' + out,
         body=body,
     )
     open(os.path.join(ROOT, out + '.html'), 'w', encoding='utf-8').write(html)
