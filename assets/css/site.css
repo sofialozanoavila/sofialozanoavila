@@ -267,6 +267,14 @@ a:hover { opacity: .65; }
   color: rgb(var(--color_18));
 }
 
+/* --- página de proyectos ---------------------------------------------
+   El nombre iba a 35 px y los enlaces de al lado a 20 px, así que no se
+   leían como una misma línea de cabecera. Se igualan en tamaño y altura. */
+.nombre-proyectos { margin-top: 17px !important; }
+.nombre-proyectos h1,
+.nombre-proyectos p,
+.nombre-proyectos span { font-size: 20px !important; }
+
 /* --- páginas en modo galería (la tienda) -----------------------------
    Usa el mismo lienzo de 1033 px que las páginas de proyecto, para que el
    título y la flecha queden alineados igual que en el resto del sitio.

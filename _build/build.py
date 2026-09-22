@@ -81,6 +81,10 @@ CLASES = {
         'comp-lrfas7qe': 'nombre',    # sofía lozano ávila
         'comp-mtx3uuyd': 'lugar',     # Artista / Bogotá, Colombia
     },
+    'proyectos': {
+        'comp-m2c3o77q': 'nombre-proyectos',   # sofía lozano ávila
+        'comp-mtx4x6u5': 'enlaces-proyectos',  # contacto · CV · tienda
+    },
 }
 
 
