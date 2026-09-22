@@ -1,0 +1,337 @@
+/* ============================================================
+   sofía lozano ávila — estilos del sitio
+   Reproduce la paleta y la tipografía del sitio original.
+   La maquetación exacta (posiciones y tamaños) va en cada
+   página, dentro de un @media (min-width:1040px).
+   En pantallas angostas todo se apila en una sola columna.
+   ============================================================ */
+
+:root {
+  --color_0: 255,255,255;
+  --color_1: 0,0,0;
+  --color_2: 255,255,255;
+  --color_3: 237,28,36;
+  --color_4: 0,136,203;
+  --color_5: 255,203,5;
+  --color_6: 114,114,114;
+  --color_7: 176,176,176;
+  --color_8: 255,255,255;
+  --color_9: 114,114,114;
+  --color_10: 176,176,176;
+  --color_11: 255,255,255;
+  --color_12: 0,0,0;
+  --color_13: 255,255,255;
+  --color_14: 255,235,235;
+  --color_15: 40,41,54;
+  --color_16: 84,32,0;
+  --color_17: 168,64,0;
+  --color_18: 0,0,0;
+  --color_19: 253,175,126;
+  --color_20: 254,201,169;
+  --color_21: 0,0,0;
+  --color_22: 51,51,51;
+  --color_23: 102,102,102;
+  --color_24: 153,153,153;
+  --color_25: 0,0,0;
+  --color_26: 31,49,65;
+  --color_27: 62,98,130;
+  --color_28: 94,147,196;
+  --color_29: 159,188,215;
+  --color_30: 194,215,235;
+  --color_31: 78,50,6;
+  --color_32: 157,100,12;
+  --color_33: 236,151,18;
+  --color_34: 242,198,130;
+  --color_35: 248,218,172;
+  --color_36: 255,255,255;
+  --color_37: 40,41,54;
+  --color_38: 0,0,0;
+  --color_39: 255,255,255;
+  --color_40: 255,235,235;
+  --color_41: 0,0,0;
+  --color_42: 0,0,0;
+  --color_43: 180,200,220;
+  --color_44: 201,196,188;
+  --color_45: 40,41,54;
+  --color_46: 40,41,54;
+  --color_47: 40,41,54;
+  --color_48: 0,0,0;
+  --color_49: 0,0,0;
+  --color_50: 255,255,255;
+  --color_51: 0,0,0;
+  --color_52: 255,255,255;
+  --color_53: 0,0,0;
+  --color_54: 255,255,255;
+  --color_55: 255,255,255;
+  --color_56: 255,255,255;
+  --color_57: 0,0,0;
+  --color_58: 0,0,0;
+  --color_59: 0,0,0;
+  --color_60: 0,0,0;
+  --color_61: 0,0,0;
+  --color_62: 255,255,255;
+  --color_63: 255,255,255;
+  --color_64: 255,255,255;
+  --color_65: 255,255,255;
+  --font_0: normal normal normal 33px/1.4em forum,serif;
+  --font_1: normal normal normal 15px/1.4em 'open sans',sans-serif;
+  --font_2: normal normal bold 45px/1.4em forum,serif;
+  --font_3: normal normal normal 60px/1.4em forum,serif;
+  --font_4: normal normal normal 40px/1.4em forum,serif;
+  --font_5: normal normal normal 24px/1.4em forum,serif;
+  --font_6: normal normal bold 20px/1.4em forum,serif;
+  --font_7: normal normal bold 19px/1.4em avenir-lt-w01_35-light1475496,sans-serif;
+  --font_8: normal normal normal 16px/1.4em avenir-lt-w01_35-light1475496,sans-serif;
+  --font_9: normal normal normal 12px/1.4em avenir-lt-w01_35-light1475496,sans-serif;
+  --font_10: normal normal normal 10px/1.4em 'open sans',sans-serif;
+  /* Avenir Light no es una fuente web libre: se usa la más parecida disponible */
+  --sans-light: 'Nunito Sans', 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
+  --col-ancho: 980px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: rgb(var(--color_11));
+  color: rgb(var(--color_15));
+  font: var(--font_8);
+  font-family: var(--sans-light);
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; }
+a:hover { opacity: .65; }
+
+/* --- clases tipográficas del tema ------------------------------------ */
+.font_0 { font: var(--font_0); }
+.font_1 { font: var(--font_1); }
+.font_2 { font: var(--font_2); }
+.font_3 { font: var(--font_3); }
+.font_4 { font: var(--font_4); }
+.font_5 { font: var(--font_5); }
+.font_6 { font: var(--font_6); }
+.font_7 { font: var(--font_7); font-family: var(--sans-light); }
+.font_8 { font: var(--font_8); font-family: var(--sans-light); }
+.font_9 { font: var(--font_9); font-family: var(--sans-light); }
+.font_10 { font: var(--font_10); }
+
+.color_0 { color: rgb(var(--color_0)); }
+.color_1 { color: rgb(var(--color_1)); }
+.color_2 { color: rgb(var(--color_2)); }
+.color_3 { color: rgb(var(--color_3)); }
+.color_4 { color: rgb(var(--color_4)); }
+.color_5 { color: rgb(var(--color_5)); }
+.color_6 { color: rgb(var(--color_6)); }
+.color_7 { color: rgb(var(--color_7)); }
+.color_8 { color: rgb(var(--color_8)); }
+.color_9 { color: rgb(var(--color_9)); }
+.color_10 { color: rgb(var(--color_10)); }
+.color_11 { color: rgb(var(--color_11)); }
+.color_12 { color: rgb(var(--color_12)); }
+.color_13 { color: rgb(var(--color_13)); }
+.color_14 { color: rgb(var(--color_14)); }
+.color_15 { color: rgb(var(--color_15)); }
+.color_16 { color: rgb(var(--color_16)); }
+.color_17 { color: rgb(var(--color_17)); }
+.color_18 { color: rgb(var(--color_18)); }
+.color_19 { color: rgb(var(--color_19)); }
+.color_20 { color: rgb(var(--color_20)); }
+.color_21 { color: rgb(var(--color_21)); }
+.color_22 { color: rgb(var(--color_22)); }
+.color_23 { color: rgb(var(--color_23)); }
+.color_24 { color: rgb(var(--color_24)); }
+.color_25 { color: rgb(var(--color_25)); }
+.color_26 { color: rgb(var(--color_26)); }
+.color_27 { color: rgb(var(--color_27)); }
+.color_28 { color: rgb(var(--color_28)); }
+.color_29 { color: rgb(var(--color_29)); }
+.color_30 { color: rgb(var(--color_30)); }
+.color_31 { color: rgb(var(--color_31)); }
+.color_32 { color: rgb(var(--color_32)); }
+.color_33 { color: rgb(var(--color_33)); }
+.color_34 { color: rgb(var(--color_34)); }
+.color_35 { color: rgb(var(--color_35)); }
+.color_36 { color: rgb(var(--color_36)); }
+.color_37 { color: rgb(var(--color_37)); }
+.color_38 { color: rgb(var(--color_38)); }
+.color_39 { color: rgb(var(--color_39)); }
+.color_40 { color: rgb(var(--color_40)); }
+.color_41 { color: rgb(var(--color_41)); }
+.color_42 { color: rgb(var(--color_42)); }
+.color_43 { color: rgb(var(--color_43)); }
+.color_44 { color: rgb(var(--color_44)); }
+.color_45 { color: rgb(var(--color_45)); }
+.color_46 { color: rgb(var(--color_46)); }
+.color_47 { color: rgb(var(--color_47)); }
+.color_48 { color: rgb(var(--color_48)); }
+.color_49 { color: rgb(var(--color_49)); }
+.color_50 { color: rgb(var(--color_50)); }
+.color_51 { color: rgb(var(--color_51)); }
+.color_52 { color: rgb(var(--color_52)); }
+.color_53 { color: rgb(var(--color_53)); }
+.color_54 { color: rgb(var(--color_54)); }
+.color_55 { color: rgb(var(--color_55)); }
+.color_56 { color: rgb(var(--color_56)); }
+.color_57 { color: rgb(var(--color_57)); }
+.color_58 { color: rgb(var(--color_58)); }
+.color_59 { color: rgb(var(--color_59)); }
+.color_60 { color: rgb(var(--color_60)); }
+.color_61 { color: rgb(var(--color_61)); }
+.color_62 { color: rgb(var(--color_62)); }
+.color_63 { color: rgb(var(--color_63)); }
+.color_64 { color: rgb(var(--color_64)); }
+.color_65 { color: rgb(var(--color_65)); }
+
+/* --- bloques de texto ------------------------------------------------ */
+.rt p, .rt h1, .rt h2, .rt h3, .rt h4, .rt h5, .rt h6 { margin: 0; }
+.rt a { text-decoration: none; }
+.rt a:hover { text-decoration: underline; }
+
+/* --- imágenes -------------------------------------------------------- */
+.pic { overflow: hidden; }
+.pic img { width: 100%; height: 100%; object-fit: cover; }
+.pic a { display: block; height: 100%; }
+
+/* --- menú superior --------------------------------------------------- */
+.site-header {
+  padding: 13px 20px;
+  font: normal normal 300 15px/1.4em almarai, sans-serif;
+  position: relative;
+  z-index: 50;
+}
+.site-header nav { max-width: var(--col-ancho); margin: 0 auto; }
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0 .2em;
+  color: rgb(var(--color_18));
+}
+.menu > li > a, .menu button {
+  display: inline-block;
+  padding: 0 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: color .4s ease;
+}
+.menu button {
+  font: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  line-height: 1.4em;
+}
+.menu a[aria-current="page"] { font-weight: 700; }
+
+/* submenú del botón «+» (páginas que no caben en una línea) */
+.more { position: relative; }
+.submenu {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 200px;
+  background: rgb(var(--color_44));
+  display: none;
+  text-align: center;
+}
+.submenu li a {
+  display: block;
+  padding: 5px 14px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.more[data-open="true"] .submenu { display: block; }
+.more[hidden] { display: none; }
+
+/* botón para desplegar el menú en pantallas angostas */
+.abrir-menu {
+  display: none;
+  font: inherit;
+  background: none;
+  border: 0;
+  padding: 0 10px;
+  cursor: pointer;
+  color: rgb(var(--color_18));
+}
+
+/* --- páginas en modo galería (la tienda) -----------------------------
+   Usa el mismo lienzo de 1033 px que las páginas de proyecto, para que el
+   título y la flecha queden alineados igual que en el resto del sitio.
+   Dentro de ese lienzo, la columna de contenido empieza a 53 px. */
+.sec-galeria { padding: 0 0 80px; }
+.sec-galeria .lienzo { width: 1033px; margin: 0 auto; }
+
+.sec-galeria .cabecera { margin-bottom: 64px; }   /* aire entre el título y las fotos */
+.sec-galeria .volver { margin-left: 53px; }
+.sec-galeria .titulo { margin-left: 0; margin-top: 6px; }
+
+/* Dos columnas alineadas. Cada foto va en un marco cuadrado y se escala para
+   caber entera (object-fit: contain), así las filas coinciden y ninguna
+   imagen queda recortada. */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 56px 48px;
+  margin-left: 53px;
+}
+.galeria figure { margin: 0; }
+.galeria .marco {
+  aspect-ratio: 1 / 1;
+  background: rgb(var(--color_11));
+}
+.galeria img { width: 100%; height: 100%; object-fit: contain; }
+.galeria figcaption {
+  font: var(--font_8);
+  font-family: var(--sans-light);
+  font-size: 12px;
+  line-height: 1.4em;
+  color: rgb(65, 65, 65);
+  margin-top: 9px;
+}
+
+@media (max-width: 859px) {
+  .sec-galeria { padding: 0 20px 60px; }
+  .sec-galeria .lienzo { width: auto; }
+  .sec-galeria .cabecera { margin-bottom: 40px; }
+  .sec-galeria .volver { margin-left: 0; }
+  .galeria { grid-template-columns: 1fr; gap: 36px; margin-left: 0; }
+  .galeria .marco { aspect-ratio: auto; }
+  .galeria img { height: auto; }
+}
+
+/* --- maquetación en pantallas angostas: todo en una columna ---------- */
+@media (max-width: 859px) {
+  .sec {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+  }
+  .sec > * {
+    margin-bottom: 22px !important;
+    left: auto !important;
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .sec > .pic img { height: auto; }
+  .site-header { padding: 13px 16px; }
+  .abrir-menu { display: block; margin: 0 auto; text-decoration: underline; }
+  .site-header nav { display: none; padding-top: 10px; }
+  .site-header[data-abierto="true"] nav { display: block; }
+  .menu { flex-direction: column; gap: 6px; }
+  .more { display: none; }
+}

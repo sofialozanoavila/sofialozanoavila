@@ -1,0 +1,3 @@
+# Archivos que macOS crea solo y que no forman parte del sitio
+.DS_Store
+._*
