@@ -342,6 +342,9 @@ a:hover { opacity: .65; }
      derecha, lejos del nombre. Apilado en el celular quedaba justo debajo y
      en negrita a 25 px competía con él, así que baja y se reduce. */
   .landing .lugar { margin-top: 44px; }
+  .landing .lugar p {
+    text-align: left !important;   /* en escritorio va alineado a la derecha */
+  }
   .landing .lugar p,
   .landing .lugar span { font-size: 16px !important; }
   .abrir-menu { display: block; margin: 0 auto; text-decoration: underline; }
