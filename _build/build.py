@@ -488,12 +488,24 @@ def render_lista(slug, origen, page, idioma):
     def bloques(lista):
         return ''.join('<div class="rt">%s</div>' % texto(c) for c in lista)
 
+    def sin_vacios(h):
+        """Quita los párrafos vacíos que Wix usaba para separar.
+
+        El espacio entre párrafos se controla desde la hoja de estilos, así
+        el texto respira parejo y no depende de cuántos huecos se dejaran."""
+        def vacio(m):
+            solo_texto = re.sub(r'<[^>]+>', '', m.group(2))
+            solo_texto = solo_texto.replace('\u200b', '').replace('&nbsp;', '')
+            solo_texto = solo_texto.replace('\xa0', '').strip()
+            return '' if not solo_texto else m.group(0)
+        return re.sub(r'<p([^>]*)>(.*?)</p>', vacio, h, flags=re.S)
+
     # La flecha va en su propia fila, arriba del todo: así el título y el texto
     # del proyecto arrancan a la misma altura.
     cabeza = '<div class="volver-fila">%s</div>' % bloques(flechas) if flechas else ''
     cabeza += '<div class="encabezado">%s</div>' % bloques(cortos)
     if largos:
-        cabeza += '<div class="cuerpo">%s</div>' % bloques(largos)
+        cabeza += '<div class="cuerpo">%s</div>' % sin_vacios(bloques(largos))
 
     filas = []
     for indice, o in enumerate(obras):

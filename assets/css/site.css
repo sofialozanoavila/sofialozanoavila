@@ -331,11 +331,17 @@ a:hover { opacity: .65; }
 }
 .sec-obras .volver-fila { grid-column: 1 / -1; grid-row: 1; }
 .sec-obras .encabezado { grid-column: 1; grid-row: 2; }
-.sec-obras .cuerpo { grid-column: 2; grid-row: 2; }
+/* Los 6 px bajan el texto hasta que sus mayúsculas arrancan a la misma
+   altura que las del título: medido sobre la tinta real de cada fuente, no
+   sobre la caja, que engaña porque cada tamaño lleva su propio interlineado. */
+.sec-obras .cuerpo { grid-column: 2; grid-row: 2; padding-top: 6px; }
 
 .sec-obras .encabezado .rt + .rt { margin-top: 12px; }
-.sec-obras .cuerpo { columns: 2; column-gap: 56px; }
-.sec-obras .cuerpo .rt + .rt { margin-top: 14px; }
+/* Una sola columna, con renglones más aireados y un espacio claro entre
+   párrafos, para que el bloque no se lea pesado. */
+.sec-obras .cuerpo .rt + .rt { margin-top: 1.6em; }
+.sec-obras .cuerpo p { line-height: 1.75 !important; }
+.sec-obras .cuerpo p + p { margin-top: 1.6em; }
 
 .obra {
   display: grid;
@@ -369,7 +375,7 @@ a:hover { opacity: .65; }
   .sec-obras .lienzo { padding: 0 20px; }
   .sec-obras .intro { display: block; margin: 0 0 44px; }
   .sec-obras .encabezado { margin-bottom: 20px; }
-  .sec-obras .cuerpo { columns: 1; }
+  .sec-obras .cuerpo { padding-top: 0; }
   .obra { display: block; margin-bottom: 44px; }
   .obra .ficha { margin-top: 9px; }
   .obra img { max-height: none; width: 100%; }
@@ -395,12 +401,8 @@ a:hover { opacity: .65; }
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 64px 40px;
-}
-
-@media (max-width: 1400px) {
-  .catalogo { grid-template-columns: repeat(3, 1fr); }
+  grid-template-columns: repeat(3, 1fr);
+  gap: 72px 48px;
 }
 .catalogo .marco {
   aspect-ratio: 1 / 1;
