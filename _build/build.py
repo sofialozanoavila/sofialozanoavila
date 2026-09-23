@@ -832,6 +832,10 @@ def render_page(slug, page, idioma='es', origen=None):
     return '\n'.join(body), desktop, int(widest)
 
 
+# Entradas que se quedan siempre en la barra; el resto va dentro del «+».
+PRINCIPALES = {'proyectos', 'paisaje-interior', 'cv', 'contacto'}
+
+
 def header_html(active, idioma):
     items = []
     for label, target in MENU:
@@ -839,7 +843,8 @@ def header_html(active, idioma):
         cur = ' aria-current="page"' if href == active + '.html' else ''
         if idioma == 'en':
             label = MENU_EN.get(label, label)
-        items.append('<li><a href="%s"%s>%s</a></li>' % (href, cur, label))
+        clase = (' class="principal m-%s"' % ascii_slug(target)) if target in PRINCIPALES else ''
+        items.append('<li%s><a href="%s"%s>%s</a></li>' % (clase, href, cur, label))
     if PUBLICAR_EN:
         items.append(selector_idioma(idioma, active + '.html'))
     return ('<header class="site-header">\n'
@@ -919,7 +924,7 @@ for slug, page in pages.items():
             desc=(DESC_EN if idioma == 'en'
                   else (desc or 'sofía lozano ávila — artista, Bogotá, Colombia.')),
             css=css,
-            header='' if page['landing'] else header_html(out, idioma),
+            header=header_html(out, idioma),
             bodyclass=('landing' if page['landing'] else 'inner') + ' p-' + out,
             body=body,
         )

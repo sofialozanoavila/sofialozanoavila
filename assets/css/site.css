@@ -209,6 +209,12 @@ a:hover { opacity: .65; }
 .pic a { display: block; height: 100%; }
 
 /* --- menú superior --------------------------------------------------- */
+/* En escritorio, inicio y proyectos conservan su diseño original, sin menú.
+   En el celular la barra aparece en todas las páginas. */
+@media (min-width: 860px) {
+  body.landing .site-header { display: none; }
+}
+
 .site-header {
   padding: 13px 20px;
   font: normal normal 300 15px/1.4em almarai, sans-serif;
@@ -536,9 +542,41 @@ a:hover { opacity: .65; }
   }
   .landing .lugar p,
   .landing .lugar span { font-size: 16px !important; }
-  .abrir-menu { display: block; margin: 0 auto; text-decoration: underline; }
-  .site-header nav { display: none; padding-top: 10px; }
-  .site-header[data-abierto="true"] nav { display: block; }
-  .menu { flex-direction: column; gap: 6px; }
-  .more { display: none; }
+  /* Barra superior fija en todas las páginas: los cuatro enlaces principales
+     siempre a la vista y, al final, el «+» que despliega los proyectos. */
+  .abrir-menu { display: none; }
+  .site-header { padding: 12px 16px 10px; }
+  .site-header nav { display: block; }
+  .menu {
+    justify-content: flex-start;
+    gap: 2px 0;
+    font-size: 12px;
+  }
+  .menu > li > a, .menu button { padding: 0 6px; }
+  /* Orden de la barra: proyectos · contacto · cv · piezas · EN · + */
+  .menu .m-proyectos { order: 1; }
+  .menu .m-contacto { order: 2; }
+  .menu .m-cv { order: 3; }
+  .menu .m-paisaje-interior { order: 4; }
+  .menu .idioma { order: 5; margin-left: .2em; }
+  .menu .more { order: 6; }
+  .submenu { order: 7; }
+
+  .submenu {
+    position: static;
+    transform: none;
+    min-width: 0;
+    width: 100%;
+    background: none;
+    text-align: left;
+    padding: 8px 0 2px;
+    border-top: 1px solid rgba(0, 0, 0, .12);
+    margin-top: 8px;
+  }
+  .submenu li { display: block; }
+  .submenu li a { padding: 4px 6px; white-space: normal; }
+
+  /* La línea de enlaces de inicio y proyectos repetiría lo que ya está en la
+     barra, así que se oculta. */
+  .enlaces, .enlaces-proyectos { display: none !important; }
 }

@@ -15,14 +15,23 @@
   });
 
   function reflow() {
-    // devuelve todo a la barra antes de volver a medir. Las piezas van delante
-    // del selector de idioma, que siempre cierra la fila.
+    // todo vuelve a la barra antes de medir
     var tope = idioma || more;
     items.forEach(function (li) { menu.insertBefore(li, tope); });
     submenu.innerHTML = '';
     more.hidden = true;
 
-    if (window.innerWidth < 860) return;   // en pantallas angostas el menú se despliega en vertical
+    if (window.innerWidth < 860) {
+      // En el celular la barra deja a la vista solo las entradas principales
+      // (proyectos, contacto, cv, piezas disponibles) y el resto —los nombres
+      // de los proyectos— se guarda bajo el «+».
+      var guardados = items.filter(function (li) {
+        return !li.classList.contains('principal');
+      });
+      guardados.forEach(function (li) { submenu.appendChild(li); });
+      more.hidden = guardados.length === 0;
+      return;
+    }
 
     var top = menu.getBoundingClientRect().top;
     var overflow = items.filter(function (li) {
