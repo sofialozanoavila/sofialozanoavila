@@ -305,6 +305,52 @@ a:hover { opacity: .65; }
   line-height: 1.4em !important;
 }
 
+/* --- páginas de proyecto en lista -------------------------------------
+   Una obra por fila: ficha a la izquierda, fotografía grande a la derecha,
+   alineadas por arriba. */
+.sec-obras { padding: 0 0 100px; }
+.sec-obras .lienzo { width: 1033px; margin: 0 auto; }
+
+.sec-obras .intro {
+  width: 419px;
+  margin: 0 0 90px 53px;
+}
+.sec-obras .intro .rt + .rt { margin-top: 14px; }
+
+.obras { margin-left: 53px; }
+.obra {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  column-gap: 50px;
+  align-items: start;
+  margin-bottom: 90px;
+}
+.obra:last-child { margin-bottom: 0; }
+.obra .foto { grid-column: 2; grid-row: 1; }
+.obra .ficha { grid-column: 1; grid-row: 1; }
+/* Las apaisadas ocupan todo el ancho de la columna; las verticales se
+   frenan por altura para que no desborden la pantalla. */
+.obra img {
+  max-width: 100%;
+  max-height: 760px;
+  width: auto;
+  height: auto;
+}
+.obra .ficha .rt + .rt { margin-top: 8px; }
+
+@media (max-width: 859px) {
+  .sec-obras { padding: 0 20px 60px; }
+  .sec-obras .lienzo { width: auto; }
+  .sec-obras .intro { width: auto; margin: 0 0 44px; }
+  .obras { margin-left: 0; }
+  .obra {
+    display: block;
+    margin-bottom: 44px;
+  }
+  .obra .ficha { margin-top: 9px; }
+  .obra img { max-height: none; width: 100%; }
+}
+
 /* --- catálogo de piezas disponibles ----------------------------------- */
 .sec-catalogo { padding: 0 0 90px; }
 .sec-catalogo .lienzo { width: 1033px; margin: 0 auto; }

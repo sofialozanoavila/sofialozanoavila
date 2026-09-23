@@ -441,6 +441,64 @@ def medidas(ruta):
     raise SystemExit('no pude leer las medidas de ' + ruta)
 
 
+# --- páginas de proyecto en lista ---------------------------------------------
+# Una obra por fila: su ficha en una columna estrecha a la izquierda y la
+# fotografía grande a la derecha, alineadas por arriba. Antes el pie iba
+# debajo de cada foto y las fotos eran más pequeñas.
+LISTA = {
+    'antejardín', 'bache', 'copia-de-antejardín', 'cuerpo-residual',
+    'de-dudosa-procedencia', 'dejar-que-la-forma-se-haga', 'desmesura',
+    'inventario-sobre-lo-que-no-veo', 'la-linea-no-es-recta', 'otros-proyectos',
+    'procedimiento-fertil', 'revisitar', 'semi-preciosas', 'señales',
+    'todo-lo-que-no-cabe-en-una-vitrina', 'vasija-ver-vaciar',
+}
+
+
+def render_lista(slug, origen, page, idioma):
+    """Reparte la página en una introducción y una lista de obras."""
+    piezas = []
+    for sec in page['sections']:
+        piezas += ordenar(sec['children'])
+
+    intro, obras = [], []
+    for c in piezas:
+        if c['type'] == 'image':
+            obras.append({'foto': c, 'pies': []})
+        elif obras:
+            obras[-1]['pies'].append(c)
+        else:
+            intro.append(c)
+
+    def texto(c):
+        h = re.sub(r'href="([^"]*)"', lambda m: 'href="%s"' % local_href(m.group(1)), c['html'])
+        if idioma == 'en':
+            h = traducir_pieza(origen, c['id'], h)
+        return h.replace(' target="_self"', '')
+
+    cabeza = ''.join('<div class="rt">%s</div>' % texto(c) for c in intro)
+
+    filas = []
+    for o in obras:
+        c = o['foto']
+        alt = c.get('alt', '').replace('"', '&quot;')
+        img = ('<img src="%s" alt="%s" width="%s" height="%s" loading="lazy">'
+               % (img_file(c), alt, c.get('w') or '', c.get('h') or ''))
+        if c.get('href'):
+            destino = local_href(c['href'])
+            fuera = ' target="_blank" rel="noopener"' if destino.startswith('http') else ''
+            img = '<a href="%s"%s>%s</a>' % (destino, fuera, img)
+        ficha = ''.join('<div class="rt">%s</div>' % texto(t) for t in o['pies'])
+        filas.append('<div class="obra"><div class="foto">%s</div>'
+                     '<div class="ficha">%s</div></div>' % (img, ficha))
+
+    return ('<section class="sec sec-obras" data-ancho="1033">\n'
+            '<div class="lienzo">\n'
+            '<div class="intro">%s</div>\n'
+            '<div class="obras">\n%s\n</div>\n'
+            '</div>\n'
+            '</section>' % (cabeza, '\n'.join(filas)))
+
+
 # --- catálogo de piezas disponibles ------------------------------------------
 # Datos y fotografías tomados del portafolio de obra disponible. Los precios
 # llevan ya el aumento de 100.000 pesos acordado.
@@ -772,6 +830,9 @@ def render_page(slug, page, idioma='es', origen=None):
 
     if slug == 'paisaje-interior':
         return render_catalogo(idioma), '', 0
+
+    if origen in LISTA:
+        return render_lista(slug, origen, page, idioma), '', 0
 
     if slug == 'proyectos':
         page = flecha_en_proyectos(page)
