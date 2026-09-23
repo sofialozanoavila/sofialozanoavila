@@ -441,6 +441,15 @@ def medidas(ruta):
     raise SystemExit('no pude leer las medidas de ' + ruta)
 
 
+# Pies añadidos o corregidos a mano, por proyecto y por fotografía. Sustituyen
+# a lo que traía el Wix; en español y en inglés.
+PIES = {
+    'revisitar': {
+        'comp-lrh6m4i8': ('Vista general.', 'General view.'),
+    },
+}
+
+
 # --- páginas de proyecto en lista ---------------------------------------------
 # Una obra por fila: su ficha en una columna estrecha a la izquierda y la
 # fotografía grande a la derecha, alineadas por arriba. Antes el pie iba
@@ -547,7 +556,11 @@ def render_lista(slug, origen, page, idioma):
             destino = local_href(c['href'])
             fuera = ' target="_blank" rel="noopener"' if destino.startswith('http') else ''
             img = '<a href="%s"%s>%s</a>' % (destino, fuera, img)
-        ficha = ''.join('<div class="rt">%s</div>' % texto(t) for t in o['pies'])
+        propio = PIES.get(origen, {}).get(c['id'])
+        if propio:
+            ficha = '<div class="rt">%s</div>' % (TXT_PIE % propio[1 if idioma == 'en' else 0])
+        else:
+            ficha = ''.join('<div class="rt">%s</div>' % texto(t) for t in o['pies'])
         filas.append('<div class="obra"><div class="foto">%s</div>'
                      '<div class="ficha">%s</div></div>' % (img, ficha))
 
