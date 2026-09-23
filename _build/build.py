@@ -458,16 +458,46 @@ def render_lista(slug, origen, page, idioma):
     """Reparte la página en una introducción y una lista de obras."""
     piezas = []
     for sec in page['sections']:
-        piezas += ordenar(sec['children'])
+        # Las correcciones de maquetación se aplican antes de repartir las
+        # piezas: si no, se usa la disposición original de Wix.
+        piezas += ordenar(reordenar(slug, sec)['children'])
 
-    intro, obras = [], []
+    def fila(c):
+        m = re.match(r'(\d+)', c['geo'].get('grid-area', '999'))
+        return int(m.group(1)) if m else 999
+
+    def tramo(c):
+        x = num(c['geo'].get('left'))
+        w = c['geo'].get('width', '')
+        return x, x + (num(w, 980) if w.endswith('px') else 980)
+
+    imagenes = [c for c in piezas if c['type'] == 'image']
+    primera = fila(imagenes[0]) if imagenes else 10 ** 6
+
+    # Cada pie pertenece a la fotografía que tiene justo encima y con la que
+    # comparte franja horizontal. En Wix algunas páginas iban a dos columnas,
+    # y emparejar por orden de lectura corría los pies de sitio.
+    obras = [{'foto': c, 'pies': []} for c in imagenes]
+    por_foto = {id(o['foto']): o for o in obras}
+    intro = []
     for c in piezas:
         if c['type'] == 'image':
-            obras.append({'foto': c, 'pies': []})
-        elif obras:
-            obras[-1]['pies'].append(c)
+            continue
+        a, b = tramo(c)
+        candidatas = []
+        for img in imagenes:
+            if fila(img) >= fila(c):
+                continue
+            ia, ib = tramo(img)
+            if min(b, ib) - max(a, ia) > 0:      # se solapan en horizontal
+                candidatas.append(img)
+        if candidatas and fila(c) > primera:
+            mejor = max(candidatas, key=lambda i: (fila(i), -abs(num(i['geo'].get('left')) - a)))
+            por_foto[id(mejor)]['pies'].append(c)
         else:
             intro.append(c)
+
+    obras.sort(key=lambda o: (fila(o['foto']), num(o['foto']['geo'].get('left'))))
 
     def texto(c):
         h = re.sub(r'href="([^"]*)"', lambda m: 'href="%s"' % local_href(m.group(1)), c['html'])
