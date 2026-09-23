@@ -316,13 +316,14 @@ a:hover { opacity: .65; }
   padding: 0 40px;
 }
 
-.sec-obras .intro .rt + .rt { margin-top: 14px; }
-
-/* La primera fila lleva la introducción arriba del pie, y la fotografía
-   ocupa las dos filas a su derecha. */
-.obra.primera .intro { grid-column: 1; grid-row: 1; margin-bottom: 30px; }
-.obra.primera .foto { grid-column: 2; grid-row: 1 / 3; }
-.obra.primera .ficha { grid-column: 1; grid-row: 2; }
+/* La introducción va arriba, ancha, y las obras empiezan debajo. El texto
+   largo se reparte en dos columnas: a lo ancho de toda la página los
+   renglones serían demasiado largos para leerlos con comodidad. */
+.sec-obras .intro { margin: 0 0 100px; max-width: 1180px; }
+.sec-obras .encabezado { margin-bottom: 22px; }
+.sec-obras .encabezado .rt + .rt { margin-top: 12px; }
+.sec-obras .cuerpo { columns: 2; column-gap: 64px; }
+.sec-obras .cuerpo .rt + .rt { margin-top: 14px; }
 
 .obra {
   display: grid;
@@ -354,17 +355,18 @@ a:hover { opacity: .65; }
 @media (max-width: 859px) {
   .sec-obras { padding: 0 0 60px; }
   .sec-obras .lienzo { padding: 0 20px; }
-  .sec-obras .intro { margin: 0 0 30px; }
+  .sec-obras .intro { margin: 0 0 44px; max-width: none; }
+  .sec-obras .cuerpo { columns: 1; }
   .obra { display: block; margin-bottom: 44px; }
   .obra .ficha { margin-top: 9px; }
   .obra img { max-height: none; width: 100%; }
 }
 
 /* --- catálogo de piezas disponibles ----------------------------------- */
-.sec-catalogo { padding: 0 0 90px; }
-.sec-catalogo .lienzo { width: 1033px; margin: 0 auto; }
+.sec-catalogo { padding: 0 0 110px; }
+.sec-catalogo .lienzo { max-width: 1760px; margin: 0 auto; padding: 0 40px; }
 .sec-catalogo .cabecera { margin-bottom: 56px; }
-.sec-catalogo .volver { margin-left: 53px; }
+.sec-catalogo .volver { margin-left: 0; }
 .sec-catalogo .volver p { font-size: 40px; line-height: 1; }
 .sec-catalogo .titulo { margin-left: 0; }
 .sec-catalogo .titulo h1 {
@@ -377,11 +379,15 @@ a:hover { opacity: .65; }
 
 .catalogo {
   list-style: none;
-  margin: 0 0 0 53px;
+  margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 56px 36px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 64px 40px;
+}
+
+@media (max-width: 1400px) {
+  .catalogo { grid-template-columns: repeat(3, 1fr); }
 }
 .catalogo .marco {
   aspect-ratio: 1 / 1;
@@ -440,12 +446,11 @@ a:hover { opacity: .65; }
 .catalogo .agotada .marco { opacity: .62; }
 
 @media (max-width: 859px) {
-  .sec-catalogo { padding: 0 20px 60px; }
-  .sec-catalogo .lienzo { width: auto; }
-  .sec-catalogo .volver { margin-left: 0; }
+  .sec-catalogo { padding: 0 0 60px; }
+  .sec-catalogo .lienzo { padding: 0 20px; }
   .sec-catalogo .cabecera { margin-bottom: 36px; }
   .sec-catalogo .titulo h1 { font-size: 28px; }
-  .catalogo { grid-template-columns: repeat(2, 1fr); gap: 36px 20px; margin-left: 0; }
+  .catalogo { grid-template-columns: repeat(2, 1fr); gap: 36px 20px; }
 }
 
 @media (max-width: 460px) {

@@ -475,7 +475,16 @@ def render_lista(slug, origen, page, idioma):
             h = traducir_pieza(origen, c['id'], h)
         return h.replace(' target="_self"', '')
 
-    cabeza = ''.join('<div class="rt">%s</div>' % texto(c) for c in intro)
+    # El encabezado (flecha, título, fechas) va entero; el texto largo del
+    # proyecto se reparte en dos columnas para que, al ensancharlo, los
+    # renglones no queden demasiado largos para leer.
+    cortos = [c for c in intro if len(c.get('text', '')) <= 250]
+    largos = [c for c in intro if len(c.get('text', '')) > 250]
+    cabeza = ('<div class="encabezado">%s</div>'
+              % ''.join('<div class="rt">%s</div>' % texto(c) for c in cortos))
+    if largos:
+        cabeza += ('<div class="cuerpo">%s</div>'
+                   % ''.join('<div class="rt">%s</div>' % texto(c) for c in largos))
 
     filas = []
     for indice, o in enumerate(obras):
@@ -488,26 +497,15 @@ def render_lista(slug, origen, page, idioma):
             fuera = ' target="_blank" rel="noopener"' if destino.startswith('http') else ''
             img = '<a href="%s"%s>%s</a>' % (destino, fuera, img)
         ficha = ''.join('<div class="rt">%s</div>' % texto(t) for t in o['pies'])
-        if indice == 0:
-            # La introducción comparte fila con la primera fotografía: si no,
-            # queda un vacío grande a su derecha.
-            filas.append('<div class="obra primera">'
-                         '<div class="intro">%s</div>'
-                         '<div class="foto">%s</div>'
-                         '<div class="ficha">%s</div></div>'
-                         % (cabeza, img, ficha))
-        else:
-            filas.append('<div class="obra"><div class="foto">%s</div>'
-                         '<div class="ficha">%s</div></div>' % (img, ficha))
-
-    if not obras:
-        filas.append('<div class="obra primera"><div class="intro">%s</div></div>' % cabeza)
+        filas.append('<div class="obra"><div class="foto">%s</div>'
+                     '<div class="ficha">%s</div></div>' % (img, ficha))
 
     return ('<section class="sec sec-obras">\n'
             '<div class="lienzo">\n'
+            '<div class="intro">%s</div>\n'
             '<div class="obras">\n%s\n</div>\n'
             '</div>\n'
-            '</section>' % '\n'.join(filas))
+            '</section>' % (cabeza, '\n'.join(filas)))
 
 
 # --- catálogo de piezas disponibles ------------------------------------------
@@ -589,7 +587,7 @@ def render_catalogo(idioma='es'):
                ('<p class="nota">%s</p>' % nota) if nota else '',
                cierre))
 
-    return ('<section class="sec sec-catalogo" data-ancho="1033">\n'
+    return ('<section class="sec sec-catalogo">\n'
             '<div class="lienzo">\n'
             '<div class="cabecera">'
             '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
