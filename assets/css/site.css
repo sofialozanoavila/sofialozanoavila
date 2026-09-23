@@ -319,10 +319,22 @@ a:hover { opacity: .65; }
 /* La introducción va arriba, ancha, y las obras empiezan debajo. El texto
    largo se reparte en dos columnas: a lo ancho de toda la página los
    renglones serían demasiado largos para leerlos con comodidad. */
-.sec-obras .intro { margin: 0 0 100px; max-width: 1180px; }
-.sec-obras .encabezado { margin-bottom: 22px; }
+/* La introducción usa la misma rejilla que las obras: título y ficha en el
+   riel izquierdo, y el texto del proyecto en la columna de las fotografías,
+   arrancando a la misma altura que el título. */
+.sec-obras .intro {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  column-gap: 56px;
+  align-items: start;
+  margin: 0 0 100px;
+}
+.sec-obras .volver-fila { grid-column: 1 / -1; grid-row: 1; }
+.sec-obras .encabezado { grid-column: 1; grid-row: 2; }
+.sec-obras .cuerpo { grid-column: 2; grid-row: 2; }
+
 .sec-obras .encabezado .rt + .rt { margin-top: 12px; }
-.sec-obras .cuerpo { columns: 2; column-gap: 64px; }
+.sec-obras .cuerpo { columns: 2; column-gap: 56px; }
 .sec-obras .cuerpo .rt + .rt { margin-top: 14px; }
 
 .obra {
@@ -355,7 +367,8 @@ a:hover { opacity: .65; }
 @media (max-width: 859px) {
   .sec-obras { padding: 0 0 60px; }
   .sec-obras .lienzo { padding: 0 20px; }
-  .sec-obras .intro { margin: 0 0 44px; max-width: none; }
+  .sec-obras .intro { display: block; margin: 0 0 44px; }
+  .sec-obras .encabezado { margin-bottom: 20px; }
   .sec-obras .cuerpo { columns: 1; }
   .obra { display: block; margin-bottom: 44px; }
   .obra .ficha { margin-top: 9px; }

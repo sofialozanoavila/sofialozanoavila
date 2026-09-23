@@ -478,13 +478,22 @@ def render_lista(slug, origen, page, idioma):
     # El encabezado (flecha, título, fechas) va entero; el texto largo del
     # proyecto se reparte en dos columnas para que, al ensancharlo, los
     # renglones no queden demasiado largos para leer.
-    cortos = [c for c in intro if len(c.get('text', '')) <= 250]
-    largos = [c for c in intro if len(c.get('text', '')) > 250]
-    cabeza = ('<div class="encabezado">%s</div>'
-              % ''.join('<div class="rt">%s</div>' % texto(c) for c in cortos))
+    def es_flecha(c):
+        return c.get('text', '').strip() == '\u21a9'
+
+    flechas = [c for c in intro if es_flecha(c)]
+    cortos = [c for c in intro if not es_flecha(c) and len(c.get('text', '')) <= 250]
+    largos = [c for c in intro if not es_flecha(c) and len(c.get('text', '')) > 250]
+
+    def bloques(lista):
+        return ''.join('<div class="rt">%s</div>' % texto(c) for c in lista)
+
+    # La flecha va en su propia fila, arriba del todo: así el título y el texto
+    # del proyecto arrancan a la misma altura.
+    cabeza = '<div class="volver-fila">%s</div>' % bloques(flechas) if flechas else ''
+    cabeza += '<div class="encabezado">%s</div>' % bloques(cortos)
     if largos:
-        cabeza += ('<div class="cuerpo">%s</div>'
-                   % ''.join('<div class="rt">%s</div>' % texto(c) for c in largos))
+        cabeza += '<div class="cuerpo">%s</div>' % bloques(largos)
 
     filas = []
     for indice, o in enumerate(obras):
