@@ -526,10 +526,6 @@ a:hover { opacity: .65; }
   .enlaces a { font-size: 12px !important; }
   .enlaces p { white-space: nowrap; }
 
-  /* El nombre del inicio: a 67 px se partía en dos renglones y ocupaba casi
-     toda la pantalla del celular. */
-  .landing .nombre p,
-  .landing .nombre span { font-size: 34px !important; }
 
   /* Inicio: en el escritorio «Artista / Bogotá, Colombia» va arriba a la
      derecha, lejos del nombre. Apilado en el celular quedaba justo debajo y

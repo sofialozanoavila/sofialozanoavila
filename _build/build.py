@@ -686,6 +686,36 @@ def reordenar(slug, sec):
                 mesh={'grid-template-rows': 'repeat(%d, min-content) 1fr' % (filas - 1)})
 
 
+def flecha_en_proyectos(page):
+    """Añade la flecha de volver al listado de proyectos.
+
+    Esa página no lleva menú superior, así que la flecha se inserta como una
+    fila nueva encima de todo y el resto de las piezas baja un puesto."""
+    sec = page['sections'][0]
+    hijos = []
+    for c in sec['children']:
+        c = dict(c, geo=dict(c['geo']))
+        m = re.match(r'(\d+)\s*/\s*(\d+)\s*/\s*(\d+)\s*/\s*(\d+)', c['geo'].get('grid-area', ''))
+        if m:
+            a, b, d, e = (int(x) for x in m.groups())
+            c['geo']['grid-area'] = '%d / %d / %d / %d' % (a + 1, b, d + 1, e)
+        hijos.append(c)
+
+    flecha = {
+        'id': 'volver-proyectos',
+        'type': 'text',
+        'html': TXT_VOLVER % 'index',
+        'geo': {'grid-area': '1 / 1 / 2 / 2', 'left': '-162px',
+                'width': '310px', 'margin': '15px 0px 4px 0px'},
+    }
+    mesh = dict(sec.get('mesh') or {})
+    filas = re.match(r'repeat\((\d+),', mesh.get('grid-template-rows', '') or '')
+    if filas:
+        mesh['grid-template-rows'] = mesh['grid-template-rows'].replace(
+            'repeat(%s,' % filas.group(1), 'repeat(%d,' % (int(filas.group(1)) + 1), 1)
+    return dict(page, sections=[dict(sec, children=[flecha] + hijos, mesh=mesh)])
+
+
 # --- generación de CSS por componente ----------------------------------------
 def num(v, default=0):
     """Lee un valor en px; devuelve `default` si no es un número."""
@@ -742,6 +772,9 @@ def render_page(slug, page, idioma='es', origen=None):
 
     if slug == 'paisaje-interior':
         return render_catalogo(idioma), '', 0
+
+    if slug == 'proyectos':
+        page = flecha_en_proyectos(page)
 
     if slug in GALERIA:
         return render_galeria(GALERIA[slug], page), '', 0
