@@ -478,7 +478,7 @@ def render_lista(slug, origen, page, idioma):
     cabeza = ''.join('<div class="rt">%s</div>' % texto(c) for c in intro)
 
     filas = []
-    for o in obras:
+    for indice, o in enumerate(obras):
         c = o['foto']
         alt = c.get('alt', '').replace('"', '&quot;')
         img = ('<img src="%s" alt="%s" width="%s" height="%s" loading="lazy">'
@@ -488,15 +488,26 @@ def render_lista(slug, origen, page, idioma):
             fuera = ' target="_blank" rel="noopener"' if destino.startswith('http') else ''
             img = '<a href="%s"%s>%s</a>' % (destino, fuera, img)
         ficha = ''.join('<div class="rt">%s</div>' % texto(t) for t in o['pies'])
-        filas.append('<div class="obra"><div class="foto">%s</div>'
-                     '<div class="ficha">%s</div></div>' % (img, ficha))
+        if indice == 0:
+            # La introducción comparte fila con la primera fotografía: si no,
+            # queda un vacío grande a su derecha.
+            filas.append('<div class="obra primera">'
+                         '<div class="intro">%s</div>'
+                         '<div class="foto">%s</div>'
+                         '<div class="ficha">%s</div></div>'
+                         % (cabeza, img, ficha))
+        else:
+            filas.append('<div class="obra"><div class="foto">%s</div>'
+                         '<div class="ficha">%s</div></div>' % (img, ficha))
 
-    return ('<section class="sec sec-obras" data-ancho="1033">\n'
+    if not obras:
+        filas.append('<div class="obra primera"><div class="intro">%s</div></div>' % cabeza)
+
+    return ('<section class="sec sec-obras">\n'
             '<div class="lienzo">\n'
-            '<div class="intro">%s</div>\n'
             '<div class="obras">\n%s\n</div>\n'
             '</div>\n'
-            '</section>' % (cabeza, '\n'.join(filas)))
+            '</section>' % '\n'.join(filas))
 
 
 # --- catálogo de piezas disponibles ------------------------------------------
