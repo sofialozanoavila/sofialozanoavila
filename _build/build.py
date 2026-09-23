@@ -40,6 +40,11 @@ if os.path.exists(_ruta_trad):
     TRAD = json.load(open(_ruta_trad, encoding='utf-8'))
 
 
+def html_desescapar(t):
+    import html as _h
+    return _h.unescape(t)
+
+
 def escapar(t):
     return t.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
@@ -52,6 +57,21 @@ def traducir_pieza(origen, cid, cuerpo):
     tabla = TRAD.get(origen, {}).get(cid)
     if not tabla:
         return cuerpo
+
+    if isinstance(tabla, dict):
+        # Traducción trozo a trozo: cada fragmento de texto conserva su propio
+        # estilo. Es lo que necesita el CV, donde los títulos de sección van en
+        # negrita dentro del mismo párrafo que el resto.
+        def un_trozo(mm):
+            crudo = mm.group(1)
+            clave = ' '.join(html_desescapar(crudo).replace('\u200b', ' ').split())
+            if clave in tabla:
+                izq = crudo[:len(crudo) - len(crudo.lstrip())]
+                der = crudo[len(crudo.rstrip()):]
+                return '>' + izq + escapar(tabla[clave]) + der + '<'
+            return mm.group(0)
+
+        return re.sub(r'>([^<>]+)<', un_trozo, cuerpo)
 
     n = [0]
 

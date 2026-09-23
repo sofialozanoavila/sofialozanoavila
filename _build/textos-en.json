@@ -431,16 +431,39 @@
   ]
  },
  "cv": {
-  "comp-lrp5e671": [
-   "Bogotá, Colombia (1997) CV"
-  ],
-  "comp-lrjhvqx41": [
-   "EDUCATION 2014 - 2019 / BFA in Fine Arts, Universidad El Bosque (UEB). Faculty of Creation and Communication, Bogotá (COL) 2016 / Exchange programme, Universidad Nacional Autónoma de México (UNAM), BA in Visual Arts, Faculty of Arts and Design (FAD), Mexico City. SOLO EXHIBITIONS 2025 / Antejardín / Flotante, Bogotá (COL) 2025 / La vitrina / Universidad de Los Andes, Bogotá (COL) 2023 / Procedimiento Fértil / Espacio El Dorado, Bogotá (COL) GROUP EXHIBITIONS / PROJECTS",
-   "2026 / Desde sus adentros / Emblematic Art Gallery, Bogotá (COL)",
-   "2026 / Atrapar, calar, tejer mitos / Expoartesano, Medellín (COL) 2026 / Pausa / Perezoso Café / Bogotá (COL) 2025 / Atrapar, calar, tejer mitos / ARTBO International Fair; Claustro de Las Aguas, Artesanías de Colombia; Exhibition hall of the Faculty of Creation and Communication, Universidad del Rosario; Expoartesanías Colombia / Bogotá (COL) 2025 / Pinturas y dibujos / Galería Jenny Vilá 2025 / Asuntos de hogar / Espacio casa 73 / Bogotá (COL) 2024 / MEDIO / Bogotá (COL) 2024 / Una moneda al aire / Artecámara - ARTBO / Ágora convention centre (COL) 2023 / Fragmentos móviles / Plural Nodo Cultural, Bogotá (COL) 2022 / Dibujar como pensar / Galería La Balsa, Medellín (COL) 2022 / Manizales Contemporary Art Festival (COL) 2022 / SOFA, Vestales archive display / Corferias, Bogotá (COL) 2022 / Feria Del Millón, Plaza La Santa María, Bogotá (COL) 2022 / La Suya Patria / Origen Magenta, Bogotá (COL) 2021 / SEÑALES / Fábrica de instantes. Colectivo Destello / Jóvenes en Movimiento programme. 2021 / Rechazada / Pintura ayer, hoy y mañana / Galería Jenny Vilá, Cali (COL) 2021 / ARTBO|Tutor. 2020 / BARCÚ Spotlights / emerging artists section. 2020 / ENLUNARTE. Arts and Crafts category. Project: “Alguna Vez Fuimos Oro”. 2020 / MUESTRA/SUBASTA, Salón Zea Mays. July-August. 2020 / Salón de Artistas Bernardo Páramo, Salón Zea Mays, Chía. GRANTS AND AWARDS 2024 / National circulation grant for visual artists / IDARTES 2023 / National circulation grant for artists and other agents of the visual arts / Ministry of Culture RESIDENCIES 2025 / CIC Artistic Creation Residencies - Ceramics workshop / Universidad de Los Andes, Faculty of Arts and Humanities / Bogotá (COL) 2024 / En Bloque Artistic Residencies / IDARTES / Bogotá (COL) 2023 / No Lugar, Quito (EC) PUBLICATIONS 2024 / Catalogue \"Una Moneda al aire\" / ARTBO. 2018 / ARTERIA newspaper, ed. 64, July - August. Article: “Proyectos de grado sobresalientes en lo que va del año”. 2018 / Catalogue “Salón de Artistas Bernardo Páramo”. WORK EXPERIENCE 2026 / Art teacher / Gimnasio Campestre de Guilford, Bogotá",
-   "2024 / Design and production / Dominio Previo - Artist: Paloma Pardo",
-   "Museo de Arte Miguel Urrutia (MAMU), Bogotá.",
-   "2021 / Mediation at the XI Luis Caballero Prize (PLC). Galería Santa Fe GSF. 2018-2019 / Communications, media management and research at SGR Galería. 2019 / Installation assistant, Salón Nacional, Universidad Jorge Tadeo Lozano. 2016 / Rock art workshop “Piedras de Choachí”, Patrimonio y lo Patrimoniable project. Universidad Antonio Nariño (UAN)."
-  ]
+  "comp-lrjhvqx41": {
+   "EDUCACIÓN": "EDUCATION",
+   "2014 - 2019 / Maestra en Artes Plásticas, Universidad El Bosque (UEB). Facultad de creación y comunicación, Bogotá (COL)": "2014 - 2019 / BFA in Fine Arts, Universidad El Bosque (UEB). Faculty of Creation and Communication, Bogotá (COL)",
+   "2016 / Programa de intercambio, Universidad Nacional Autónoma de México (UNAM) Licenciatura en artes Visuales, Facultad de artes y diseño (FAD), Ciudad de México.": "2016 / Exchange programme, Universidad Nacional Autónoma de México (UNAM), BA in Visual Arts, Faculty of Arts and Design (FAD), Mexico City.",
+   "EXPOSICIONES INDIVIDUALES": "SOLO EXHIBITIONS",
+   "EXPOSICIONES COLECTIVAS / PROYECTOS": "GROUP EXHIBITIONS / PROJECTS",
+   "ARTBO Feria Internacional; Claustro de Las Aguas de Artesanías de Colombia; Sala de exposiciones de la Facultad de Creación y Comunicación de la Universidad del Rosario; Expoartesanías Colombia": "ARTBO International Fair; Claustro de Las Aguas, Artesanías de Colombia; Exhibition hall of the Faculty of Creation and Communication, Universidad del Rosario; Expoartesanías Colombia",
+   "2022 / Festival de arte contemporáneo de Manizales (COL)": "2022 / Manizales Contemporary Art Festival (COL)",
+   "2022 / SOFA muestra archivo Vestales / Corferias, Bogotá (COL)": "2022 / SOFA, Vestales archive display / Corferias, Bogotá (COL)",
+   "2021 / SEÑALES / Fábrica de instantes. Colectivo Destello / Programa Jóvenes en Movimiento.": "2021 / SEÑALES / Fábrica de instantes. Colectivo Destello / Jóvenes en Movimiento programme.",
+   "2020 / BARCÚ Spotlights / sección artistas emergentes.": "2020 / BARCÚ Spotlights / emerging artists section.",
+   "2020 / ENLUNARTE. Categoría Artes y Oficios. Proyecto: “Alguna Vez Fuimos Oro”.": "2020 / ENLUNARTE. Arts and Crafts category. Project: “Alguna Vez Fuimos Oro”.",
+   "2020 / MUESTRA/SUBASTA, Salón Zea Mays. Julio-Agosto.": "2020 / MUESTRA/SUBASTA, Salón Zea Mays. July-August.",
+   "BECAS Y ESTÍMULOS": "GRANTS AND AWARDS",
+   "2024 / Beca de circulación nacional para artistas visuales / IDARTES": "2024 / National circulation grant for visual artists / IDARTES",
+   "2023 / Beca en Circulación nacional para artistas y demás agentes de las artes visuales / Ministerio de Cultura": "2023 / National circulation grant for artists and other agents of the visual arts / Ministry of Culture",
+   "RESIDENCIAS": "RESIDENCIES",
+   "2025 / Residencias de Creación Artística CIC - Taller de cerámica / Universidad de Los Andes Facultad de Artes y Humanidades / Bogotá (COL)": "2025 / CIC Artistic Creation Residencies - Ceramics workshop / Universidad de Los Andes, Faculty of Arts and Humanities / Bogotá (COL)",
+   "2024 / Residencias Artísticas En Bloque / IDARTES / Bogotá (COL)": "2024 / En Bloque Artistic Residencies / IDARTES / Bogotá (COL)",
+   "PUBLICACIONES": "PUBLICATIONS",
+   "2024 / Catálogo \"Una Moneda al aire\" / ARTBO.": "2024 / Catalogue \"Una Moneda al aire\" / ARTBO.",
+   "2018 / Periódico ARTERIA ED. 64 Julio - Agosto, Artículo: “Proyectos de grado sobresalientes en lo que va del año”.": "2018 / ARTERIA newspaper, ed. 64, July - August. Article: “Proyectos de grado sobresalientes en lo que va del año”.",
+   "2018 / Catálogo “Salón de Artistas Bernardo Páramo”.": "2018 / Catalogue “Salón de Artistas Bernardo Páramo”.",
+   "EXPERIENCIA LABORAL": "WORK EXPERIENCE",
+   "Docente de Artes / Gimnasio Campestre de Guilford, Bogotá": "Art teacher / Gimnasio Campestre de Guilford, Bogotá",
+   "Diseño y producción / Dominio Previo - Artista: Paloma Pardo": "Design and production / Dominio Previo - Artist: Paloma Pardo",
+   "2021 / Mediación en el XI Premio Luis Caballero (PLC). Galería Santa Fe GSF.": "2021 / Mediation at the XI Luis Caballero Prize (PLC). Galería Santa Fe GSF.",
+   "2018-2019 / Comunicación y gestión de medios e investigación en SGR Galería.": "2018-2019 / Communications, media management and research at SGR Galería.",
+   "2019 / Asistente de montaje en Salón Nacional, Universidad Jorge Tadeo lozano.": "2019 / Installation assistant, Salón Nacional, Universidad Jorge Tadeo Lozano.",
+   "2016 / Taller de arte rupestre “Piedras de Choachí”, Proyecto Patrimonio y lo Patrimoniable. Universidad Antonio Nariño (UAN).": "2016 / Rock art workshop “Piedras de Choachí”, Patrimonio y lo Patrimoniable project. Universidad Antonio Nariño (UAN)."
+  },
+  "comp-mrr1lget": {
+   "contacto": "contact"
+  }
  }
 }
