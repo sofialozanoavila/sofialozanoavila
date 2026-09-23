@@ -480,7 +480,10 @@ def render_lista(slug, origen, page, idioma):
         w = c['geo'].get('width', '')
         return x, x + (num(w, 980) if w.endswith('px') else 980)
 
-    imagenes = [c for c in piezas if c['type'] == 'image']
+    # Los logos de las entidades que apoyaron el proyecto no son obra: en el
+    # original iban pequeños junto a los créditos, no como fotografías.
+    sellos = [c for c in piezas if c['type'] == 'image' and 0 < num(c['geo'].get('width')) < 330]
+    imagenes = [c for c in piezas if c['type'] == 'image' and c not in sellos]
     primera = fila(imagenes[0]) if imagenes else 10 ** 6
 
     # Cada pie pertenece a la fotografía que tiene justo encima y con la que
@@ -541,8 +544,14 @@ def render_lista(slug, origen, page, idioma):
 
     # La flecha va en su propia fila, arriba del todo: así el título y el texto
     # del proyecto arrancan a la misma altura.
+    marcas = ''
+    if sellos:
+        marcas = '<div class="sellos">%s</div>' % ''.join(
+            '<img src="%s" alt="%s" loading="lazy">' % (img_file(c), c.get('alt', ''))
+            for c in sellos)
+
     cabeza = '<div class="volver-fila">%s</div>' % bloques(flechas) if flechas else ''
-    cabeza += '<div class="encabezado">%s</div>' % bloques(cortos)
+    cabeza += '<div class="encabezado">%s%s</div>' % (bloques(cortos), marcas)
     if largos:
         cabeza += '<div class="cuerpo">%s</div>' % sin_vacios(bloques(largos))
 

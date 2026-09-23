@@ -338,6 +338,15 @@ a:hover { opacity: .65; }
 
 .sec-obras .encabezado .rt + .rt { margin-top: 12px; }
 
+/* Logos de las entidades que apoyaron el proyecto, al pie de los créditos */
+.sec-obras .sellos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+.sec-obras .sellos img { width: auto; height: auto; max-height: 38px; }
+
 /* Tamaños unificados en los 16 proyectos. Venían del Wix con variaciones
    (textos a 14 y 16, pies entre 11 y 16, fichas a 11 y 15) que hacían que
    cada página se sintiera distinta. */
