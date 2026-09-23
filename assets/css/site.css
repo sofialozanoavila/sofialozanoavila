@@ -267,6 +267,10 @@ a:hover { opacity: .65; }
 .more[data-open="true"] .submenu { display: block; }
 .more[hidden] { display: none; }
 
+/* El cambio de idioma cierra siempre la fila del menú */
+.menu .idioma { order: 2; margin-left: .4em; }
+.menu .more { order: 1; }
+
 /* botón para desplegar el menú en pantallas angostas */
 .abrir-menu {
   display: none;

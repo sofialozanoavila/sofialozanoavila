@@ -1,6 +1,3 @@
 # Archivos que macOS crea solo y que no forman parte del sitio
 .DS_Store
 ._*
-
-# Versión en inglés: se genera en local mientras se traduce, no se publica
-/en/

@@ -12,6 +12,9 @@ pages = json.load(open(os.path.join(ROOT, '_build', 'content.json'), encoding='u
 # de «medir el aire» copiado. La sustituye la página protesis.html.
 pages.pop('copia-de-medir-el-aire', None)
 
+# Versiones en inglés de las páginas que no vienen de Wix
+PAGINAS_EN = {}
+
 
 def version(ruta):
     """Huella del contenido de un archivo, para añadirla al enlace.
@@ -84,7 +87,7 @@ def traducir_pieza(origen, cid, cuerpo):
 # Los nombres de las obras no se traducen: son títulos propios de las piezas.
 # Mientras los textos de proyecto sigan sin traducir, la versión en inglés se
 # genera solo en local: no se publica ni aparece el cambio de idioma.
-PUBLICAR_EN = False
+PUBLICAR_EN = True
 IDIOMAS = ('es', 'en')
 
 MENU_EN = {
@@ -206,6 +209,22 @@ CLASES = {
 }
 
 
+# Inicio y proyectos no llevan menú superior, así que el cambio de idioma se
+# engancha al final de su línea de enlaces.
+IDIOMA_EN_LINEA = {'index': 'enlaces', 'proyectos': 'enlaces-proyectos'}
+
+
+def enganchar_idioma(slug, clase, h, idioma):
+    if not PUBLICAR_EN or IDIOMA_EN_LINEA.get(slug) != clase:
+        return h
+    destino = ruta_idioma(idioma, slug + '.html')
+    etiqueta = 'EN' if idioma == 'es' else 'ES'
+    enlace = ('<a class="idioma-linea" href="%s" hreflang="%s">&nbsp; &nbsp;%s</a>'
+              % (destino, 'en' if idioma == 'es' else 'es', etiqueta))
+    i = h.rfind('</p>')
+    return h[:i] + enlace + h[i:] if i > 0 else h + enlace
+
+
 # Entradas del listado de proyectos que aún no eran enlaces
 ENLAZAR = {
     'proyectos': [('2026 / pr&oacute;tesis', 'protesis.html')],
@@ -237,6 +256,25 @@ NUEVAS = {
             'En conjunto, esta propuesta aborda la cocina como un cuerpo fragmentado. A través de estas piezas frágiles y suspendidas, como susurros materiales, la artista crea una vida extraña que nos devuelve, por un instante, la pulsión de un tiempo doméstico ya extinguido.',
         ],
         'firma': 'Andrea Mu\u00f1oz',
+        'ficha_en': ['3 September - 15 October 2026',
+                     'Emblematic Art Gallery - Bogot\u00e1'],
+        'texto_en': [
+            'Inhabiting the ruins of what was once the kitchen is the starting point for “Prótesis”. This space, which still holds ghostly vestiges of its original function —severed gas pipes, mute electrical sockets and a window onto the inner courtyard— is activated through a deep desire to complete what is missing. Understanding the kitchen as a domestic archive that guards the memory of repeated gestures, the artist fixes her gaze on the “secondary” objects.',
+            'Plugs, cables and connections take subtle material form in ceramic, occupying the void of the interrupted circuits. The proposal unfolds in pieces that speak to one another organically: screen prints acting as fictitious restorations of the old wallpaper; a suspended pipe and stove structures that, in the process of their making, took on the appearance of bones, like grafts upon the architecture of the house.',
+            'Taken together, this proposal approaches the kitchen as a fragmented body. Through these fragile, suspended pieces —material whispers— the artist creates a strange life that gives us back, for an instant, the pulse of a domestic time already extinguished.',
+        ],
+        'pies_en': {
+            'Vista general.': 'General view.',
+            'Detalle.': 'Detail.',
+            'Hornillas, 2026. Cerámica y nylon. 50 x 50 cm.': 'Hornillas, 2026. Ceramic and nylon. 50 x 50 cm.',
+            'Fuente, 2026. Cerámica y nylon. 100 x 30 x 40 cm.': 'Fuente, 2026. Ceramic and nylon. 100 x 30 x 40 cm.',
+            'Gestos de pared, 2026. Serigrafía sobre papel. Dimensiones variables.': 'Gestos de pared, 2026. Screen print on paper. Dimensions variable.',
+            'Filtraciones, 2026. Dibujo. Lápiz sobre papel. 35 x 50 cm.': 'Filtraciones, 2026. Drawing. Pencil on paper. 35 x 50 cm.',
+            'Clavija, Cable y Clavija (sola), 2026. Cerámica.': 'Clavija, Cable and Clavija (sola), 2026. Ceramic.',
+            'Clavija, 2026. Cerámica sobre acrílico. 28 x 17 cm.': 'Clavija, 2026. Ceramic on acrylic. 28 x 17 cm.',
+            'Clavija (sola), 2026. Cerámica. 5 x 3 cm.': 'Clavija (sola), 2026. Ceramic. 5 x 3 cm.',
+            'Cable, 2026. Cerámica. 8 x 4 cm.': 'Cable, 2026. Ceramic. 8 x 4 cm.',
+        },
         # (archivo, pie) en orden de aparición. Pie vacío = sin texto debajo.
         'fotos': [
             ('protesis-15.jpg', 'Vista general.'),
@@ -298,7 +336,7 @@ def pieza(cid, tipo, fila, left, ancho, abajo, filas=1, **extra):
     return dict(extra, id=cid, type=tipo, geo=geo)
 
 
-def render_nueva(slug, cfg):
+def render_nueva(slug, cfg, idioma='es'):
     """Construye una página de proyecto desde cero, con el formato del sitio."""
     hijos, fila = [], 1
 
@@ -308,13 +346,14 @@ def render_nueva(slug, cfg):
     hijos.append(pieza('n-titulo', 'text', fila, -53, 568, 25,
                        html=TXT_TITULO % cfg['titulo']))
     fila += 1
-    if cfg.get('ficha'):
+    ficha = cfg.get('ficha_en' if idioma == 'en' else 'ficha')
+    if ficha:
         hijos.append(pieza('n-ficha', 'text', fila, 0, 425, 13,
-                           html=''.join(TXT_FICHA % l for l in cfg['ficha'])))
+                           html=''.join(TXT_FICHA % l for l in ficha)))
         fila += 1
 
     cuerpo = []
-    for i, par in enumerate(cfg.get('texto', [])):
+    for i, par in enumerate(cfg.get('texto_en' if idioma == 'en' else 'texto', [])):
         if i:
             cuerpo.append(TXT_VACIO)
         cuerpo.append(TXT_PARRAFO % par)
@@ -328,6 +367,8 @@ def render_nueva(slug, cfg):
     for n, (archivo, pie) in enumerate(cfg.get('fotos', [])):
         hijos.append(foto_pieza('n-foto%d' % n, fila, archivo, 13))
         fila += 1
+        if idioma == 'en':
+            pie = cfg.get('pies_en', {}).get(pie, pie)
         if pie:
             hijos.append(pieza('n-pie%d' % n, 'text', fila, 439, 541, 13,
                                html=TXT_PIE % pie))
@@ -403,6 +444,20 @@ CATALOGO = [
 ]
 
 
+# Técnicas y notas del catálogo en inglés. Los nombres de las piezas no se
+# traducen: son títulos propios.
+CATALOGO_EN = {
+    'Cerámica': 'Ceramic',
+    'Cerámica y tierra': 'Ceramic and soil',
+    'Serie completa': 'Complete series',
+    'Queda una disponible': 'One available',
+    'Instalación completa': 'Complete installation',
+    'Por pieza · serie completa 400.000': 'Per piece · complete series 400,000',
+    # descriptivo, no es un título de obra
+    'De la serie moños': 'From the moños series',
+}
+
+
 def pesos(n):
     return '$' + '{:,}'.format(n).replace(',', '.') + ' COP'
 
@@ -416,6 +471,10 @@ def render_catalogo(idioma='es'):
     fichas = []
     for clave, nombre, tecnica, medidas, ano, precio, nota in CATALOGO:
         archivo = 'pieza-%s.jpg' % clave
+        if en:
+            tecnica = CATALOGO_EN.get(tecnica, tecnica)
+            nota = CATALOGO_EN.get(nota, nota)
+            nombre = CATALOGO_EN.get(nombre, nombre)
         datos = ' · '.join(x for x in (tecnica, medidas, str(ano)) if x)
         correo = ('mailto:%s?subject=%s %s'
                   % (CORREO, asunto.replace(' ', '%20'), nombre.replace(' ', '%20')))
@@ -694,6 +753,8 @@ def render_page(slug, page, idioma='es', origen=None):
                     h = traducir_pieza(origen, c['id'], h)
                 h = enlazar(slug, h.replace(' target="_self"', ''))
                 extra = CLASES.get(slug, {}).get(c['id'], '')
+                if extra:
+                    h = enganchar_idioma(slug, extra, h, idioma)
                 parts.append('<div id="%s" class="rt%s">%s</div>'
                              % (c['id'], ' ' + extra if extra else '', h))
             else:
@@ -773,6 +834,7 @@ os.makedirs(os.path.join(ROOT, 'assets', 'js'), exist_ok=True)
 
 for slug, cfg in NUEVAS.items():
     pages[slug] = render_nueva(slug, cfg)
+    PAGINAS_EN[slug] = render_nueva(slug, cfg, 'en')
     SLUG[slug] = slug
 
 for slug, page in pages.items():
@@ -787,7 +849,8 @@ for slug, page in pages.items():
             break
 
     for idioma in IDIOMAS:
-        body, css, bp = render_page(out, page, idioma, slug)
+        fuente = PAGINAS_EN[slug] if (idioma == 'en' and slug in PAGINAS_EN) else page
+        body, css, bp = render_page(out, fuente, idioma, slug)
         pre = '' if idioma == 'es' else '../'
         html = TEMPLATE.format(
             lang=idioma,

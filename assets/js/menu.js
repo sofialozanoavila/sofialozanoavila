@@ -7,13 +7,18 @@
   var more = menu.querySelector('.more');
   var submenu = more.querySelector('.submenu');
   var button = more.querySelector('button');
+  // El selector de idioma no entra nunca en el desbordamiento: debe verse
+  // siempre, en cualquier página y a cualquier ancho.
+  var idioma = menu.querySelector('.idioma');
   var items = Array.prototype.slice.call(menu.children).filter(function (li) {
-    return li !== more;
+    return li !== more && li !== idioma;
   });
 
   function reflow() {
-    // devuelve todo a la barra antes de volver a medir
-    items.forEach(function (li) { menu.insertBefore(li, more); });
+    // devuelve todo a la barra antes de volver a medir. Las piezas van delante
+    // del selector de idioma, que siempre cierra la fila.
+    var tope = idioma || more;
+    items.forEach(function (li) { menu.insertBefore(li, tope); });
     submenu.innerHTML = '';
     more.hidden = true;
 
