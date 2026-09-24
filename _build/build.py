@@ -166,7 +166,7 @@ MENU = [
     ('vasija/ver/vaciar', 'vasija-ver-vaciar'), ('procedimiento fértil', 'procedimiento-fertil'),
     ('de dudosa procedencia', 'de-dudosa-procedencia'), ('semi preciosas', 'semi-preciosas'),
     ('revisitar', 'revisitar'), ('inventario sobre lo que no veo', 'inventario-sobre-lo-que-no-veo'),
-    ('señales', 'señales'), ('Nada de lo que se mide es basura', 'desmesura'),
+    ('señales', 'señales'), ('nada de lo que se mide es basura', 'desmesura'),
     ('la linea no es recta', 'la-linea-no-es-recta'),
     ('dejar que la forma se haga', 'dejar-que-la-forma-se-haga'),
     ('cuerpo residual', 'cuerpo-residual'), ('otros proyectos', 'otros-proyectos'),
@@ -205,17 +205,17 @@ def px(v, default=None):
 # venía dentro del HTML heredado de Wix, así que se sustituye al generar.
 TEXTOS = {
     # El proyecto pasa de llamarse «desmedida» a llevar el título de la serie.
-    'desmesura': [('>desmedida<', '>Nada de lo que se mide es basura<')],
+    'desmesura': [('>desmedida<', '>nada de lo que se mide es basura<')],
     'paisaje-interior': [('>TIENDA<', '>piezas disponibles<')],
     'index': [('\u27ac tienda', '\u27ac piezas disponibles')],
     'proyectos': [('\u27ac tienda', '\u27ac piezas disponibles'),
                   ('2020 / d<a href="desmesura.html">esmedida</a>',
-                   '2020 / <a href="desmesura.html">Nada de lo que se mide es basura</a>')],
+                   '2020 / <a href="desmesura.html">nada de lo que se mide es basura</a>')],
 }
 
 TITULOS = {
     'paisaje-interior': 'piezas disponibles | sofialozanoavila',
-    'desmesura': 'Nada de lo que se mide es basura | sofialozanoavila',
+    'desmesura': 'nada de lo que se mide es basura | sofialozanoavila',
 }
 
 
@@ -258,7 +258,7 @@ ENLAZAR = {
     'proyectos': [('2026 / pr&oacute;tesis', 'protesis.html')],
 }
 
-TITULO_EN['desmesura'] = 'Nada de lo que se mide es basura | sofialozanoavila'
+TITULO_EN['desmesura'] = 'nada de lo que se mide es basura | sofialozanoavila'
 
 
 def enlazar(slug, h):
