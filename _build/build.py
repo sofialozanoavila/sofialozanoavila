@@ -479,6 +479,28 @@ PIES = {
     'revisitar': {
         'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
     },
+    'desmesura': {
+        # 2 y 3: los dibujos de la serie
+        'comp-lrfdmanc': (['De la serie \u201cNada de lo que se mide es basura\u201d. 48\u00d733 cms. '
+                           'Dibujo. Impresi\u00f3n digital y tinta blanca sobre papel. 50\u00d735 cms c/u. 2020.'],
+                          ['From the series \u201cNada de lo que se mide es basura\u201d. 48 x 33 cm. '
+                           'Drawing. Digital print and white ink on paper. 50 x 35 cm each. 2020.']),
+        'comp-lrfdmana': (['Sin t\u00edtulo. De la serie \u201cNada de lo que se mide es basura\u201d. 48\u00d733 cms. '
+                           'Dibujo. Impresi\u00f3n digital y tinta blanca sobre papel. 50\u00d735 cms c/u. 2020.'],
+                          ['Untitled. From the series \u201cNada de lo que se mide es basura\u201d. 48 x 33 cm. '
+                           'Drawing. Digital print and white ink on paper. 50 x 35 cm each. 2020.']),
+        'comp-lrfdo5y8': (['Detalle. Sin t\u00edtulo. 48\u00d733 cms. Impresi\u00f3n digital y tinta blanca '
+                           'sobre papel. 50\u00d735 cms. 2020.'],
+                          ['Detail. Untitled. 48 x 33 cm. Digital print and white ink on paper. '
+                           '50 x 35 cm. 2020.']),
+        # 5, 6 y 7: las piezas de Contacto
+        'comp-lrfdman7': (['\u201cContacto\u201d. Cer\u00e1mica. Dimensiones variables. 2020.'],
+                          ['\u201cContacto\u201d. Ceramic. Dimensions variable. 2020.']),
+        'comp-lrfdman3': (['\u201cContacto\u201d. Cer\u00e1mica. Dimensiones variables. 2020.'],
+                          ['\u201cContacto\u201d. Ceramic. Dimensions variable. 2020.']),
+        'comp-lrfdman5': (['\u201cContacto\u201d. Cer\u00e1mica. Dimensiones variables. 2020.'],
+                          ['\u201cContacto\u201d. Ceramic. Dimensions variable. 2020.']),
+    },
     'señales': {
         'comp-lrpdbanw': (['SEÑAL 1. Hacer cosas para desaparecer.',
                            '30 noviembre - 3 diciembre.'],
