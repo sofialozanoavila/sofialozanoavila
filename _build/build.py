@@ -486,6 +486,11 @@ PIES = {
     'revisitar': {
         'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
     },
+    'semi-preciosas': {
+        'comp-lrpfy9ml': (['Semipreciosas. Escultura. Yeso, hilos. 200 x 200 x 200 cm. 2023'], ['Semipreciosas. Sculpture. Plaster, thread. 200 x 200 x 200 cm. 2023']),
+        'comp-lrpfy9m6': (['Semipreciosas. Escultura. Yeso, hilos. 200 x 200 x 200 cm. 2023'], ['Semipreciosas. Sculpture. Plaster, thread. 200 x 200 x 200 cm. 2023']),
+        'comp-lrpfy9mc': (['Detalle'], ['Detail']),
+    },
     'procedimiento-fertil': {
         'comp-lrph1i5n': (['Vista general de la exposici\u00f3n.'],
                           ['General view of the exhibition.']),
