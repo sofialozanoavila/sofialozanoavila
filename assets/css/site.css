@@ -298,15 +298,16 @@ a:hover { opacity: .65; }
    interlineados distintos, así que las letras no se apoyaban en el mismo
    renglón. Se igualan tamaño, interlineado y altura de arranque. */
 .nombre-proyectos,
-.enlaces-proyectos { margin-top: 17px !important; }
+.enlaces-proyectos { margin-top: 15px !important; }
 
 .nombre-proyectos h1,
 .nombre-proyectos p,
 .nombre-proyectos span,
 .enlaces-proyectos p,
 .enlaces-proyectos span {
-  font-size: 18px !important;
+  font-size: 20px !important;
   line-height: 1.4em !important;
+  letter-spacing: 0.05em !important;
 }
 
 /* --- páginas de proyecto en lista -------------------------------------

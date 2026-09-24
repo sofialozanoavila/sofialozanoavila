@@ -948,22 +948,28 @@ def flecha_en_proyectos(page):
         m = re.match(r'(\d+)\s*/\s*(\d+)\s*/\s*(\d+)\s*/\s*(\d+)', c['geo'].get('grid-area', ''))
         if m:
             a, b, d, e = (int(x) for x in m.groups())
-            c['geo']['grid-area'] = '%d / %d / %d / %d' % (a + 1, b, d + 1, e)
+            # la primera fila —nombre y enlaces— se queda arriba; el resto baja
+            # un puesto para dejarle sitio a la flecha debajo
+            if a > 1:
+                c['geo']['grid-area'] = '%d / %d / %d / %d' % (a + 1, b, d + 1, e)
         hijos.append(c)
 
     flecha = {
         'id': 'volver-proyectos',
         'type': 'text',
         'html': TXT_VOLVER % 'index',
-        'geo': {'grid-area': '1 / 1 / 2 / 2', 'left': '-162px',
-                'width': '310px', 'margin': '15px 0px 4px 0px'},
+        'geo': {'grid-area': '2 / 1 / 3 / 2', 'left': '-162px',
+                'width': '310px', 'margin': '30px 0px 4px 0px'},
     }
     mesh = dict(sec.get('mesh') or {})
     filas = re.match(r'repeat\((\d+),', mesh.get('grid-template-rows', '') or '')
     if filas:
         mesh['grid-template-rows'] = mesh['grid-template-rows'].replace(
             'repeat(%s,' % filas.group(1), 'repeat(%d,' % (int(filas.group(1)) + 1), 1)
-    return dict(page, sections=[dict(sec, children=[flecha] + hijos, mesh=mesh)])
+    # El lienzo se ajusta para que la línea de enlaces caiga exactamente en la
+    # misma vertical que la del inicio, que es la referencia.
+    return dict(page, sections=[dict(sec, children=[flecha] + hijos, mesh=mesh,
+                                     lienzo=(-162, 1275))])
 
 
 # --- generación de CSS por componente ----------------------------------------
