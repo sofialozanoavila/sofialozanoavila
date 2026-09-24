@@ -486,6 +486,28 @@ PIES = {
     'revisitar': {
         'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
     },
+    'procedimiento-fertil': {
+        'comp-lrph1i5n': (['Vista general de la exposici\u00f3n.'],
+                          ['General view of the exhibition.']),
+        'comp-lrph1i5d': (['Vista general de la exposici\u00f3n.'],
+                          ['General view of the exhibition.']),
+        'comp-lrphqa7k': (['Instalaci\u00f3n. Tierra, madera. Medidas variables. 2023.',
+                           'Dibujo. \u201cEscala\u201d. Carboncillo sobre papel. 2023.',
+                           'Pintura. \u201cVara de medir\u201d. Pintura acr\u00edlica sobre palo de cedro. 2023.'],
+                          ['Installation. Soil, wood. Dimensions variable. 2023.',
+                           'Drawing. \u201cEscala\u201d. Charcoal on paper. 2023.',
+                           'Painting. \u201cVara de medir\u201d. Acrylic paint on cedar pole. 2023.']),
+        'comp-lrphgsk0': (['Detalle de dibujo. \u201cEscala\u201d. Carboncillo sobre papel. 2023.'],
+                          ['Detail of drawing. \u201cEscala\u201d. Charcoal on paper. 2023.']),
+        'comp-lrph1i5j': (['Detalle de Pintura. \u201cVara de la interpretaci\u00f3n\u201d. '
+                           'Pintura acr\u00edlica sobre palo de cedro. 2023.'],
+                          ['Detail of painting. \u201cVara de la interpretaci\u00f3n\u201d. '
+                           'Acrylic paint on cedar pole. 2023.']),
+        'comp-m4wxkg31': (['Vista del entramado de los listones de madera que son el soporte '
+                           'de la instalaci\u00f3n.'],
+                          ['View of the lattice of wooden battens that supports the installation.']),
+        'comp-m4wxhd80': (['Vista desde afuera.'], ['View from outside.']),
+    },
     'desmesura': {
         # 1, 2 y 3: los dibujos de la serie
         'comp-lrfdo8ia': (['\u201cNada de lo que se mide es basura\u201d. 48\u00d733 cms. '
