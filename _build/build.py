@@ -441,13 +441,58 @@ def medidas(ruta):
     raise SystemExit('no pude leer las medidas de ' + ruta)
 
 
+# Orden en que deben aparecer las fotografías, cuando el del original no es
+# el que corresponde.
+ORDEN_FOTOS = {
+    'señales': ['comp-lrpdbanw', 'comp-lrpdadw2', 'comp-lrpd2vw1',
+                'comp-lrpd2vwe', 'comp-lrpd2vwc', 'comp-lrpd2vwi'],
+}
+
+# Párrafos que se retiran de un texto, porque pasan a otro sitio de la página.
+QUITAR_PARRAFOS = {
+    'señales': {'comp-lrfe02kk3': [9]},
+}
+
+# Bloque de cierre, después de las fotografías.
+CIERRE = {
+    'señales': {
+        'es': ['Fotografía: Juan Camilo Forero.',
+               'Colaboración: Maria José Espejo.',
+               '',
+               'Proyecto apoyado por el Ministerio de Cultura.',
+               'Programa Jóvenes en Movimiento / 2021.'],
+        'en': ['Photography: Juan Camilo Forero.',
+               'Collaboration: Maria José Espejo.',
+               '',
+               'Project supported by the Ministry of Culture.',
+               'Jóvenes en Movimiento programme / 2021.'],
+        'sellos': True,
+    },
+}
+
+
 # Pies añadidos o corregidos a mano, por proyecto y por fotografía. Sustituyen
 # a lo que traía el Wix; en español y en inglés.
 PIES = {
     'revisitar': {
-        'comp-lrh6m4i8': ('Vista general.', 'General view.'),
+        'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
+    },
+    'señales': {
+        'comp-lrpdbanw': (['SEÑAL 1. Hacer cosas para desaparecer.',
+                           '30 noviembre - 3 diciembre.'],
+                          ['SIGNAL 1. Making things in order to disappear.',
+                           '30 November - 3 December.']),
+        'comp-lrpdadw2': (['SEÑAL 2. Juguemos en el bosque.', '2, 7 diciembre.'],
+                          ['SIGNAL 2. Let us play in the forest.', '2 and 7 December.']),
     },
 }
+# Las cuatro cianotipias comparten pie
+for _id in ('comp-lrpd2vw1', 'comp-lrpd2vwe', 'comp-lrpd2vwc', 'comp-lrpd2vwi'):
+    PIES['señales'][_id] = (
+        ['SEÑAL 3. Inventario a través de Cianotipia, impresión análoga.',
+         '1 - 4 diciembre.'],
+        ['SIGNAL 3. Inventory through cyanotype, analogue printing.',
+         '1 - 4 December.'])
 
 
 # --- páginas de proyecto en lista ---------------------------------------------
@@ -509,7 +554,12 @@ def render_lista(slug, origen, page, idioma):
         else:
             intro.append(c)
 
-    obras.sort(key=lambda o: (fila(o['foto']), num(o['foto']['geo'].get('left'))))
+    manual = ORDEN_FOTOS.get(origen)
+    if manual:
+        puesto = {cid: i for i, cid in enumerate(manual)}
+        obras.sort(key=lambda o: puesto.get(o['foto']['id'], 10 ** 6))
+    else:
+        obras.sort(key=lambda o: (fila(o['foto']), num(o['foto']['geo'].get('left'))))
 
     def texto(c):
         h = re.sub(r'href="([^"]*)"', lambda m: 'href="%s"' % local_href(m.group(1)), c['html'])
@@ -529,6 +579,16 @@ def render_lista(slug, origen, page, idioma):
 
     def bloques(lista):
         return ''.join('<div class="rt">%s</div>' % texto(c) for c in lista)
+
+    def sin_mudados(cid, h):
+        fuera = QUITAR_PARRAFOS.get(origen, {}).get(cid)
+        if not fuera:
+            return h
+        n = [0]
+        def uno(m):
+            i = n[0]; n[0] += 1
+            return '' if i in fuera else m.group(0)
+        return re.sub(r'<p[^>]*>.*?</p>', uno, h, flags=re.S)
 
     def sin_vacios(h):
         """Quita los párrafos vacíos que Wix usaba para separar.
@@ -550,10 +610,15 @@ def render_lista(slug, origen, page, idioma):
             '<img src="%s" alt="%s" loading="lazy">' % (img_file(c), c.get('alt', ''))
             for c in sellos)
 
+    # Si los logos van en el bloque de cierre, no se repiten arriba.
+    al_cierre = bool(CIERRE.get(origen, {}).get('sellos'))
     cabeza = '<div class="volver-fila">%s</div>' % bloques(flechas) if flechas else ''
-    cabeza += '<div class="encabezado">%s%s</div>' % (bloques(cortos), marcas)
+    cabeza += '<div class="encabezado">%s%s</div>' % (bloques(cortos),
+                                                      '' if al_cierre else marcas)
     if largos:
-        cabeza += '<div class="cuerpo">%s</div>' % sin_vacios(bloques(largos))
+        cuerpo = ''.join('<div class="rt">%s</div>' % sin_mudados(c['id'], texto(c))
+                         for c in largos)
+        cabeza += '<div class="cuerpo">%s</div>' % sin_vacios(cuerpo)
 
     filas = []
     for indice, o in enumerate(obras):
@@ -567,18 +632,28 @@ def render_lista(slug, origen, page, idioma):
             img = '<a href="%s"%s>%s</a>' % (destino, fuera, img)
         propio = PIES.get(origen, {}).get(c['id'])
         if propio:
-            ficha = '<div class="rt">%s</div>' % (TXT_PIE % propio[1 if idioma == 'en' else 0])
+            lineas = propio[1 if idioma == 'en' else 0]
+            ficha = '<div class="rt">%s</div>' % ''.join(TXT_PIE % l for l in lineas)
         else:
             ficha = ''.join('<div class="rt">%s</div>' % texto(t) for t in o['pies'])
         filas.append('<div class="obra"><div class="foto">%s</div>'
                      '<div class="ficha">%s</div></div>' % (img, ficha))
 
+    pie_pagina = ''
+    cfg = CIERRE.get(origen)
+    if cfg:
+        lineas = ''.join(TXT_PIE % l if l else '<p class="font_8">&nbsp;</p>'
+                         for l in cfg['en' if idioma == 'en' else 'es'])
+        pie_pagina = ('<div class="cierre"><div class="rt">%s</div>%s</div>'
+                      % (lineas, marcas if cfg.get('sellos') else ''))
+
     return ('<section class="sec sec-obras">\n'
             '<div class="lienzo">\n'
             '<div class="intro">%s</div>\n'
             '<div class="obras">\n%s\n</div>\n'
+            '%s'
             '</div>\n'
-            '</section>' % (cabeza, '\n'.join(filas)))
+            '</section>' % (cabeza, '\n'.join(filas), pie_pagina))
 
 
 # --- catálogo de piezas disponibles ------------------------------------------

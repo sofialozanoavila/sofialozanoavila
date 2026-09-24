@@ -402,6 +402,10 @@ a:hover { opacity: .65; }
   .obra img { max-height: none; width: 100%; }
 }
 
+/* Bloque de cierre: créditos y logos, después de las fotografías */
+.sec-obras .cierre { margin-top: 96px; }
+.sec-obras .cierre .sellos { margin-top: 20px; }
+
 /* --- catálogo de piezas disponibles ----------------------------------- */
 .sec-catalogo { padding: 0 0 110px; }
 .sec-catalogo .lienzo { max-width: 1760px; margin: 0 auto; padding: 0 40px; }
