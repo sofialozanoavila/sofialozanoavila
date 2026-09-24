@@ -450,7 +450,9 @@ ORDEN_FOTOS = {
 
 # Párrafos que se retiran de un texto, porque pasan a otro sitio de la página.
 QUITAR_PARRAFOS = {
-    'señales': {'comp-lrfe02kk3': [9]},
+    # 7: el listado de SEÑAL 1, 2 y 3 (ahora son los pies de foto)
+    # 9: los créditos (pasan al bloque de cierre)
+    'señales': {'comp-lrfe02kk3': [7, 9]},
 }
 
 # Bloque de cierre, después de las fotografías.
