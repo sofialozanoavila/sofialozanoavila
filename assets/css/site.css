@@ -400,10 +400,18 @@ a:hover { opacity: .65; }
   .obra { display: block; margin-bottom: 44px; }
   .obra .ficha { margin-top: 9px; }
   .obra img { max-height: none; width: 100%; }
+  .sec-obras .cierre { display: block; margin-top: 44px; }
 }
 
-/* Bloque de cierre: créditos y logos, después de las fotografías */
-.sec-obras .cierre { margin-top: 96px; }
+/* Bloque de cierre: créditos y logos, después de las fotografías. Va en la
+   columna de las imágenes, no en el riel de los pies. */
+.sec-obras .cierre {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  column-gap: 56px;
+  margin-top: 96px;
+}
+.sec-obras .cierre > * { grid-column: 2; }
 .sec-obras .cierre .sellos { margin-top: 20px; }
 
 /* --- catálogo de piezas disponibles ----------------------------------- */
