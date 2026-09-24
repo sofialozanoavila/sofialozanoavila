@@ -216,26 +216,30 @@ a:hover { opacity: .65; }
 }
 
 .site-header {
-  padding: 13px 20px;
+  padding: 15px 20px;
   font: normal normal 300 15px/1.4em almarai, sans-serif;
   position: relative;
   z-index: 50;
 }
-.site-header nav { max-width: var(--col-ancho); margin: 0 auto; }
+/* El menú toma como referencia la línea de enlaces del inicio: mismo tamaño,
+   mismo espaciado entre letras y el mismo borde derecho. */
+.site-header nav { max-width: 1285px; margin: 0 auto; }
 .menu {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   gap: 0 .2em;
+  font-size: 20px;
+  letter-spacing: 0.05em;
   color: rgb(var(--color_18));
 }
 .menu > li > a, .menu button {
   display: inline-block;
-  padding: 0 10px;
+  padding: 0 6px;
   text-decoration: none;
   color: inherit;
   transition: color .4s ease;
@@ -329,7 +333,8 @@ a:hover { opacity: .65; }
   align-items: start;
   margin: 0 0 100px;
 }
-.sec-obras .volver-fila { grid-column: 1 / -1; grid-row: 1; }
+/* La flecha baja un poco respecto al menú, para que no quede pegada. */
+.sec-obras .volver-fila { grid-column: 1 / -1; grid-row: 1; margin-top: 30px; }
 .sec-obras .encabezado { grid-column: 1; grid-row: 2; }
 /* Los 6 px bajan el texto hasta que sus mayúsculas arrancan a la misma
    altura que las del título: medido sobre la tinta real de cada fuente, no
@@ -395,6 +400,7 @@ a:hover { opacity: .65; }
   .sec-obras { padding: 0 0 60px; }
   .sec-obras .lienzo { padding: 0 20px; }
   .sec-obras .intro { display: block; margin: 0 0 44px; }
+  .sec-obras .volver-fila { margin-top: 10px; }
   .sec-obras .encabezado { margin-bottom: 20px; }
   .sec-obras .cuerpo { padding-top: 0; }
   .obra { display: block; margin-bottom: 44px; }
@@ -418,7 +424,7 @@ a:hover { opacity: .65; }
 .sec-catalogo { padding: 0 0 110px; }
 .sec-catalogo .lienzo { max-width: 1760px; margin: 0 auto; padding: 0 40px; }
 .sec-catalogo .cabecera { margin-bottom: 56px; }
-.sec-catalogo .volver { margin-left: 0; }
+.sec-catalogo .volver { margin-left: 0; margin-top: 30px; }
 .sec-catalogo .volver p { font-size: 40px; line-height: 1; }
 .sec-catalogo .titulo { margin-left: 0; }
 .sec-catalogo .titulo h1 {
@@ -508,7 +514,7 @@ a:hover { opacity: .65; }
 /* --- página de contacto ----------------------------------------------- */
 .sec-contacto { padding: 0 0 80px; }
 .sec-contacto .lienzo { width: 1033px; margin: 0 auto; }
-.sec-contacto .volver { margin-left: 53px; }
+.sec-contacto .volver { margin-left: 53px; margin-top: 30px; }
 /* mismo tamaño de flecha que en las páginas de proyecto */
 .sec-contacto .volver p { font-size: 40px; line-height: 1; }
 
@@ -659,7 +665,9 @@ a:hover { opacity: .65; }
     justify-content: flex-start;
     gap: 2px 0;
     font-size: 12px;
+    letter-spacing: normal;
   }
+  .site-header nav { max-width: none; }
   .menu > li > a, .menu button { padding: 0 6px; }
   /* Orden de la barra: proyectos · contacto · cv · piezas · EN · + */
   .menu .m-proyectos { order: 1; }
