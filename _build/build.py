@@ -111,9 +111,9 @@ PUBLICAR_EN = True
 IDIOMAS = ('es', 'en')
 
 MENU_EN = {
-    'PROYECTOS': 'PROJECTS',
+    'proyectos': 'projects',
     'piezas disponibles': 'available works',
-    'Contacto': 'Contact',
+    'contacto': 'contact',
 }
 
 TITULO_EN = {
@@ -159,7 +159,7 @@ def ruta_idioma(idioma, destino):
 
 # --- menú superior, en el mismo orden que el sitio original -------------------
 MENU = [
-    ('sofía lozano ávila', ''), ('PROYECTOS', 'proyectos'),
+    ('sofía lozano ávila', ''), ('proyectos', 'proyectos'),
     ('prótesis', 'protesis'), ('Antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
     ('piezas disponibles', 'paisaje-interior'), ('bache', 'bache'),
@@ -170,7 +170,7 @@ MENU = [
     ('la linea no es recta', 'la-linea-no-es-recta'),
     ('dejar que la forma se haga', 'dejar-que-la-forma-se-haga'),
     ('cuerpo residual', 'cuerpo-residual'), ('otros proyectos', 'otros-proyectos'),
-    ('cv', 'cv'), ('Contacto', 'contacto'),
+    ('cv', 'cv'), ('contacto', 'contacto'),
 ]
 
 

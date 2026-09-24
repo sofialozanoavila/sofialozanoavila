@@ -15,36 +15,18 @@
   });
 
   function reflow() {
-    // todo vuelve a la barra antes de medir
+    // En la barra se quedan siempre las mismas cuatro entradas —proyectos,
+    // contacto, cv y piezas disponibles— más el idioma. Los nombres de los
+    // proyectos viven dentro del «+», en escritorio y en el celular.
     var tope = idioma || more;
     items.forEach(function (li) { menu.insertBefore(li, tope); });
     submenu.innerHTML = '';
-    more.hidden = true;
 
-    if (window.innerWidth < 860) {
-      // En el celular la barra deja a la vista solo las entradas principales
-      // (proyectos, contacto, cv, piezas disponibles) y el resto —los nombres
-      // de los proyectos— se guarda bajo el «+».
-      var guardados = items.filter(function (li) {
-        return !li.classList.contains('principal');
-      });
-      guardados.forEach(function (li) { submenu.appendChild(li); });
-      more.hidden = guardados.length === 0;
-      return;
-    }
-
-    var top = menu.getBoundingClientRect().top;
-    var overflow = items.filter(function (li) {
-      return li.getBoundingClientRect().top > top + 4;
+    var guardados = items.filter(function (li) {
+      return !li.classList.contains('principal');
     });
-    if (!overflow.length) return;
-
-    more.hidden = false;
-    // al mostrar «+» puede desbordarse una pieza más: se recalcula
-    overflow = items.filter(function (li) {
-      return li.getBoundingClientRect().top > top + 4;
-    });
-    overflow.forEach(function (li) { submenu.appendChild(li); });
+    guardados.forEach(function (li) { submenu.appendChild(li); });
+    more.hidden = guardados.length === 0;
   }
 
   function close() {

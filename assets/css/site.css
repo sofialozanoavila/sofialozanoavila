@@ -277,9 +277,15 @@ a:hover { opacity: .65; }
 .more[data-open="true"] .submenu { display: block; }
 .more[hidden] { display: none; }
 
-/* El cambio de idioma cierra siempre la fila del menú */
-.menu .idioma { order: 2; margin-left: .4em; }
-.menu .more { order: 1; }
+/* Orden de la barra, el mismo del inicio:
+   proyectos · contacto · cv · piezas disponibles · EN · + */
+.menu .m-proyectos { order: 1; }
+.menu .m-contacto { order: 2; }
+.menu .m-cv { order: 3; }
+.menu .m-paisaje-interior { order: 4; }
+.menu .idioma { order: 5; margin-left: .4em; }
+.menu .more { order: 6; }
+.submenu { order: 7; }
 
 /* botón para desplegar el menú en pantallas angostas */
 .abrir-menu {
@@ -670,14 +676,7 @@ a:hover { opacity: .65; }
   }
   .site-header nav { max-width: none; }
   .menu > li > a, .menu button { padding: 0 6px; }
-  /* Orden de la barra: proyectos · contacto · cv · piezas · EN · + */
-  .menu .m-proyectos { order: 1; }
-  .menu .m-contacto { order: 2; }
-  .menu .m-cv { order: 3; }
-  .menu .m-paisaje-interior { order: 4; }
-  .menu .idioma { order: 5; margin-left: .2em; }
-  .menu .more { order: 6; }
-  .submenu { order: 7; }
+  .menu .idioma { margin-left: .2em; }
 
   .submenu {
     position: static;
