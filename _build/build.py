@@ -497,8 +497,8 @@ PIES = {
                           ['Installation. Soil, wood. Dimensions variable. 2023.',
                            'Drawing. \u201cEscala\u201d. Charcoal on paper. 2023.',
                            'Painting. \u201cVara de la interpretaci\u00f3n\u201d. Acrylic paint on cedar pole. 2023.']),
-        'comp-lrphgsk0': (['Detalle de dibujo. \u201cEscala\u201d. Carboncillo sobre papel. 2023.'],
-                          ['Detail of drawing. \u201cEscala\u201d. Charcoal on paper. 2023.']),
+        'comp-lrphgsk0': (['Detalle. Escala de damero.'],
+                          ['Detail. Chequered scale bar.']),
         'comp-lrph1i5j': (['Detalle de Pintura. \u201cVara de la interpretaci\u00f3n\u201d. '
                            'Pintura acr\u00edlica sobre palo de cedro. 2023.'],
                           ['Detail of painting. \u201cVara de la interpretaci\u00f3n\u201d. '
