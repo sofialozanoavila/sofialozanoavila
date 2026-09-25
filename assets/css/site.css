@@ -735,27 +735,34 @@ a:hover { opacity: .65; }
   .menu {
     justify-content: flex-start;
     gap: 2px 0;
-    /* 15 px es lo más grande que cabe en un solo renglón con los seis
-       enlaces; a 16 px la barra se parte en dos. */
-    font-size: 15px;
+    /* Con el idioma movido al «+», en la barra quedan cuatro enlaces y
+       caben a 17 px sin que se parta en dos renglones. */
+    font-size: 17px;
     letter-spacing: normal;
   }
   .site-header nav { max-width: none; }
   .menu > li > a, .menu button { padding: 0 6px; }
   .menu .idioma { margin-left: .2em; }
 
+  /* El desplegable cuelga de la barra, no del botón: si viviera dentro del
+     «+», su ancho empujaría al propio «+» a un segundo renglón al abrirlo. */
+  .site-header nav { position: relative; }
+  .menu .more { position: static; }
   .submenu {
-    position: static;
-    transform: none;
+    left: 0;
+    right: auto;
     min-width: 0;
     width: 100%;
-    background: none;
+    background: rgb(var(--color_44));
     text-align: left;
-    padding: 8px 0 2px;
+    padding: 8px 0 10px;
     border-top: 1px solid rgba(0, 0, 0, .12);
     margin-top: 8px;
+    z-index: 20;
   }
   .submenu li { display: block; }
+  /* dentro del «+» ya no necesita el aire que lo separaba en la barra */
+  .submenu .idioma { margin-left: 0; }
   .submenu li a { padding: 4px 6px; white-space: normal; }
 
   /* La línea de enlaces de inicio y proyectos repetiría lo que ya está en la

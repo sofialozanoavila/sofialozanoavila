@@ -7,18 +7,22 @@
   var more = menu.querySelector('.more');
   var submenu = more.querySelector('.submenu');
   var button = more.querySelector('button');
-  // El selector de idioma no entra nunca en el desbordamiento: debe verse
-  // siempre, en cualquier página y a cualquier ancho.
+  // El selector de idioma se queda en la barra en el escritorio. En el
+  // celular baja al «+»: sacarlo de la línea es lo que permite componer los
+  // enlaces a un tamaño legible sin que la barra se parta en dos renglones.
   var idioma = menu.querySelector('.idioma');
+  var angosto = window.matchMedia('(max-width: 859px)');
   var items = Array.prototype.slice.call(menu.children).filter(function (li) {
     return li !== more && li !== idioma;
   });
 
   function reflow() {
     // En la barra se quedan siempre las mismas cuatro entradas —proyectos,
-    // contacto, cv y piezas disponibles— más el idioma. Los nombres de los
-    // proyectos viven dentro del «+», en escritorio y en el celular.
-    var tope = idioma || more;
+    // contacto, cv y cerámica—. Los nombres de los proyectos viven dentro
+    // del «+», en escritorio y en el celular.
+    var estrecho = angosto.matches;
+    if (idioma) menu.insertBefore(idioma, more);
+    var tope = (!estrecho && idioma) ? idioma : more;
     items.forEach(function (li) { menu.insertBefore(li, tope); });
     submenu.innerHTML = '';
 
@@ -26,7 +30,8 @@
       return !li.classList.contains('principal');
     });
     guardados.forEach(function (li) { submenu.appendChild(li); });
-    more.hidden = guardados.length === 0;
+    if (estrecho && idioma) submenu.appendChild(idioma);
+    more.hidden = submenu.children.length === 0;
   }
 
   function close() {
