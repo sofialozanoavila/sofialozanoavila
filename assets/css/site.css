@@ -375,7 +375,10 @@ a:hover { opacity: .65; }
 .sec-obras .encabezado p.fecha,
 .sec-obras .encabezado p.sede {
   color: #414141;
-  line-height: 1.35em;
+  /* El mismo interlineado en píxeles para la fecha y para el resto: si se
+     deja en em, cada cuerpo arma una caja distinta y los renglones quedan
+     a distancias desiguales. */
+  line-height: 17.6px;
   margin: 0;
 }
 .sec-obras .encabezado p.fecha,
@@ -385,10 +388,9 @@ a:hover { opacity: .65; }
   font-family: "Times New Roman", Times, serif !important;
   font-size: 13px !important;
 }
-/* La fecha se despega un poco de lo que viene debajo. */
-.sec-obras .encabezado p.fecha + p.sede { margin-top: 2px; }
-/* Un renglón en blanco dentro de la ficha separa dos ideas. */
-.sec-obras .encabezado p.sede.hueco { margin-top: 12px; }
+/* Un renglón en blanco dentro de la ficha separa dos ideas: mide
+   exactamente un renglón, ni más ni menos. */
+.sec-obras .encabezado p.sede.hueco { margin-top: 17.6px; }
 /* Los enlaces de la ficha no se salen del color del bloque. */
 .sec-obras .encabezado p.sede a { color: inherit; text-decoration: underline; }
 .sec-obras .cuerpo p,
