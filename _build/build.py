@@ -845,11 +845,6 @@ def render_lista(slug, origen, page, idioma):
     # comparte franja horizontal. En Wix algunas páginas iban a dos columnas,
     # y emparejar por orden de lectura corría los pies de sitio.
     obras = [{'foto': c, 'pies': []} for c in imagenes]
-    for archivo, ancho, alto, alt in AGREGADAS.get(origen, []):
-        obras.append({'pies': [], 'foto': {
-            'id': 'nueva-' + archivo, 'type': 'image', 'geo': {},
-            'archivo': 'assets/img/' + archivo,
-            'w': ancho, 'h': alto, 'alt': alt}})
     por_foto = {id(o['foto']): o for o in obras}
     intro = []
     for c in piezas:
@@ -875,6 +870,15 @@ def render_lista(slug, origen, page, idioma):
         obras.sort(key=lambda o: puesto.get(o['foto']['id'], 10 ** 6))
     else:
         obras.sort(key=lambda o: (fila(o['foto']), num(o['foto']['geo'].get('left'))))
+
+    # Las fotografías propias abren la entrada; las que venían del Wix quedan
+    # debajo. Se añaden después de ordenar, porque no tienen posición en la
+    # cuadrícula original de la que tomar el orden.
+    obras = [{'pies': [], 'foto': {
+        'id': 'nueva-' + archivo, 'type': 'image', 'geo': {},
+        'archivo': 'assets/img/' + archivo,
+        'w': ancho, 'h': alto, 'alt': alt}}
+        for archivo, ancho, alto, alt in AGREGADAS.get(origen, [])] + obras
 
     def texto(c):
         h = re.sub(r'href="([^"]*)"', lambda m: 'href="%s"' % local_href(m.group(1)), c['html'])
