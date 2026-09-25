@@ -706,10 +706,9 @@ a:hover { opacity: .65; }
   body.p-proyectos .sec > * { flex: 0 0 100%; }
   body.p-proyectos .nombre-proyectos,
   body.p-proyectos .enlaces-proyectos { flex: 0 0 auto; white-space: nowrap; }
-  body.p-proyectos .nombre-proyectos h1,
-  body.p-proyectos .nombre-proyectos span,
-  body.p-proyectos .enlaces-proyectos p,
-  body.p-proyectos .enlaces-proyectos span { font-size: 15px !important; }
+  /* En el celular el nombre repetiría lo que ya ofrecen la barra de arriba
+     y la flecha, así que se retira y la página empieza por el título. */
+  body.p-proyectos .nombre-proyectos { display: none !important; }
 
   /* La línea de enlaces del inicio, al mismo tamaño que la de proyectos: a
      20 px se partía en dos renglones y quedaba apretada. */
