@@ -493,6 +493,11 @@ PIES = {
     'revisitar': {
         'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
     },
+    'bache': {
+        'comp-m3eskx37': (['Bache. Instalación. Cerámica, plataforma blanca. 190 x 190 cms. x 70 cms. 2024'], ['Bache. Installation. Ceramic, white platform. 190 x 190 x 70 cm. 2024']),
+        'comp-m33ekp53': (['Bache. Instalación. Cerámica, plataforma blanca. 190 x 190 cms. x 70 cms. 2024'], ['Bache. Installation. Ceramic, white platform. 190 x 190 x 70 cm. 2024']),
+        'comp-m2c5vner1': (['Bache. Instalación. Cerámica, plataforma blanca. 190 x 190 cms. x 70 cms. 2024'], ['Bache. Installation. Ceramic, white platform. 190 x 190 x 70 cm. 2024']),
+    },
     'todo-lo-que-no-cabe-en-una-vitrina': {
         'comp-md1ucubl': (['Todo lo que no cabe en una vitrina. Instalación. Vinilo, plotter de corte, vitrina. Dimensiones variables. 2025'], ['Todo lo que no cabe en una vitrina. Installation. Vinyl, cut plotter, display case. Dimensions variable. 2025']),
         'comp-md1ucubh': (['Todo lo que no cabe en una vitrina. Instalación. Vinilo, plotter de corte, vitrina. Dimensiones variables. 2025'], ['Todo lo que no cabe en una vitrina. Installation. Vinyl, cut plotter, display case. Dimensions variable. 2025']),
