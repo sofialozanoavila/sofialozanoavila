@@ -486,6 +486,14 @@ PIES = {
     'revisitar': {
         'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
     },
+    'de-dudosa-procedencia': {
+        'comp-lrhwhalv': (['Vista general de la exposici\u00f3n.'],
+                          ['General view of the exhibition.']),
+        'comp-lrhwhalh': (['Dudosos. Dibujo. Pared, papel, lápiz. Medidas Variables. 2023'], ['Dudosos. Drawing. Wall, paper, pencil. Dimensions variable. 2023']),
+        'comp-lrhwn7fj': (['Detalle'], ['Detail']),
+        'comp-lrhwn7fg': (['Dudosos. Dibujo. Pared, papel, lápiz. Medidas Variables. 2023'], ['Dudosos. Drawing. Wall, paper, pencil. Dimensions variable. 2023']),
+        'comp-lrhwhals': (['Texto de sala'], ['Exhibition text']),
+    },
     'semi-preciosas': {
         'comp-lrpfy9ml': (['Semipreciosas. Escultura. Yeso, hilos. 200 x 200 x 200 cm. 2023'], ['Semipreciosas. Sculpture. Plaster, thread. 200 x 200 x 200 cm. 2023']),
         'comp-lrpfy9m6': (['Semipreciosas. Escultura. Yeso, hilos. 200 x 200 x 200 cm. 2023'], ['Semipreciosas. Sculpture. Plaster, thread. 200 x 200 x 200 cm. 2023']),
