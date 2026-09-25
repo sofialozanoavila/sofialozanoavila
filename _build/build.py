@@ -353,14 +353,13 @@ NUEVAS = {
 }
 
 # El carácter ↩ lo dibujan algunos móviles como emoji (gris, con su propio
-# estilo). Se sustituye por un dibujo vectorial: mismo trazo, mismo rojo, y
-# se ve igual en todos los dispositivos.
+# estilo). Se sustituye por un dibujo vectorial, que se ve igual en todos
+# los dispositivos: una recta con la punta pequeña, en negro.
 FLECHA = (
-    '<svg class="flecha" viewBox="0 0 30 22" role="img" aria-label="Volver">'
-    '<path d="M26 3 v6 a5 5 0 0 1 -5 5 H7" fill="none" stroke="#FF0006"'
-    ' stroke-width="2.6" stroke-linecap="round"/>'
-    '<path d="M13 8 L7 14 L13 20" fill="none" stroke="#FF0006"'
-    ' stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>'
+    '<svg class="flecha" viewBox="0 0 30 22" role="img" aria-label="Volver"'
+    ' fill="none" stroke="#000000" stroke-width="1.8"'
+    ' stroke-linecap="round" stroke-linejoin="round">'
+    '<path d="M28 11 H3"/><path d="M9 6 L3 11 L9 16"/>'
     '</svg>'
 )
 
@@ -369,7 +368,7 @@ TXT_TITULO = ('<h1 class="font_0" style="font-size:34px;"><span style="color:#00
               '<span style="font-family:open sans,sans-serif;">'
               '<span style="font-size:34px;">%s</span></span></span></h1>')
 TXT_VOLVER = ('<p class="font_8" style="font-size:40px; line-height:normal;">'
-              '<a href="%s.html"><span style="color:#FF0006;"><span style="font-size:40px;">'
+              '<a href="%s.html"><span style="color:#000000;"><span style="font-size:40px;">'
               '<span style="letter-spacing:normal;">↩</span></span></span></a></p>')
 TXT_FICHA = '<p class="font_8 %s">%s</p>'
 
