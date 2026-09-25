@@ -616,6 +616,19 @@ FICHAS = {
 }
 
 
+# Fotografías propias que se añaden al final de una entrada, después de
+# las que venían del Wix.
+AGREGADAS = {
+    'vasija-ver-vaciar': [
+        ('vasija-01.jpg', 1050, 1400, 'Mesa de trabajo'),
+        ('vasija-02.jpg', 1050, 1400, 'Libro de vasijas prehispánicas'),
+        ('vasija-03.jpg', 1050, 1400, 'Rollos de barro y cuenco'),
+        ('vasija-04.jpg', 1050, 1400, 'Vasija con una mano en relieve'),
+        ('vasija-05.jpg', 1050, 1400, 'Pieza con rostro'),
+    ],
+}
+
+
 # Piezas que se retiran de la página por completo.
 OMITIR = {
     # llevaba la dirección web entera pegada al texto, sin espacio
@@ -660,6 +673,13 @@ CIERRE = {
 # Pies añadidos o corregidos a mano, por proyecto y por fotografía. Sustituyen
 # a lo que traía el Wix; en español y en inglés.
 PIES = {
+    'vasija-ver-vaciar': {
+        'nueva-vasija-01.jpg': (['Proceso. 2024.'], ['Process. 2024.']),
+        'nueva-vasija-02.jpg': (['Proceso. 2024.'], ['Process. 2024.']),
+        'nueva-vasija-03.jpg': (['Proceso. 2024.'], ['Process. 2024.']),
+        'nueva-vasija-04.jpg': (['Proceso. 2024.'], ['Process. 2024.']),
+        'nueva-vasija-05.jpg': (['Proceso. 2024.'], ['Process. 2024.']),
+    },
     'revisitar': {
         'comp-lrh6m4i8': (['Vista general de la exposición.'],
                           ['General view of the exhibition.']),
@@ -825,6 +845,11 @@ def render_lista(slug, origen, page, idioma):
     # comparte franja horizontal. En Wix algunas páginas iban a dos columnas,
     # y emparejar por orden de lectura corría los pies de sitio.
     obras = [{'foto': c, 'pies': []} for c in imagenes]
+    for archivo, ancho, alto, alt in AGREGADAS.get(origen, []):
+        obras.append({'pies': [], 'foto': {
+            'id': 'nueva-' + archivo, 'type': 'image', 'geo': {},
+            'archivo': 'assets/img/' + archivo,
+            'w': ancho, 'h': alto, 'alt': alt}})
     por_foto = {id(o['foto']): o for o in obras}
     intro = []
     for c in piezas:
