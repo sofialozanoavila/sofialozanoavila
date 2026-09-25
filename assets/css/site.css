@@ -294,12 +294,15 @@ a:hover { opacity: .65; }
   padding: 8px 0;
   position: absolute;
   top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
+  /* Anclado a la derecha, no centrado: el «+» vive en el borde derecho de
+     la página, así que el desplegable tiene que crecer hacia la izquierda
+     o los nombres largos se salen de la pantalla y se cortan. */
+  right: 0;
+  left: auto;
   min-width: 200px;
   background: rgb(var(--color_44));
   display: none;
-  text-align: center;
+  text-align: right;
 }
 .submenu li a {
   display: block;

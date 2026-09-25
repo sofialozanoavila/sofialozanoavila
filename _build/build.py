@@ -160,14 +160,14 @@ def ruta_idioma(idioma, destino):
 # --- menú superior, en el mismo orden que el sitio original -------------------
 MENU = [
     ('sofía lozano ávila', ''), ('proyectos', 'proyectos'),
-    ('prótesis', 'protesis'), ('Antejardín', 'antejardín'),
+    ('prótesis', 'protesis'), ('antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
     ('\u27ac cerámica', 'paisaje-interior'), ('bache', 'bache'),
     ('vasija/ver/vaciar', 'vasija-ver-vaciar'), ('procedimiento fértil', 'procedimiento-fertil'),
     ('de dudosa procedencia', 'de-dudosa-procedencia'), ('semi preciosas', 'semi-preciosas'),
     ('revisitar', 'revisitar'), ('inventario sobre lo que no veo', 'inventario-sobre-lo-que-no-veo'),
     ('señales', 'señales'), ('nada de lo que se mide es basura', 'desmesura'),
-    ('la linea no es recta', 'la-linea-no-es-recta'),
+    ('la línea no es recta', 'la-linea-no-es-recta'),
     ('dejar que la forma se haga', 'dejar-que-la-forma-se-haga'),
     ('cuerpo residual', 'cuerpo-residual'), ('otros proyectos', 'otros-proyectos'),
     ('\ufe61CV', 'cv'), ('contacto', 'contacto'),
