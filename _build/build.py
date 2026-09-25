@@ -493,6 +493,14 @@ PIES = {
     'revisitar': {
         'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
     },
+    'antejardín': {
+        'comp-md1ogjkk': (['Regadera. Cerámica, tierra. Dimensiones variables. 2025'], ['Watering can. Ceramic, soil. Dimensions variable. 2025']),
+        'comp-md1ogjjy': (['Cerámica. Herramientas. 40 x 25 cms. 2025'], ['Ceramic. Tools. 40 x 25 cm. 2025']),
+        'comp-md1ogjk3': (['Instalación. Matera plástica, plantas, tierra. 50 x 40 x 25 cms. 2025'], ['Installation. Plastic planter, plants, soil. 50 x 40 x 25 cm. 2025']),
+        'comp-md1ogjkg': (['Instalación. Regadera en cerámica, base plástica, agua. 170 x 20 x 30 cms. 2025'], ['Installation. Ceramic watering can, plastic base, water. 170 x 20 x 30 cm. 2025']),
+        'comp-md1ogjju': (['Instalación. Cerámica. 80 x 40 x 10 cms. 2025'], ['Installation. Ceramic. 80 x 40 x 10 cm. 2025']),
+        'comp-md1ogjka': (['Instalación. Cerámica, tierra. 80 x 40 x 30 cms. 2025'], ['Installation. Ceramic, soil. 80 x 40 x 30 cm. 2025']),
+    },
     'bache': {
         'comp-m3eskx37': (['Bache. Instalación. Cerámica, plataforma blanca. 190 x 190 cms. x 70 cms. 2024'], ['Bache. Installation. Ceramic, white platform. 190 x 190 x 70 cm. 2024']),
         'comp-m33ekp53': (['Detalle.'], ['Detail.']),
