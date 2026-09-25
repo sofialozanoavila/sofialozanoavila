@@ -387,6 +387,10 @@ a:hover { opacity: .65; }
 }
 /* La fecha se despega un poco de lo que viene debajo. */
 .sec-obras .encabezado p.fecha + p.sede { margin-top: 2px; }
+/* Un renglón en blanco dentro de la ficha separa dos ideas. */
+.sec-obras .encabezado p.sede.hueco { margin-top: 12px; }
+/* Los enlaces de la ficha no se salen del color del bloque. */
+.sec-obras .encabezado p.sede a { color: inherit; text-decoration: underline; }
 .sec-obras .cuerpo p,
 .sec-obras .cuerpo p span { font-size: 14px !important; }
 .sec-obras .ficha p,

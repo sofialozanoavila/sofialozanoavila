@@ -360,9 +360,19 @@ def html_ficha(renglones, fecha=True):
     lugar y la curaduría van debajo, con remates, para que se distingan de
     un vistazo sin necesidad de leerlos."""
     salida = []
+    hueco = False
     for i, r in enumerate(renglones):
+        # un renglón vacío no se imprime: abre un respiro antes del siguiente
+        if not r:
+            hueco = True
+            continue
         clase = 'fecha' if (fecha and i == 0) else 'sede'
-        salida.append(TXT_FICHA % (clase, html_mod.escape(r)))
+        if hueco:
+            clase += ' hueco'
+            hueco = False
+        # los renglones que ya traen etiquetas (un enlace) pasan tal cual
+        cuerpo = r if '<' in r else html_mod.escape(r)
+        salida.append(TXT_FICHA % (clase, cuerpo))
     return ''.join(salida)
 TXT_PARRAFO = ('<p class="font_8" style="font-size:14px;"><span style="font-size:14px;">'
                '<span style="font-weight:300;"><span style="font-family:almarai,sans-serif;">'
@@ -471,6 +481,8 @@ def medidas(ruta):
 # Ficha de cada exposición, reescrita a mano con un orden único:
 # fecha (inicio - final, si la hay) / lugar / nombre de la curaduría /
 # quién curó. Así todas las entradas se leen igual.
+ENLACE_MILLON = ('<a href="https://convocatorias.feriadelmillon.com/es/ferias/feria-del-millon-10-anos/" target="_blank" rel="noreferrer noopener">')
+
 FICHAS = {
     'antejardín': ('comp-md1puf2r', [
         '7 de Junio - 15 de Julio 2025',
@@ -549,11 +561,17 @@ FICHAS = {
         'Winning project of the “En Blanco” open call.',
     ]),
     'revisitar': ('comp-lrpeu12e', [
-        '2022',
+        '29 de Septiembre al 2 de Octubre del 2022',
         'Plaza La Santamaría - Bogotá. Feria del Millón.',
+        '➝ %sFeria del Millón 10 años - Artistas.</a>' % ENLACE_MILLON,
+        '',
+        'Serie de 18 dibujos, lápiz de color sobre papel.',
     ], [
-        '2022',
+        '29 September - 2 October 2022',
         'Plaza La Santamaría - Bogotá. Feria del Millón.',
+        '➝ %sFeria del Millón 10 years - Artists.</a>' % ENLACE_MILLON,
+        '',
+        'Series of 18 drawings, coloured pencil on paper.',
     ]),
     'semi-preciosas': ('comp-lrh7i87c1', [
         '24 de Agosto - 24 de Septiembre 2023',
@@ -582,6 +600,8 @@ FICHAS = {
 OMITIR = {
     # llevaba la dirección web entera pegada al texto, sin espacio
     'desmesura': {'comp-lrpeet00'},
+    # el enlace y la técnica pasaron a la ficha, arriba
+    'revisitar': {'comp-lrpeujyh'},
 }
 
 
