@@ -493,14 +493,14 @@ FICHAS = {
     ]),
     'bache': ('comp-m2c5vned', [
         '25 - 30 de Septiembre del 2024',
-        'Ágora centro de convenciones - Bogotá. Sección Artecámara.',
-        '“Una moneda al aire”',
-        'Curaduría de Ximena Gama.',
+        'Ágora centro de convenciones - Bogotá.',
+        'Sección Artecámara - “Una moneda al aire”',
+        'Curaduría de Ximena Gama',
     ], [
         '25 - 30 September 2024',
-        'Ágora convention centre - Bogotá. Artecámara section.',
-        '“Una moneda al aire”',
-        'Curated by Ximena Gama.',
+        'Ágora convention centre - Bogotá.',
+        'Artecámara section - “Una moneda al aire”',
+        'Curated by Ximena Gama',
     ]),
     'copia-de-antejardín': ('comp-mh0tn16s', [
         '25 de Septiembre - 25 de Diciembre 2025',
