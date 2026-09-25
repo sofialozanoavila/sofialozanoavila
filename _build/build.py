@@ -586,12 +586,12 @@ FICHAS = {
     ]),
     'todo-lo-que-no-cabe-en-una-vitrina': ('comp-m2c5w6yg', [
         '23 de Abril - 23 de Mayo del 2025',
-        'La vitrina, Universidad de Los Andes - Bogotá.',
-        'Proyecto ganador de la convocatoria.',
+        'Universidad de Los Andes - Bogotá.',
+        'Proyecto ganador de la convocatoria “La vitrina”.',
     ], [
         '23 April - 23 May 2025',
-        'La vitrina, Universidad de Los Andes - Bogotá.',
-        'Winning project of the open call.',
+        'Universidad de Los Andes - Bogotá.',
+        'Winning project of the “La vitrina” open call.',
     ]),
 }
 
