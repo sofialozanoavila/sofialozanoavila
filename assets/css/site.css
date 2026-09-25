@@ -73,7 +73,7 @@
   --color_63: 255,255,255;
   --color_64: 255,255,255;
   --color_65: 255,255,255;
-  --resalte: #FFE800;
+  --resalte: #A9481F;
   --resalte-menu: #7B5230;
   --font_0: normal normal normal 33px/1.4em forum,serif;
   --font_1: normal normal normal 15px/1.4em 'open sans',sans-serif;
@@ -195,13 +195,13 @@ a:hover { opacity: .65; }
 .rt a:hover { text-decoration: underline; }
 
 /* En la lista de proyectos el cursor no subraya: enciende el nombre con un
-   resalte amarillo, como el de un marcador sobre el papel. El texto se
-   fuerza a negro porque cada enlace trae su propio color en línea. */
+   resalte de terracota. El texto se fuerza en blanco porque cada enlace
+   trae su propio color escrito en línea. */
 .lista-proyectos a:hover { text-decoration: none; opacity: 1; }
 .lista-proyectos a:hover,
 .lista-proyectos a:hover span {
   background-color: var(--resalte);
-  color: #000000 !important;
+  color: #FFFFFF !important;
 }
 
 /* El menú de arriba se enciende igual, pero en café con letra blanca, para
