@@ -361,6 +361,11 @@ TXT_PIE = ('<p class="font_8" style="font-size:12px; line-height:1.4em;">'
 
 
 def pieza(cid, tipo, fila, left, ancho, abajo, filas=1, **extra):
+    # El texto plano se guarda junto al html: es lo que distingue el texto del
+    # proyecto de un pie de foto cuando se reparte la página.
+    if 'html' in extra and 'text' not in extra:
+        plano = html_desescapar(re.sub(r'<[^>]+>', ' ', extra['html']))
+        extra['text'] = ' '.join(plano.replace('\u200b', ' ').split())
     geo = {'grid-area': '%d / 1 / %d / 2' % (fila, fila + filas),
            'left': '%dpx' % left,
            'width': '%dpx' % ancho,
@@ -589,6 +594,7 @@ LISTA = {
     'inventario-sobre-lo-que-no-veo', 'la-linea-no-es-recta', 'otros-proyectos',
     'procedimiento-fertil', 'revisitar', 'semi-preciosas', 'señales',
     'todo-lo-que-no-cabe-en-una-vitrina', 'vasija-ver-vaciar',
+    'protesis',
 }
 
 
@@ -1209,17 +1215,21 @@ for slug, cfg in NUEVAS.items():
 for slug, page in pages.items():
     out = SLUG[slug]
     desc = ''
-    for sec in page['sections']:
-        for c in sec['children']:
-            if c['type'] == 'text' and len(c.get('text', '')) > 60:
-                desc = c['text'][:155].replace('"', "'")
-                break
-        if desc:
-            break
 
     for idioma in IDIOMAS:
         fuente = PAGINAS_EN[slug] if (idioma == 'en' and slug in PAGINAS_EN) else page
         body, css, bp = render_page(out, fuente, idioma, slug)
+
+        # La descripción que ven Google y las vistas previas sale del texto del
+        # proyecto ya compuesto, para que recoja las correcciones hechas a
+        # mano. Las páginas sin texto largo usan la descripción general.
+        desc = ''
+        trozo = re.search(r'<div class="cuerpo">(.*?)</div>\s*</div>', body, re.S)
+        if trozo:
+            plano = html_desescapar(re.sub(r'<[^>]+>', ' ', trozo.group(1)))
+            plano = ' '.join(plano.replace('\u200b', ' ').replace('\u21a9', ' ').split())
+            if len(plano) > 60:
+                desc = plano[:155].replace('"', "'")
         pre = '' if idioma == 'es' else '../'
         html = TEMPLATE.format(
             lang=idioma,
