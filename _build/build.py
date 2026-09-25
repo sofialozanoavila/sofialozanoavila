@@ -495,7 +495,8 @@ PIES = {
                           ['General view of the exhibition.']),
     },
     'copia-de-antejardín': {
-        'comp-m7mr6gix1': (['Tejido caña flecha, fibras naturales. 250 x 50 cms. 2025'], ['Caña flecha weaving, natural fibres. 250 x 50 cm. 2025']),
+        'comp-m7mr6gix1': (['Medir el aire. Tejido caña flecha, fibras naturales. 250 x 50 cms. 2025'], ['Medir el aire. Caña flecha weaving, natural fibres. 250 x 50 cm. 2025']),
+        'comp-mn4wyksp': (['Medir el aire. Tejido caña flecha, fibras naturales. 250 x 50 cms. 2025'], ['Medir el aire. Caña flecha weaving, natural fibres. 250 x 50 cm. 2025']),
         'comp-mh0u50b1': (['Detalle.'], ['Detail.']),
         'comp-mn4x0274': (['Dibujo. Lápiz negro sobre papel. Dimensiones variables. 2025'], ['Drawing. Black pencil on paper. Dimensions variable. 2025']),
         'comp-mh0u6ow8': (['Dibujo. Lápiz de color sobre papel. Dimensiones variables. 2025'], ['Drawing. Coloured pencil on paper. Dimensions variable. 2025']),
