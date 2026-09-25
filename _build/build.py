@@ -112,14 +112,14 @@ IDIOMAS = ('es', 'en')
 
 MENU_EN = {
     'proyectos': 'projects',
-    'piezas disponibles': 'available works',
+    'piezas disponibles': 'ceramics',
     'contacto': 'contact',
 }
 
 TITULO_EN = {
     'index': 'sofía lozano ávila | artist',
     'proyectos': 'projects | sofialozanoavila',
-    'paisaje-interior': 'available works | sofialozanoavila',
+    'paisaje-interior': 'ceramics | sofialozanoavila',
     'contacto': 'contact | sofialozanoavila',
     'cv': 'cv | sofialozanoavila',
 }
@@ -137,14 +137,14 @@ TEXTO_EN = {
         ('>contacto', '>contact'),
     ],
     'paisaje-interior': [
-        ('>piezas disponibles<', '>available works<'),
+        ('>cerámica<', '>ceramics<'),
         ('Cerámica. Dimensiones variables.', 'Ceramic. Dimensions variable.'),
     ],
 }
 
 # Enlaces que aparecen en varias páginas
 COMUNES_EN = [
-    ('\u27ac piezas disponibles', '\u27ac available works'),
+    ('\u27ac cerámica', '\u27ac ceramics'),
     ('Vista general.', 'General view.'),
     ('Detalle.', 'Detail.'),
 ]
@@ -162,7 +162,7 @@ MENU = [
     ('sofía lozano ávila', ''), ('proyectos', 'proyectos'),
     ('prótesis', 'protesis'), ('Antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
-    ('piezas disponibles', 'paisaje-interior'), ('bache', 'bache'),
+    ('cerámica', 'paisaje-interior'), ('bache', 'bache'),
     ('vasija/ver/vaciar', 'vasija-ver-vaciar'), ('procedimiento fértil', 'procedimiento-fertil'),
     ('de dudosa procedencia', 'de-dudosa-procedencia'), ('semi preciosas', 'semi-preciosas'),
     ('revisitar', 'revisitar'), ('inventario sobre lo que no veo', 'inventario-sobre-lo-que-no-veo'),
@@ -201,20 +201,22 @@ def px(v, default=None):
     return v if v else default
 
 
-# «TIENDA» pasa a llamarse «piezas disponibles» en todo el sitio. El texto
+# «TIENDA» pasa a llamarse «cerámica» en todo el sitio. El texto
 # venía dentro del HTML heredado de Wix, así que se sustituye al generar.
 TEXTOS = {
     # El proyecto pasa de llamarse «desmedida» a llevar el título de la serie.
     'desmesura': [('>desmedida<', '>nada de lo que se mide es basura<')],
-    'paisaje-interior': [('>TIENDA<', '>piezas disponibles<')],
-    'index': [('\u27ac tienda', '\u27ac piezas disponibles')],
-    'proyectos': [('\u27ac tienda', '\u27ac piezas disponibles'),
+    'paisaje-interior': [('>TIENDA<', '>cerámica<')],
+    'index': [('<span style="color:#FF0006;">\u27ac tienda</span>',
+               '<span>\u27ac cerámica</span>')],
+    'proyectos': [('<span style="color:#FF0006;">\u27ac tienda</span>',
+                   '<span>\u27ac cerámica</span>'),
                   ('2020 / d<a href="desmesura.html">esmedida</a>',
                    '2020 / <a href="desmesura.html">nada de lo que se mide es basura</a>')],
 }
 
 TITULOS = {
-    'paisaje-interior': 'piezas disponibles | sofialozanoavila',
+    'paisaje-interior': 'cerámica | sofialozanoavila',
     'desmesura': 'nada de lo que se mide es basura | sofialozanoavila',
 }
 
@@ -735,7 +737,7 @@ def render_lista(slug, origen, page, idioma):
             '</section>' % (cabeza, '\n'.join(filas), pie_pagina))
 
 
-# --- catálogo de piezas disponibles ------------------------------------------
+# --- catálogo de cerámica ------------------------------------------
 # Datos y fotografías tomados del portafolio de obra disponible. Los precios
 # llevan ya el aumento de 100.000 pesos acordado.
 CORREO = 'sofia771199@gmail.com'
@@ -783,7 +785,7 @@ def render_catalogo(idioma='es'):
     en = idioma == 'en'
     consultar = 'Enquire' if en else 'Consultar'
     asunto = 'Enquiry about' if en else 'Consulta sobre'
-    titulo = 'available works' if en else 'piezas disponibles'
+    titulo = 'ceramics' if en else 'cerámica'
 
     fichas = []
     for clave, nombre, tecnica, medidas, ano, precio, nota in CATALOGO:
