@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Genera el sitio estático (HTML + CSS) a partir del contenido extraído del Wix."""
-import hashlib, json, os, re, sys, unicodedata
+import hashlib, html as html_mod, json, os, re, sys, unicodedata
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 WIX = 'https://sofia771199.wixsite.com/sofialozanoavila'
@@ -281,7 +281,8 @@ NUEVAS = {
         'titulo': 'Prótesis',
         'volver': 'proyectos',
         'ficha': ['3 de Septiembre - 15 de Octubre 2026',
-                  'Emblematic Art Gallery - Bogot\u00e1'],
+                  'Emblematic Art Gallery - Bogot\u00e1.',
+                  'Curadur\u00eda de Andrea Mu\u00f1oz.'],
         'texto': [
             'Habitar las ruinas de lo que alguna vez fue la cocina es el punto de partida para “Prótesis”. Este espacio, que aún conserva vestigios fantasmales de su función original como tubos de gas cercenados, tomas eléctricas mudas y una ventana al patio interior, se activa a través de un profundo deseo de completar lo que falta. Entendiendo la cocina como un archivo doméstico que custodia la memoria de gestos repetidos, la artista fija su mirada en los objetos “secundarios”.',
             'Clavijas, cables y conexiones se materializan sutilmente en cerámica, ocupando el vacío de los circuitos interrumpidos. La propuesta se despliega en piezas que dialogan orgánicamente: serigrafías que actúan como restauraciones ficticias del antiguo papel tapiz; una tubería suspendida y estructuras de estufas que, en su proceso de creación, adquirieron la apariencia de huesos, cual injertos sobre la arquitectura de la casa.',
@@ -289,7 +290,8 @@ NUEVAS = {
         ],
         'firma': 'Andrea Mu\u00f1oz',
         'ficha_en': ['3 September - 15 October 2026',
-                     'Emblematic Art Gallery - Bogot\u00e1'],
+                     'Emblematic Art Gallery - Bogot\u00e1.',
+                     'Curated by Andrea Mu\u00f1oz.'],
         'texto_en': [
             'Inhabiting the ruins of what was once the kitchen is the starting point for “Prótesis”. This space, which still holds ghostly vestiges of its original function —severed gas pipes, mute electrical sockets and a window onto the inner courtyard— is activated through a deep desire to complete what is missing. Understanding the kitchen as a domestic archive that guards the memory of repeated gestures, the artist fixes her gaze on the “secondary” objects.',
             'Plugs, cables and connections take subtle material form in ceramic, occupying the void of the interrupted circuits. The proposal unfolds in pieces that speak to one another organically: screen prints acting as fictitious restorations of the old wallpaper; a suspended pipe and stove structures that, in the process of their making, took on the appearance of bones, like grafts upon the architecture of the house.',
@@ -453,6 +455,99 @@ def medidas(ruta):
             return ancho, alto
         i += 2 + int.from_bytes(datos[i + 2:i + 4], 'big')
     raise SystemExit('no pude leer las medidas de ' + ruta)
+
+
+# Ficha de cada exposición, reescrita a mano con un orden único:
+# fecha (inicio - final, si la hay) / lugar / nombre de la curaduría /
+# quién curó. Así todas las entradas se leen igual.
+FICHAS = {
+    'antejardín': ('comp-md1puf2r', [
+        '7 de Junio - 15 de Julio 2025',
+        'FLOTANTE - Bogotá.',
+    ], [
+        '7 June - 15 July 2025',
+        'FLOTANTE - Bogotá.',
+    ]),
+    'bache': ('comp-m2c5vned', [
+        '25 - 30 de Septiembre del 2024',
+        'Ágora centro de convenciones - Bogotá. Sección Artecámara.',
+        '“Una moneda al aire”',
+        'Curaduría de Ximena Gama.',
+    ], [
+        '25 - 30 September 2024',
+        'Ágora convention centre - Bogotá. Artecámara section.',
+        '“Una moneda al aire”',
+        'Curated by Ximena Gama.',
+    ]),
+    'copia-de-antejardín': ('comp-mh0tn16s', [
+        '25 de Septiembre - 25 de Diciembre 2025',
+        'Ágora centro de convenciones - Bogotá.',
+        '“Atrapar, calar, tejer mitos”',
+        'Curaduría Arte vivo.',
+    ], [
+        '25 September - 25 December 2025',
+        'Ágora convention centre - Bogotá.',
+        '“Atrapar, calar, tejer mitos”',
+        'Curated by Arte Vivo.',
+    ]),
+    'de-dudosa-procedencia': ('comp-lrhvtebq1', [
+        '1 al 29 de Octubre del 2023',
+        'Residencia en No Lugar - Quito, Ecuador.',
+    ], [
+        '1 - 29 October 2023',
+        'Residency at No Lugar - Quito, Ecuador.',
+    ]),
+    'desmesura': ('comp-lrfdguzx2', [
+        'Edición 2020',
+        'Feria Barcú - Bogotá. Sección Spotlights.',
+    ], [
+        '2020 edition',
+        'Barcú Fair - Bogotá. Spotlights section.',
+    ]),
+    'procedimiento-fertil': ('comp-lrhwsxav2', [
+        '28 de Octubre del 2023 - 10 de Febrero del 2024',
+        'Espacio El Dorado - Bogotá.',
+        'Proyecto ganador de la convocatoria “En Blanco”.',
+    ], [
+        '28 October 2023 - 10 February 2024',
+        'Espacio El Dorado - Bogotá.',
+        'Winning project of the “En Blanco” open call.',
+    ]),
+    'revisitar': ('comp-lrpeu12e', [
+        '2022',
+        'Plaza La Santamaría - Bogotá. Feria del Millón.',
+    ], [
+        '2022',
+        'Plaza La Santamaría - Bogotá. Feria del Millón.',
+    ]),
+    'semi-preciosas': ('comp-lrh7i87c1', [
+        '24 de Agosto - 24 de Septiembre 2023',
+        'Plural Nodo Cultural - Bogotá.',
+        '“Fragmentos Móviles”',
+        'Curaduría de Andrea Infante y Paula Leuro.',
+    ], [
+        '24 August - 24 September 2023',
+        'Plural Nodo Cultural - Bogotá.',
+        '“Fragmentos Móviles”',
+        'Curated by Andrea Infante and Paula Leuro.',
+    ]),
+    'todo-lo-que-no-cabe-en-una-vitrina': ('comp-m2c5w6yg', [
+        '23 de Abril - 23 de Mayo del 2025',
+        'La vitrina, Universidad de Los Andes - Bogotá.',
+        'Proyecto ganador de la convocatoria.',
+    ], [
+        '23 April - 23 May 2025',
+        'La vitrina, Universidad de Los Andes - Bogotá.',
+        'Winning project of the open call.',
+    ]),
+}
+
+
+# Piezas que se retiran de la página por completo.
+OMITIR = {
+    # llevaba la dirección web entera pegada al texto, sin espacio
+    'desmesura': {'comp-lrpeet00'},
+}
 
 
 # Orden en que deben aparecer las fotografías, cuando el del original no es
@@ -628,11 +723,13 @@ LISTA = {
 
 def render_lista(slug, origen, page, idioma):
     """Reparte la página en una introducción y una lista de obras."""
+    fuera = OMITIR.get(origen, set())
     piezas = []
     for sec in page['sections']:
         # Las correcciones de maquetación se aplican antes de repartir las
         # piezas: si no, se usa la disposición original de Wix.
-        piezas += ordenar(reordenar(slug, sec)['children'])
+        piezas += [c for c in ordenar(reordenar(slug, sec)['children'])
+                   if c['id'] not in fuera]
 
     def fila(c):
         m = re.match(r'(\d+)', c['geo'].get('grid-area', '999'))
@@ -695,8 +792,19 @@ def render_lista(slug, origen, page, idioma):
     cortos = [c for c in intro if not es_flecha(c) and len(c.get('text', '')) <= 250]
     largos = [c for c in intro if not es_flecha(c) and len(c.get('text', '')) > 250]
 
+    ficha = FICHAS.get(origen)
+
+    def texto_pieza(c):
+        if ficha and c['id'] == ficha[0]:
+            renglones = ficha[2] if idioma == 'en' else ficha[1]
+            return ''.join(
+                '<p class="font_8" style="font-size:11px;"><span style="font-size:11px;">'
+                '<span style="color:#414141;">%s</span></span></p>' % html_mod.escape(r)
+                for r in renglones)
+        return texto(c)
+
     def bloques(lista):
-        return ''.join('<div class="rt">%s</div>' % texto(c) for c in lista)
+        return ''.join('<div class="rt">%s</div>' % texto_pieza(c) for c in lista)
 
     def sin_mudados(cid, h):
         fuera = QUITAR_PARRAFOS.get(origen, {}).get(cid)
