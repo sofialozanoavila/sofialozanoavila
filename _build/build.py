@@ -489,13 +489,16 @@ PIES = {
         'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
     },
     'otros-proyectos': {
-        'comp-lrpaukwz': (['Dibujo. Sin t\u00edtulo. Tinta sobre papel. Dimensiones variables. 2018.'],
-                          ['Drawing. Untitled. Ink on paper. Dimensions variable. 2018.']),
+        # la primera pierde la mencion a las piezas en ceramica
+        'comp-lrguzcel': (['Serie de dibujos. Sin t\u00edtulo. Tinta sobre papel. 2022.'],
+                          ['Series of drawings. Untitled. Ink on paper. 2022.']),
+        'comp-lrpaukwz': (['Sin t\u00edtulo. Dibujo. Tinta sobre papel. Dimensiones variables. 2018.'],
+                          ['Untitled. Drawing. Ink on paper. Dimensions variable. 2018.']),
         'comp-lrpaykm5': (['Dibujo.'], ['Drawing.']),
-        'comp-lrpaukww': (['Dibujo. Mapa. Tinta sobre papel. 22 x 28 cms. 2018.'],
-                          ['Drawing. Map. Ink on paper. 22 x 28 cm. 2018.']),
-        'comp-lrpaukx4': (['Dibujo. Mapa. Tinta sobre papel. 22 x 28 cms. 2018.'],
-                          ['Drawing. Map. Ink on paper. 22 x 28 cm. 2018.']),
+        'comp-lrpaukww': (['Dibujo. Cartograf\u00edas. Tinta sobre papel. 22 \u00d7 28 cms. 2018.'],
+                          ['Drawing. Cartograf\u00edas. Ink on paper. 22 \u00d7 28 cm. 2018.']),
+        'comp-lrpaukx4': (['Dibujo. Mapa. Tinta sobre papel. 22 \u00d7 28 cms. 2018.'],
+                          ['Drawing. Map. Ink on paper. 22 \u00d7 28 cm. 2018.']),
     },
     'de-dudosa-procedencia': {
         'comp-lrhwhalv': (['Vista general de la exposici\u00f3n.'],
