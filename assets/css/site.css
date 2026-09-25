@@ -347,7 +347,7 @@ a:hover { opacity: .65; }
    altura que las del título: medido sobre la tinta real de cada fuente, no
    sobre la caja, que engaña porque cada tamaño lleva su propio interlineado.
    Si cambia el tamaño del título, hay que volver a medir. */
-.sec-obras .cuerpo { grid-column: 2; grid-row: 2; padding-top: 4.65px; }
+.sec-obras .cuerpo { grid-column: 2; grid-row: 2; padding-top: 7.18px; }
 
 .sec-obras .encabezado .rt + .rt { margin-top: 12px; }
 
@@ -364,7 +364,7 @@ a:hover { opacity: .65; }
    (textos a 14 y 16, pies entre 11 y 16, fichas a 11 y 15) que hacían que
    cada página se sintiera distinta. */
 .sec-obras .encabezado h1,
-.sec-obras .encabezado h1 span { font-size: 45px !important; }
+.sec-obras .encabezado h1 span { font-size: 52px !important; }
 .sec-obras .encabezado h1 { line-height: 1.1em; }
 .sec-obras .encabezado p,
 .sec-obras .encabezado p span { font-size: 11px !important; }
