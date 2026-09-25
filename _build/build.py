@@ -296,7 +296,7 @@ NUEVAS = {
             'Taken together, this proposal approaches the kitchen as a fragmented body. Through these fragile, suspended pieces —material whispers— the artist creates a strange life that gives us back, for an instant, the pulse of a domestic time already extinguished.',
         ],
         'pies_en': {
-            'Vista general.': 'General view.',
+            'Vista general de la exposición.': 'General view of the exhibition.',
             'Detalle.': 'Detail.',
             'Hornillas, 2026. Cerámica y nylon. 50 x 50 cm.': 'Hornillas, 2026. Ceramic and nylon. 50 x 50 cm.',
             'Fuente, 2026. Cerámica y nylon. 100 x 30 x 40 cm.': 'Fuente, 2026. Ceramic and nylon. 100 x 30 x 40 cm.',
@@ -309,8 +309,8 @@ NUEVAS = {
         },
         # (archivo, pie) en orden de aparición. Pie vacío = sin texto debajo.
         'fotos': [
-            ('protesis-15.jpg', 'Vista general.'),
-            ('protesis-14.jpg', 'Vista general.'),
+            ('protesis-15.jpg', 'Vista general de la exposición.'),
+            ('protesis-14.jpg', 'Vista general de la exposición.'),
             ('protesis-03.jpg', 'Hornillas, 2026. Cerámica y nylon. 50 x 50 cm.'),
             ('protesis-02.jpg', 'Detalle.'),
             ('protesis-01.jpg', 'Detalle.'),
@@ -491,9 +491,12 @@ CIERRE = {
 # a lo que traía el Wix; en español y en inglés.
 PIES = {
     'revisitar': {
-        'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
+        'comp-lrh6m4i8': (['Vista general de la exposición.'],
+                          ['General view of the exhibition.']),
     },
     'antejardín': {
+        'comp-md1ogjko': (['Vista general de la exposición.'],
+                          ['General view of the exhibition.']),
         'comp-md1ogjkk': (['Regadera. Cerámica, tierra. Dimensiones variables. 2025'], ['Watering can. Ceramic, soil. Dimensions variable. 2025']),
         'comp-md1ogjjy': (['Cerámica. Herramientas. 40 x 25 cms. 2025'], ['Ceramic. Tools. 40 x 25 cm. 2025']),
         'comp-md1ogjk3': (['Instalación. Matera plástica, plantas, tierra. 50 x 40 x 25 cms. 2025'], ['Installation. Plastic planter, plants, soil. 50 x 40 x 25 cm. 2025']),
