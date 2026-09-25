@@ -493,6 +493,11 @@ PIES = {
     'revisitar': {
         'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
     },
+    'todo-lo-que-no-cabe-en-una-vitrina': {
+        'comp-md1ucubl': (['Todo lo que no cabe en una vitrina. Instalación. Vinilo, plotter de corte, vitrina. Dimensiones variables. 2025'], ['Todo lo que no cabe en una vitrina. Installation. Vinyl, cut plotter, display case. Dimensions variable. 2025']),
+        'comp-md1ucubh': (['Todo lo que no cabe en una vitrina. Instalación. Vinilo, plotter de corte, vitrina. Dimensiones variables. 2025'], ['Todo lo que no cabe en una vitrina. Installation. Vinyl, cut plotter, display case. Dimensions variable. 2025']),
+        'comp-md1ucubd': (['Todo lo que no cabe en una vitrina. Instalación. Vinilo, plotter de corte, vitrina. Dimensiones variables. 2025'], ['Todo lo que no cabe en una vitrina. Installation. Vinyl, cut plotter, display case. Dimensions variable. 2025']),
+    },
     'otros-proyectos': {
         # la primera pierde la mencion a las piezas en ceramica
         'comp-lrguzcel': (['Serie de dibujos. Sin t\u00edtulo. Tinta sobre papel. 2022.'],
