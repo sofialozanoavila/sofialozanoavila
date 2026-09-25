@@ -350,9 +350,20 @@ TXT_TITULO = ('<h1 class="font_0" style="font-size:34px;"><span style="color:#00
 TXT_VOLVER = ('<p class="font_8" style="font-size:40px; line-height:normal;">'
               '<a href="%s.html"><span style="color:#FF0006;"><span style="font-size:40px;">'
               '<span style="letter-spacing:normal;">↩</span></span></span></a></p>')
-TXT_FICHA = ('<p class="font_8" style="font-size:11px;"><span style="font-size:11px;">'
-             '<span style="font-family:madefor-display-bold,helveticaneuew01-65medi,sans-serif;">'
-             '<span style="color:#414141;">%s</span></span></span></p>')
+TXT_FICHA = '<p class="font_8 %s">%s</p>'
+
+
+def html_ficha(renglones, fecha=True):
+    """Arma el bloque de la ficha.
+
+    El primer renglón suele ser la fecha y se compone algo más grande; el
+    lugar y la curaduría van debajo, con remates, para que se distingan de
+    un vistazo sin necesidad de leerlos."""
+    salida = []
+    for i, r in enumerate(renglones):
+        clase = 'fecha' if (fecha and i == 0) else 'sede'
+        salida.append(TXT_FICHA % (clase, html_mod.escape(r)))
+    return ''.join(salida)
 TXT_PARRAFO = ('<p class="font_8" style="font-size:14px;"><span style="font-size:14px;">'
                '<span style="font-weight:300;"><span style="font-family:almarai,sans-serif;">'
                '%s</span></span></span></p>')
@@ -388,7 +399,7 @@ def render_nueva(slug, cfg, idioma='es'):
     ficha = cfg.get('ficha_en' if idioma == 'en' else 'ficha')
     if ficha:
         hijos.append(pieza('n-ficha', 'text', fila, 0, 425, 13,
-                           html=''.join(TXT_FICHA % l for l in ficha)))
+                           html=html_ficha(ficha)))
         fila += 1
 
     cuerpo = []
@@ -490,6 +501,20 @@ FICHAS = {
         '“Atrapar, calar, tejer mitos”',
         'Curated by Arte Vivo.',
     ]),
+    'cuerpo-residual': ('comp-lrp5kkwe', [
+        '2020',
+        'Bogotá.',
+    ], [
+        '2020',
+        'Bogotá.',
+    ]),
+    'dejar-que-la-forma-se-haga': ('comp-lrp67gmh', [
+        '2020',
+        'Bogotá.',
+    ], [
+        '2020',
+        'Bogotá.',
+    ]),
     'de-dudosa-procedencia': ('comp-lrhvtebq1', [
         '1 al 29 de Octubre del 2023',
         'Residencia en No Lugar - Quito, Ecuador.',
@@ -503,6 +528,16 @@ FICHAS = {
     ], [
         '2020 edition',
         'Barcú Fair - Bogotá. Spotlights section.',
+    ]),
+    'la-linea-no-es-recta': ('comp-lrfc33y8', [
+        'Espacio Odeón - Bogotá.',
+    ], [
+        'Espacio Odeón - Bogotá.',
+    ], False),
+    'otros-proyectos': ('comp-lrp8h3g7', [
+        '2018 - 2022',
+    ], [
+        '2018 - 2022',
     ]),
     'procedimiento-fertil': ('comp-lrhwsxav2', [
         '28 de Octubre del 2023 - 10 de Febrero del 2024',
@@ -796,11 +831,8 @@ def render_lista(slug, origen, page, idioma):
 
     def texto_pieza(c):
         if ficha and c['id'] == ficha[0]:
-            renglones = ficha[2] if idioma == 'en' else ficha[1]
-            return ''.join(
-                '<p class="font_8" style="font-size:11px;"><span style="font-size:11px;">'
-                '<span style="color:#414141;">%s</span></span></p>' % html_mod.escape(r)
-                for r in renglones)
+            return html_ficha(ficha[2] if idioma == 'en' else ficha[1],
+                              fecha=ficha[3] if len(ficha) > 3 else True)
         return texto(c)
 
     def bloques(lista):
