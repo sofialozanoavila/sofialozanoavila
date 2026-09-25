@@ -229,8 +229,10 @@ a:hover { opacity: .65; }
    Dibujo vectorial en lugar del carácter ↩, que algunos móviles convierten
    en emoji. El alto se ata al tamaño de letra del bloque que la contiene. */
 .flecha {
-  width: 0.78em;
-  height: 0.58em;
+  /* Del tamaño del título del proyecto: 52 px sobre el cuerpo de 40 px que
+     heredaba del Wix. */
+  width: 1.3em;
+  height: 1.144em;
   display: inline-block;
   vertical-align: -0.04em;
   overflow: visible;
@@ -707,7 +709,7 @@ a:hover { opacity: .65; }
   body.p-proyectos .nombre-proyectos h1,
   body.p-proyectos .nombre-proyectos span,
   body.p-proyectos .enlaces-proyectos p,
-  body.p-proyectos .enlaces-proyectos span { font-size: 12px !important; }
+  body.p-proyectos .enlaces-proyectos span { font-size: 15px !important; }
 
   /* La línea de enlaces del inicio, al mismo tamaño que la de proyectos: a
      20 px se partía en dos renglones y quedaba apretada. */
@@ -734,7 +736,9 @@ a:hover { opacity: .65; }
   .menu {
     justify-content: flex-start;
     gap: 2px 0;
-    font-size: 12px;
+    /* 15 px es lo más grande que cabe en un solo renglón con los seis
+       enlaces; a 16 px la barra se parte en dos. */
+    font-size: 15px;
     letter-spacing: normal;
   }
   .site-header nav { max-width: none; }

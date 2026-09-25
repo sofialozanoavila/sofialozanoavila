@@ -356,10 +356,10 @@ NUEVAS = {
 # estilo). Se sustituye por un dibujo vectorial, que se ve igual en todos
 # los dispositivos: una recta con la punta pequeña, en negro.
 FLECHA = (
-    '<svg class="flecha" viewBox="0 0 30 22" role="img" aria-label="Volver"'
-    ' fill="none" stroke="#000000" stroke-width="1.8"'
+    '<svg class="flecha" viewBox="0 0 25 22" role="img" aria-label="Volver"'
+    ' fill="none" stroke="#000000" stroke-width="1.15"'
     ' stroke-linecap="round" stroke-linejoin="round">'
-    '<path d="M28 11 H3"/><path d="M9 6 L3 11 L9 16"/>'
+    '<path d="M23 11 H3"/><path d="M9 5.6 L3 11 L9 16.4"/>'
     '</svg>'
 )
 
