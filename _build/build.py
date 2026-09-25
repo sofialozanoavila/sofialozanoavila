@@ -486,6 +486,15 @@ PIES = {
     'revisitar': {
         'comp-lrh6m4i8': (['Vista general.'], ['General view.']),
     },
+    'otros-proyectos': {
+        'comp-lrpaukwz': (['Dibujo. Sin t\u00edtulo. Tinta sobre papel. Dimensiones variables. 2018.'],
+                          ['Drawing. Untitled. Ink on paper. Dimensions variable. 2018.']),
+        'comp-lrpaykm5': (['Dibujo.'], ['Drawing.']),
+        'comp-lrpaukww': (['Dibujo. Mapa. Tinta sobre papel. 22 x 28 cms. 2018.'],
+                          ['Drawing. Map. Ink on paper. 22 x 28 cm. 2018.']),
+        'comp-lrpaukx4': (['Dibujo. Mapa. Tinta sobre papel. 22 x 28 cms. 2018.'],
+                          ['Drawing. Map. Ink on paper. 22 x 28 cm. 2018.']),
+    },
     'de-dudosa-procedencia': {
         'comp-lrhwhalv': (['Vista general de la exposici\u00f3n.'],
                           ['General view of the exhibition.']),
