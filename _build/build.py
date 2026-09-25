@@ -211,8 +211,8 @@ TEXTOS = {
                '<span>\u27ac cerámica</span>')],
     'proyectos': [('<span style="color:#FF0006;">\u27ac tienda</span>',
                    '<span>\u27ac cerámica</span>'),
-                  ('2020 / d<a href="desmesura.html">esmedida</a>',
-                   '2020 / <a href="desmesura.html">nada de lo que se mide es basura</a>')],
+                  ('2020 / desmedida',
+                   '2020 / nada de lo que se mide es basura')],
 }
 
 TITULOS = {
@@ -223,6 +223,26 @@ TITULOS = {
 
 # Nombres estables para algunas piezas, y así poder darles estilo propio
 # (los identificadores comp-… vienen de Wix y no dicen nada por sí solos).
+def unir_enlaces(h):
+    """Hace que el renglón entero de cada proyecto sea el enlace.
+
+    Wix dejaba fuera del enlace el año y a veces la primera letra del
+    nombre —«2023 / p» quedaba suelto y no se podía pulsar—. Aquí el
+    enlace abarca todo el párrafo, así el resalte del cursor cubre la
+    entrada completa y no un trozo."""
+    def uno(m):
+        apertura, dentro = m.group(1), m.group(2)
+        enlaces = re.findall(r'<a\b[^>]*href="([^"]+)"[^>]*>', dentro)
+        # sin enlace (los años) o con destinos distintos: se deja igual
+        if not enlaces or len(set(enlaces)) > 1:
+            return m.group(0)
+        etiqueta = re.search(r'<a\b[^>]*>', dentro).group(0)
+        limpio = re.sub(r'<a\b[^>]*>|</a>', '', dentro)
+        return '%s%s%s</a></p>' % (apertura, etiqueta, limpio)
+
+    return re.sub(r'(<p\b[^>]*>)(.*?)</p>', uno, h, flags=re.S)
+
+
 CLASES = {
     'index': {
         'comp-lrjn9lv2': 'enlaces',   # proyectos · contacto · CV · tienda
@@ -232,6 +252,7 @@ CLASES = {
     'proyectos': {
         'comp-m2c3o77q': 'nombre-proyectos',   # sofía lozano ávila
         'comp-mtx4x6u5': 'enlaces-proyectos',  # contacto · CV · tienda
+        'comp-luvkx06n1': 'lista-proyectos',   # los proyectos, por año
     },
     'cv': {
         'comp-mrr1lget': 'enlaces',            # contacto · CV
@@ -1311,6 +1332,8 @@ def render_page(slug, page, idioma='es', origen=None):
                     h = traducir_pieza(origen, c['id'], h)
                 h = enlazar(slug, h.replace(' target="_self"', ''))
                 extra = CLASES.get(slug, {}).get(c['id'], '')
+                if extra == 'lista-proyectos':
+                    h = unir_enlaces(h)
                 if extra:
                     h = enganchar_idioma(slug, extra, h, idioma)
                 parts.append('<div id="%s" class="rt%s">%s</div>'

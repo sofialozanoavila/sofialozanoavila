@@ -73,6 +73,7 @@
   --color_63: 255,255,255;
   --color_64: 255,255,255;
   --color_65: 255,255,255;
+  --resalte: #FFE800;
   --font_0: normal normal normal 33px/1.4em forum,serif;
   --font_1: normal normal normal 15px/1.4em 'open sans',sans-serif;
   --font_2: normal normal bold 45px/1.4em forum,serif;
@@ -191,6 +192,16 @@ a:hover { opacity: .65; }
 .rt p, .rt h1, .rt h2, .rt h3, .rt h4, .rt h5, .rt h6 { margin: 0; }
 .rt a { text-decoration: none; }
 .rt a:hover { text-decoration: underline; }
+
+/* En la lista de proyectos el cursor no subraya: enciende el nombre con un
+   resalte amarillo, como el de un marcador sobre el papel. El texto se
+   fuerza a negro porque cada enlace trae su propio color en línea. */
+.lista-proyectos a:hover { text-decoration: none; opacity: 1; }
+.lista-proyectos a:hover,
+.lista-proyectos a:hover span {
+  background-color: var(--resalte);
+  color: #000000 !important;
+}
 
 /* --- flecha de volver ------------------------------------------------
    Dibujo vectorial en lugar del carácter ↩, que algunos móviles convierten
