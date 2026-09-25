@@ -74,6 +74,7 @@
   --color_64: 255,255,255;
   --color_65: 255,255,255;
   --resalte: #FFE800;
+  --resalte-menu: #7B5230;
   --font_0: normal normal normal 33px/1.4em forum,serif;
   --font_1: normal normal normal 15px/1.4em 'open sans',sans-serif;
   --font_2: normal normal bold 45px/1.4em forum,serif;
@@ -201,6 +202,27 @@ a:hover { opacity: .65; }
 .lista-proyectos a:hover span {
   background-color: var(--resalte);
   color: #000000 !important;
+}
+
+/* El menú de arriba se enciende igual, pero en café con letra blanca, para
+   no confundirlo con la lista de proyectos. */
+.site-header .menu a:hover,
+.enlaces a:hover,
+.enlaces-proyectos a:hover,
+.nombre a:hover,
+.nombre-proyectos a:hover { text-decoration: none; opacity: 1; }
+.site-header .menu a:hover,
+.site-header .menu a:hover span,
+.enlaces a:hover,
+.enlaces a:hover span,
+.enlaces-proyectos a:hover,
+.enlaces-proyectos a:hover span,
+.nombre a:hover,
+.nombre a:hover span,
+.nombre-proyectos a:hover,
+.nombre-proyectos a:hover span {
+  background-color: var(--resalte-menu);
+  color: #FFFFFF !important;
 }
 
 /* --- flecha de volver ------------------------------------------------
