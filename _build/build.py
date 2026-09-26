@@ -1244,6 +1244,13 @@ def flecha_en_proyectos(page):
             # un puesto para dejarle sitio a la flecha debajo
             if a > 1:
                 c['geo']['grid-area'] = '%d / %d / %d / %d' % (a + 1, b, d + 1, e)
+        # El título «proyectos» sube al renglón de la flecha. Los 16.87 px
+        # centran sus mayúsculas sobre la línea de la flecha: medido sobre la
+        # tinta real, no sobre la caja. Si cambia el cuerpo del título o el
+        # tamaño de la flecha, hay que volver a medir.
+        if c['id'] == 'comp-mh0s4d8j':
+            c['geo']['grid-area'] = '2 / 1 / 3 / 2'
+            c['geo']['margin'] = '16.87px 0px 20px 0px'
         hijos.append(c)
 
     flecha = {
