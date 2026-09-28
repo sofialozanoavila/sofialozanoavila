@@ -404,7 +404,12 @@ a:hover { opacity: .65; }
    (textos a 14 y 16, pies entre 11 y 16, fichas a 11 y 15) que hacían que
    cada página se sintiera distinta. */
 .sec-obras .encabezado h1,
-.sec-obras .encabezado h1 span { font-size: 52px !important; }
+.sec-obras .encabezado h1 span {
+  font-size: 52px !important;
+  /* «inventario sobre lo que no veo» venía del Wix en gris; todos los
+     títulos de proyecto van en negro. */
+  color: #000000 !important;
+}
 .sec-obras .encabezado h1 { line-height: 1.1em; }
 .sec-obras .encabezado p,
 .sec-obras .encabezado p span { font-size: 11px !important; }
