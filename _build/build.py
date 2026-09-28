@@ -629,6 +629,13 @@ AGREGADAS = {
 }
 
 
+# La flecha de volver debe caer a la misma altura en todas las páginas:
+# 30 px por debajo de la barra del menú. Algunas la traían pegada arriba.
+MARGEN_SUPERIOR = {
+    'cv': {'comp-m4wyash5': '30px'},
+}
+
+
 # Piezas que se retiran de la página por completo.
 OMITIR = {
     # llevaba la dirección web entera pegada al texto, sin espacio
@@ -1244,13 +1251,13 @@ def flecha_en_proyectos(page):
             # un puesto para dejarle sitio a la flecha debajo
             if a > 1:
                 c['geo']['grid-area'] = '%d / %d / %d / %d' % (a + 1, b, d + 1, e)
-        # El título «proyectos» sube al renglón de la flecha. Los 16.87 px
-        # centran sus mayúsculas sobre la línea de la flecha: medido sobre la
-        # tinta real, no sobre la caja. Si cambia el cuerpo del título o el
-        # tamaño de la flecha, hay que volver a medir.
+        # El título «proyectos» comparte renglón con la flecha, y la línea de
+        # la flecha cae en el centro de sus mayúsculas: medido sobre la tinta
+        # real, no sobre la caja. Si cambia el cuerpo del título o el tamaño
+        # de la flecha, hay que volver a medir.
         if c['id'] == 'comp-mh0s4d8j':
             c['geo']['grid-area'] = '2 / 1 / 3 / 2'
-            c['geo']['margin'] = '16.87px 0px 20px 0px'
+            c['geo']['margin'] = '-0.11px 0px 20px 0px'
         hijos.append(c)
 
     flecha = {
@@ -1258,7 +1265,7 @@ def flecha_en_proyectos(page):
         'type': 'text',
         'html': TXT_VOLVER % 'index',
         'geo': {'grid-area': '2 / 1 / 3 / 2', 'left': '-162px',
-                'width': '310px', 'margin': '30px 0px 4px 0px'},
+                'width': '310px', 'margin': '13px 0px 4px 0px'},
     }
     mesh = dict(sec.get('mesh') or {})
     filas = re.match(r'repeat\((\d+),', mesh.get('grid-template-rows', '') or '')
@@ -1299,11 +1306,13 @@ def stage_box(children):
     return left, max(right - left, 1)
 
 
-def comp_css(c, x0):
+def comp_css(c, x0, arriba=None):
     g = c['geo']
     area = re.match(r'(\d+)\s*/\s*(\d+)\s*/\s*(\d+)\s*/\s*(\d+)', g.get('grid-area', ''))
     m = re.match(r'(\S+)\s+(\S+)\s+(\S+)\s+', g.get('margin', '0 0 0 ') + ' ')
     top, right, bottom = (m.group(1), m.group(2), m.group(3)) if m else ('0', '0', '0')
+    if arriba:
+        top = arriba
     d = [
         'position:relative',
         'margin:%s %s %s 0' % (top, right, bottom),
@@ -1364,7 +1373,8 @@ def render_page(slug, page, idioma='es', origen=None):
             int((re.match(r'(\d+)', c['geo'].get('grid-area', '999')) or ['999', '999'])[1]),
             num(c['geo'].get('left'))))
         for c in kids:
-            css.append('#%s{%s}' % (c['id'], comp_css(c, x0)))
+            css.append('#%s{%s}' % (c['id'], comp_css(
+                c, x0, MARGEN_SUPERIOR.get(slug, {}).get(c['id']))))
             if c['type'] == 'text':
                 h = re.sub(r'href="([^"]*)"',
                            lambda m: 'href="%s"' % local_href(m.group(1)), c['html'])
