@@ -73,6 +73,8 @@
   --color_63: 255,255,255;
   --color_64: 255,255,255;
   --color_65: 255,255,255;
+  /* Margen izquierdo común a todas las páginas: es donde arranca el texto. */
+  --margen: 40px;
   --resalte: #A9481F;
   --resalte-menu: #7B5230;
   --font_0: normal normal normal 33px/1.4em forum,serif;
@@ -362,7 +364,7 @@ a:hover { opacity: .65; }
 .sec-obras .lienzo {
   max-width: 1760px;
   margin: 0 auto;
-  padding: 0 40px;
+  padding: 0 var(--margen);
 }
 
 /* La introducción va arriba, ancha, y las obras empiezan debajo. El texto
@@ -463,7 +465,7 @@ a:hover { opacity: .65; }
 }
 
 @media (max-width: 1100px) {
-  .sec-obras .lienzo { padding: 0 28px; }
+  :root { --margen: 28px; }
   .obra { grid-template-columns: 300px 1fr; column-gap: 36px; }
 
 }
@@ -494,7 +496,7 @@ a:hover { opacity: .65; }
 
 /* --- catálogo de piezas disponibles ----------------------------------- */
 .sec-catalogo { padding: 0 0 110px; }
-.sec-catalogo .lienzo { max-width: 1760px; margin: 0 auto; padding: 0 40px; }
+.sec-catalogo .lienzo { max-width: 1760px; margin: 0 auto; padding: 0 var(--margen); }
 .sec-catalogo .cabecera { margin-bottom: 56px; }
 .sec-catalogo .volver { margin-left: 0; margin-top: 30px; }
 .sec-catalogo .volver p { font-size: 40px; line-height: 1; }
@@ -585,14 +587,14 @@ a:hover { opacity: .65; }
 
 /* --- página de contacto ----------------------------------------------- */
 .sec-contacto { padding: 0 0 80px; }
-.sec-contacto .lienzo { width: 1033px; margin: 0 auto; }
-.sec-contacto .volver { margin-left: 53px; margin-top: 30px; }
+.sec-contacto .lienzo { max-width: 1760px; margin: 0 auto; padding: 0 var(--margen); }
+.sec-contacto .volver { margin-left: 0; margin-top: 30px; }
 /* mismo tamaño de flecha que en las páginas de proyecto */
 .sec-contacto .volver p { font-size: 40px; line-height: 1; }
 
 .contactos {
   list-style: none;
-  margin: 48px 0 0 53px;
+  margin: 48px 0 0 0;
   padding: 0;
   font: var(--font_8);
   font-family: almarai, sans-serif;
@@ -629,10 +631,10 @@ a:hover { opacity: .65; }
    título y la flecha queden alineados igual que en el resto del sitio.
    Dentro de ese lienzo, la columna de contenido empieza a 53 px. */
 .sec-galeria { padding: 0 0 80px; }
-.sec-galeria .lienzo { width: 1033px; margin: 0 auto; }
+.sec-galeria .lienzo { max-width: 1760px; margin: 0 auto; padding: 0 var(--margen); }
 
 .sec-galeria .cabecera { margin-bottom: 64px; }   /* aire entre el título y las fotos */
-.sec-galeria .volver { margin-left: 53px; }
+.sec-galeria .volver { margin-left: 0; }
 .sec-galeria .titulo { margin-left: 0; margin-top: 6px; }
 
 /* Dos columnas alineadas. Cada foto va en un marco cuadrado y se escala para

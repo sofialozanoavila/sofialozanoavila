@@ -1346,8 +1346,13 @@ def render_page(slug, page, idioma='es', origen=None):
         if sec.get('lienzo'):
             x0, stage = sec['lienzo']
         widest = max(widest, stage)
+        # El contenido arranca en el mismo sitio que en las páginas de
+        # proyecto: un lienzo de 1760 px centrado, con 40 px de margen. Así
+        # inicio, proyectos, contacto y cv comparten el borde izquierdo.
         rules = ['display:grid', 'grid-template-columns:%gpx' % stage,
-                 'justify-content:center', 'position:static', 'width:100%']
+                 'justify-content:start', 'position:static', 'width:100%',
+                 'max-width:1760px', 'margin:0 auto', 'padding:0 var(--margen)',
+                 'box-sizing:border-box']
         if mesh.get('grid-template-rows'):
             rules.append('grid-template-rows:%s' % mesh['grid-template-rows'])
         if mesh.get('min-height'):
