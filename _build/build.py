@@ -619,6 +619,9 @@ FICHAS = {
 # Fotografías propias que se añaden al final de una entrada, después de
 # las que venían del Wix.
 AGREGADAS = {
+    'desmesura': [
+        ('desmesura-montaje.jpg', 1600, 976, 'Los tres dibujos enmarcados en la pared'),
+    ],
     'vasija-ver-vaciar': [
         ('vasija-01.jpg', 1050, 1400, 'Mesa de trabajo'),
         ('vasija-02.jpg', 1050, 1400, 'Libro de vasijas prehispánicas'),
@@ -655,7 +658,9 @@ MARGEN_SUPERIOR = {
 # Piezas que se retiran de la página por completo.
 OMITIR = {
     # llevaba la dirección web entera pegada al texto, sin espacio
-    'desmesura': {'comp-lrpeet00'},
+    # los tres dibujos —negro, rojo y verde— se ven ahora en el montaje
+    'desmesura': {'comp-lrpeet00', 'comp-lrfdo8ia', 'comp-lrfdmanc',
+                  'comp-lrfdmana', 'comp-lrfdrp4t'},
     # el enlace y la técnica pasaron a la ficha, arriba
     'revisitar': {'comp-lrpeujyh'},
 }
@@ -782,6 +787,12 @@ PIES = {
         'comp-m4wxhd80': (['Vista desde afuera.'], ['View from outside.']),
     },
     'desmesura': {
+        # el montaje reemplaza a los tres dibujos sueltos
+        'nueva-desmesura-montaje.jpg': (
+            ['\u201cNada de lo que se mide es basura\u201d. Serie de tres dibujos. '
+             'Impresi\u00f3n digital y tinta blanca sobre papel. 50\u00d735 cms c/u. 2020.'],
+            ['\u201cNada de lo que se mide es basura\u201d. Series of three drawings. '
+             'Digital print and white ink on paper. 50 x 35 cm each. 2020.']),
         # 1, 2 y 3: los dibujos de la serie
         'comp-lrfdo8ia': (['\u201cNada de lo que se mide es basura\u201d. 48\u00d733 cms. '
                            'Dibujo. Impresi\u00f3n digital y tinta blanca sobre papel. 50\u00d735 cms c/u. 2020.'],
