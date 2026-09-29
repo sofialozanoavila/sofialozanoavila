@@ -477,9 +477,7 @@ a:hover { opacity: .65; }
 
 @media (max-width: 859px) {
   .sec-obras { padding: 0 0 60px; }
-  .sec-obras .lienzo { padding: 0 20px; }
   .sec-obras .intro { display: block; margin: 0 0 44px; }
-  .sec-obras .volver-fila { margin-top: 10px; }
   .sec-obras .encabezado { margin-bottom: 20px; }
   .sec-obras .cuerpo { padding-top: 0; }
   .obra { display: block; margin-bottom: 44px; }
@@ -782,4 +780,21 @@ body.p-cv #comp-lrp5e671 h2 { text-align: left !important; }
   /* La línea de enlaces de inicio y proyectos repetiría lo que ya está en la
      barra, así que se oculta. */
   .enlaces, .enlaces-proyectos { display: none !important; }
+}
+
+/* --- la flecha, en el mismo sitio en el celular ------------------------
+   Va al final del archivo a propósito: cada tipo de página traía su propio
+   margen, y estas reglas tienen que ganarles a todas. El margen lateral lo
+   pone la sección; si el lienzo repitiera el suyo, la flecha quedaría el
+   doble de adentro en unas páginas que en otras. */
+@media (max-width: 859px) {
+  .sec-obras .lienzo,
+  .sec-catalogo .lienzo,
+  .sec-contacto .lienzo,
+  .sec-galeria .lienzo { padding-left: 0; padding-right: 0; }
+
+  .sec-obras .volver-fila,
+  .sec-catalogo .volver,
+  .sec-contacto .volver,
+  .sec-galeria .volver { margin-top: 0; }
 }
