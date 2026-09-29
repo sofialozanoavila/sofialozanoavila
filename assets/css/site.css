@@ -590,6 +590,10 @@ a:hover { opacity: .65; }
   .catalogo { grid-template-columns: 1fr; gap: 40px; }
 }
 
+/* El CV traía del Wix una segunda línea de enlaces —contacto y CV— que
+   repite lo que ya ofrece la barra superior de todas las páginas. */
+body.p-cv .enlaces { display: none; }
+
 /* --- página de contacto ----------------------------------------------- */
 .sec-contacto { padding: 0 0 80px; }
 .sec-contacto .lienzo { max-width: 1760px; margin: 0 auto; padding: 0 var(--margen); }

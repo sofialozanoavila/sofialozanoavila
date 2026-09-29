@@ -629,6 +629,22 @@ AGREGADAS = {
 }
 
 
+# Ajustes de posición sobre la maqueta heredada de Wix. Las medidas son las
+# mismas de las páginas de proyecto: un riel de 420 px a la izquierda, 56 px
+# de separación, y el texto largo en la columna de la derecha.
+COLOCAR = {
+    'cv': {
+        # cabecera —ciudad, año y «CV»— en el riel izquierdo
+        'comp-lrp5e671': {'left': '0px', 'width': '420px'},
+        # el texto, donde va el de los proyectos: misma fila que la
+        # cabecera, para que ambos arranquen a la misma altura
+        'comp-lrjhvqx41': {'left': '476px', 'width': '636px',
+                           'grid-area': '2 / 1 / 3 / 2',
+                           'margin': '7.26px 0px 10px 0px'},
+    },
+}
+
+
 # La flecha de volver debe caer a la misma altura en todas las páginas:
 # 30 px por debajo de la barra del menú. Algunas la traían pegada arriba.
 MARGEN_SUPERIOR = {
@@ -1373,6 +1389,9 @@ def render_page(slug, page, idioma='es', origen=None):
             int((re.match(r'(\d+)', c['geo'].get('grid-area', '999')) or ['999', '999'])[1]),
             num(c['geo'].get('left'))))
         for c in kids:
+            ajuste = COLOCAR.get(slug, {}).get(c['id'])
+            if ajuste:
+                c = dict(c, geo=dict(c['geo'], **ajuste))
             css.append('#%s{%s}' % (c['id'], comp_css(
                 c, x0, MARGEN_SUPERIOR.get(slug, {}).get(c['id']))))
             if c['type'] == 'text':
