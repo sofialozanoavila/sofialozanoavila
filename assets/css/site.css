@@ -593,6 +593,9 @@ a:hover { opacity: .65; }
 /* El CV traía del Wix una segunda línea de enlaces —contacto y CV— que
    repite lo que ya ofrece la barra superior de todas las páginas. */
 body.p-cv .enlaces { display: none; }
+/* La cabecera del CV arranca en el margen, como los títulos de proyecto.
+   Venía del Wix alineada a la derecha. */
+body.p-cv #comp-lrp5e671 h2 { text-align: left !important; }
 
 /* --- página de contacto ----------------------------------------------- */
 .sec-contacto { padding: 0 0 80px; }
