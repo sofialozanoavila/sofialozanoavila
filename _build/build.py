@@ -640,7 +640,7 @@ COLOCAR = {
         # cabecera, para que ambos arranquen a la misma altura
         'comp-lrjhvqx41': {'left': '476px', 'width': '636px',
                            'grid-area': '2 / 1 / 3 / 2',
-                           'margin': '7.26px 0px 10px 0px'},
+                           'margin': '1.47px 0px 10px 0px'},
     },
 }
 

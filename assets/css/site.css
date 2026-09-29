@@ -594,6 +594,9 @@ body.p-cv .enlaces { display: none; }
 /* La cabecera del CV arranca en el margen, como los títulos de proyecto.
    Venía del Wix alineada a la derecha. */
 body.p-cv #comp-lrp5e671 h2 { text-align: left !important; }
+/* El CV es una lista larga: con el interlineado cerrado que traía del Wix
+   (1.3) los años se apelmazaban. Con más aire se recorre mejor. */
+body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
 
 /* --- página de contacto ----------------------------------------------- */
 .sec-contacto { padding: 0 0 80px; }
