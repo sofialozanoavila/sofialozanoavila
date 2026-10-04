@@ -410,12 +410,14 @@ body, body * { font-family: var(--grotesca) !important; }
 }
 /* La flecha baja un poco respecto al menú, para que no quede pegada. */
 .sec-obras .volver-fila { grid-column: 1 / -1; grid-row: 1; margin-top: 30px; }
-.sec-obras .encabezado { grid-column: 1; grid-row: 2; }
+/* Los 2 px bajan el título hasta la misma altura que el de «cerámica»,
+   que es la referencia de todas las páginas. */
+.sec-obras .encabezado { grid-column: 1; grid-row: 2; margin-top: 2px; }
 /* Estos píxeles bajan el texto hasta que sus mayúsculas arrancan a la misma
    altura que las del título: medido sobre la tinta real de cada fuente, no
    sobre la caja, que engaña porque cada tamaño lleva su propio interlineado.
    Si cambia el tamaño del título, hay que volver a medir. */
-.sec-obras .cuerpo { grid-column: 2; grid-row: 2; margin-top: -1.42px; }
+.sec-obras .cuerpo { grid-column: 2; grid-row: 2; margin-top: 8.31px; }
 
 .sec-obras .encabezado .rt + .rt { margin-top: 12px; }
 
@@ -433,12 +435,13 @@ body, body * { font-family: var(--grotesca) !important; }
    cada página se sintiera distinta. */
 .sec-obras .encabezado h1,
 .sec-obras .encabezado h1 span {
-  font-size: 52px !important;
-  /* «inventario sobre lo que no veo» venía del Wix en gris; todos los
-     títulos de proyecto van en negro. */
+  /* El mismo título en todas las páginas: el de «cerámica» es la
+     referencia —34 px, peso normal, negro, interlineado 1,4—. */
+  font-size: 34px !important;
+  font-weight: 400 !important;
   color: #000000 !important;
 }
-.sec-obras .encabezado h1 { line-height: 1.1em; }
+.sec-obras .encabezado h1 { line-height: 1.4em; }
 .sec-obras .encabezado p,
 .sec-obras .encabezado p span { font-size: 11px !important; }
 
@@ -620,7 +623,14 @@ body, body * { font-family: var(--grotesca) !important; }
 body.p-cv .enlaces { display: none; }
 /* La cabecera del CV arranca en el margen, como los títulos de proyecto.
    Venía del Wix alineada a la derecha. */
-body.p-cv #comp-lrp5e671 h2 { text-align: left !important; }
+body.p-cv #comp-lrp5e671 h2,
+body.p-cv #comp-lrp5e671 h2 span {
+  text-align: left !important;
+  font-size: 34px !important;
+  font-weight: 400 !important;
+  color: #000000 !important;
+}
+body.p-cv #comp-lrp5e671 h2 { line-height: 1.4em !important; }
 /* El CV es una lista larga: con el interlineado cerrado que traía del Wix
    (1.3) los años se apelmazaban. Con más aire se recorre mejor. */
 body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }

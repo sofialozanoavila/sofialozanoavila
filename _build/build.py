@@ -643,12 +643,13 @@ COLOCAR = {
     },
     'cv': {
         # cabecera —ciudad, año y «CV»— en el riel izquierdo
-        'comp-lrp5e671': {'left': '0px', 'width': '420px'},
+        'comp-lrp5e671': {'left': '0px', 'width': '420px',
+                          'margin': '2px 0px 21px 0px'},
         # el texto, donde va el de los proyectos: misma fila que la
         # cabecera, para que ambos arranquen a la misma altura
         'comp-lrjhvqx41': {'left': '476px', 'width': '636px',
                            'grid-area': '2 / 1 / 3 / 2',
-                           'margin': '-0.79px 0px 10px 0px'},
+                           'margin': '6.04px 0px 10px 0px'},
     },
 }
 
