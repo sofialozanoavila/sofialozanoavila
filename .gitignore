@@ -1,3 +1,7 @@
 # Archivos que macOS crea solo y que no forman parte del sitio
 .DS_Store
 ._*
+
+# Material de origen: fotos sin procesar y capturas de referencia. Vive en el
+# disco, no en el repositorio: pesa mucho y no forma parte del sitio.
+_entrada/

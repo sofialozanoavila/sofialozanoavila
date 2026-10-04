@@ -564,12 +564,14 @@ a:hover { opacity: .65; }
   line-height: 12.5px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: rgb(var(--color_18));
+  /* Gris en lugar de negro: a este cuerpo tan pequeño el negro pesa
+     demasiado y compite con las fotografías. */
+  color: rgb(107, 107, 107);
   margin: 0;
 }
 .catalogo h3 { font-size: 10.3px; margin-bottom: 7px; }
 .catalogo .precio { margin-top: 0; }
-.catalogo .vendida { color: rgb(150, 150, 150); }
+.catalogo .vendida { color: rgb(170, 170, 170); }
 
 /* El enlace de consulta se enciende al pasar el cursor, con el mismo
    resalte que la lista de proyectos. */
