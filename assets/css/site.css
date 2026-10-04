@@ -253,14 +253,20 @@ a:hover { opacity: .65; }
 }
 
 .site-header {
-  padding: 15px 20px;
+  padding: 15px 0;
   font: normal normal 300 15px/1.4em almarai, sans-serif;
   position: relative;
   z-index: 50;
 }
-/* El menú toma como referencia la línea de enlaces del inicio: mismo tamaño,
-   mismo espaciado entre letras y el mismo borde derecho. */
-.site-header nav { max-width: 1285px; margin: 0 auto; }
+/* El menú vive en el mismo lienzo que el contenido, así su borde derecho
+   cae donde terminan las fotografías y el izquierdo donde empieza el texto,
+   sea cual sea el ancho de la pantalla. */
+.site-header nav {
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: 0 var(--margen);
+  box-sizing: border-box;
+}
 .menu {
   list-style: none;
   margin: 0;
@@ -476,6 +482,7 @@ a:hover { opacity: .65; }
 }
 
 @media (max-width: 859px) {
+  :root { --margen: 20px; }
   .sec-obras { padding: 0 0 60px; }
   .sec-obras .intro { display: block; margin: 0 0 44px; }
   .sec-obras .encabezado { margin-bottom: 20px; }
@@ -697,7 +704,7 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   .sec {
     max-width: 620px;
     margin: 0 auto;
-    padding: 0 20px 40px;
+    padding: 0 var(--margen) 40px;
   }
   .sec > * {
     margin-bottom: 22px !important;
@@ -708,7 +715,7 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
     min-height: 0 !important;
   }
   .sec > .pic img { height: auto; }
-  .site-header { padding: 13px 16px; }
+  .site-header { padding: 13px 0; }
 
   /* Proyectos: el nombre y los enlaces comparten renglón también en el
      celular. Se reducen lo necesario para que quepan los dos de lado a lado. */
@@ -745,7 +752,7 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   /* Barra superior fija en todas las páginas: los cuatro enlaces principales
      siempre a la vista y, al final, el «+» que despliega los proyectos. */
   .abrir-menu { display: none; }
-  .site-header { padding: 12px 16px 10px; }
+  .site-header { padding: 12px 0 10px; }
   .site-header nav { display: block; }
   .menu {
     justify-content: flex-start;
@@ -755,7 +762,10 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
     font-size: 17px;
     letter-spacing: normal;
   }
-  .site-header nav { max-width: none; }
+  .site-header nav { max-width: none; padding: 0 var(--margen); }
+  /* el primer enlace arranca en el margen, sin el respiro que separa a los
+     demás entre sí */
+  .menu > li:first-child > a { padding-left: 0; }
   .menu > li > a, .menu button { padding: 0 6px; }
   .menu .idioma { margin-left: .2em; }
 

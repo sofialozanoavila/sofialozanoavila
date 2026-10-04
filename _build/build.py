@@ -636,6 +636,11 @@ AGREGADAS = {
 # mismas de las páginas de proyecto: un riel de 420 px a la izquierda, 56 px
 # de separación, y el texto largo en la columna de la derecha.
 COLOCAR = {
+    'proyectos': {
+        # venía 5 px más ancha que el lienzo, y al estirarse se salía por
+        # la derecha del margen
+        'comp-mtx4x6u5': {'width': '639px'},
+    },
     'cv': {
         # cabecera —ciudad, año y «CV»— en el riel izquierdo
         'comp-lrp5e671': {'left': '0px', 'width': '420px'},
@@ -1333,7 +1338,12 @@ def stage_box(children):
     return left, max(right - left, 1)
 
 
-def comp_css(c, x0, arriba=None):
+# Páginas cuya maqueta se estira con la pantalla. Las demás conservan el
+# ancho fijo que traían de Wix.
+FLUIDAS = {'index', 'proyectos'}
+
+
+def comp_css(c, x0, arriba=None, escenario=None):
     g = c['geo']
     area = re.match(r'(\d+)\s*/\s*(\d+)\s*/\s*(\d+)\s*/\s*(\d+)', g.get('grid-area', ''))
     m = re.match(r'(\S+)\s+(\S+)\s+(\S+)\s+', g.get('margin', '0 0 0 ') + ' ')
@@ -1343,7 +1353,8 @@ def comp_css(c, x0, arriba=None):
     d = [
         'position:relative',
         'margin:%s %s %s 0' % (top, right, bottom),
-        'left:%gpx' % (num(g.get('left')) - x0),
+        ('left:%.4f%%' % ((num(g.get('left')) - x0) / escenario * 100)
+         if escenario else 'left:%gpx' % (num(g.get('left')) - x0)),
         'justify-self:start',
         'align-self:start',
     ]
@@ -1351,7 +1362,10 @@ def comp_css(c, x0, arriba=None):
         # la columna es obligatoria: sin ella el navegador crea columnas implícitas
         d.append('grid-area:%s/%s/%s/%s' % area.groups())
     if g.get('width'):
-        d.append('width:%s' % g['width'])
+        if escenario and g['width'].endswith('px'):
+            d.append('width:%.4f%%' % (num(g['width']) / escenario * 100))
+        else:
+            d.append('width:%s' % g['width'])
     if g.get('height') and g['height'] != 'auto':
         d.append('height:%s' % g['height'])
     return ';'.join(d)
@@ -1385,7 +1399,10 @@ def render_page(slug, page, idioma='es', origen=None):
         # El contenido arranca en el mismo sitio que en las páginas de
         # proyecto: un lienzo de 1760 px centrado, con 40 px de margen. Así
         # inicio, proyectos, contacto y cv comparten el borde izquierdo.
-        rules = ['display:grid', 'grid-template-columns:%gpx' % stage,
+        fluida = slug in FLUIDAS
+        rules = ['display:grid',
+                 'grid-template-columns:%s' % ('minmax(0,1fr)' if fluida
+                                               else '%gpx' % stage),
                  'justify-content:start', 'position:static', 'width:100%',
                  'max-width:1760px', 'margin:0 auto', 'padding:0 var(--margen)',
                  'box-sizing:border-box']
@@ -1404,7 +1421,8 @@ def render_page(slug, page, idioma='es', origen=None):
             if ajuste:
                 c = dict(c, geo=dict(c['geo'], **ajuste))
             css.append('#%s{%s}' % (c['id'], comp_css(
-                c, x0, MARGEN_SUPERIOR.get(slug, {}).get(c['id']))))
+                c, x0, MARGEN_SUPERIOR.get(slug, {}).get(c['id']),
+                stage if fluida else None)))
             if c['type'] == 'text':
                 h = re.sub(r'href="([^"]*)"',
                            lambda m: 'href="%s"' % local_href(m.group(1)), c['html'])
@@ -1428,8 +1446,10 @@ def render_page(slug, page, idioma='es', origen=None):
                     ext = ' target="_blank" rel="noopener"' if href.startswith('http') else ''
                     tag = '<a href="%s"%s>%s</a>' % (href, ext, tag)
                 parts.append('<div id="%s" class="pic">%s</div>' % (c['id'], tag))
-        body.append('<section id="%s" class="sec" data-ancho="%d">%s</section>'
-                    % (sid, int(stage), '\n'.join(parts)))
+        # una maqueta fluida no necesita encogerse: se adapta sola
+        marca = '' if slug in FLUIDAS else ' data-ancho="%d"' % stage
+        body.append('<section id="%s" class="sec"%s>%s</section>'
+                    % (sid, marca, '\n'.join(parts)))
 
     # Por debajo de ESCALON se apila todo en una columna. Entre ESCALON y el
     # ancho real del diseño, escala.js reduce el zoom para que quepa completo.
