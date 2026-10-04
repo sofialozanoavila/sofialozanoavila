@@ -1029,7 +1029,7 @@ CORREO = 'sofia771199@gmail.com'
 # El botón «consultar» abre una conversación de WhatsApp con el mensaje ya
 # escrito. wa.me pide el número sin signos: indicativo del país y después
 # el número, sin el «+» ni espacios.
-WHATSAPP = '57323940719'
+WHATSAPP = '573223940719'
 
 CATALOGO = [
     ('flor-borrachero', 'Flor borrachero', 'Cerámica', '12 x 12 x 12 cm', 2026, 180000, ''),
