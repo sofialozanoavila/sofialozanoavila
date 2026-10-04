@@ -204,6 +204,8 @@ def px(v, default=None):
 # «TIENDA» pasa a llamarse «cerámica» en todo el sitio. El texto
 # venía dentro del HTML heredado de Wix, así que se sustituye al generar.
 TEXTOS = {
+    # Venía del Wix con una mayúscula suelta en medio del nombre.
+    'cuerpo-residual': [('cuerpo Residual', 'cuerpo residual')],
     # El proyecto pasa de llamarse «desmedida» a llevar el título de la serie.
     'desmesura': [('>desmedida<', '>nada de lo que se mide es basura<')],
     'paisaje-interior': [('>TIENDA<', '>cerámica<')],
@@ -299,7 +301,7 @@ def enlazar(slug, h):
 # la derecha (ancho 541, en x=439), dentro del lienzo de 980 px.
 NUEVAS = {
     'protesis': {
-        'titulo': 'Prótesis',
+        'titulo': 'prótesis',
         'volver': 'proyectos',
         'ficha': ['3 de Septiembre - 15 de Octubre 2026',
                   'Emblematic Art Gallery - Bogot\u00e1.',
@@ -1149,6 +1151,43 @@ CONTACTO = {
 }
 
 
+def titulo_en_minuscula(html):
+    """Baja a minúscula el título de la entrada.
+
+    Es una decisión de la artista: todos los nombres de proyecto empiezan en
+    minúscula. Los que venían del Wix en versalitas —«VASIJA / VER / VACIAR»—
+    se bajan enteros; en los demás basta la primera letra. Solo se toca el
+    título de la página, no el texto ni el menú."""
+    m = re.search(r'(<div class="encabezado">.*?<h1\b[^>]*>)(.*?)(</h1>)',
+                  html, re.S)
+    if not m:
+        return html
+    dentro = m.group(2)
+    visible = re.sub(r'<[^>]+>', '', dentro)
+    letras = [c for c in visible if c.isalpha()]
+    todo = letras and not any(c.islower() for c in letras)
+
+    def baja(t):
+        if todo:
+            return t.lower()
+        for i, c in enumerate(t):
+            if c.isalpha():
+                return t[:i] + c.lower() + t[i + 1:]
+        return t
+
+    hecho = [False]
+    def trozo(x):
+        if hecho[0] and not todo:
+            return x.group(0)
+        texto = x.group(0)
+        if texto.strip():
+            hecho[0] = True
+        return baja(texto)
+
+    nuevo = re.sub(r'(?<=>)[^<]+', trozo, dentro)
+    return html[:m.start(2)] + nuevo + html[m.end(2):]
+
+
 def render_contacto(cfg):
     filas = []
     for icono, etiqueta, destino, fuera in cfg['enlaces']:
@@ -1564,6 +1603,7 @@ for slug, page in pages.items():
             bodyclass=('landing' if page['landing'] else 'inner') + ' p-' + out,
             body=body,
         )
+        html = titulo_en_minuscula(html)
         html = html.replace('\u21a9', FLECHA)
         for viejo_txt, nuevo_txt in TEXTOS.get(out, []):
             html = html.replace(viejo_txt, nuevo_txt)
