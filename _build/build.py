@@ -1026,6 +1026,10 @@ def render_lista(slug, origen, page, idioma):
 # Datos y fotografías tomados del portafolio de obra disponible. Los precios
 # llevan ya el aumento de 100.000 pesos acordado.
 CORREO = 'sofia771199@gmail.com'
+# El botón «consultar» abre una conversación de WhatsApp con el mensaje ya
+# escrito. wa.me pide el número sin signos: indicativo del país y después
+# el número, sin el «+» ni espacios.
+WHATSAPP = '57323940719'
 
 CATALOGO = [
     ('flor-borrachero', 'Flor borrachero', 'Cerámica', '12 x 12 x 12 cm', 2026, 180000, ''),
@@ -1069,7 +1073,7 @@ def pesos(n):
 def render_catalogo(idioma='es'):
     en = idioma == 'en'
     consultar = 'Enquire' if en else 'Consultar'
-    asunto = 'Enquiry about' if en else 'Consulta sobre'
+    asunto = 'Hello Sofía, I am writing about' if en else 'Hola Sofía, te escribo por'
     titulo = 'ceramics' if en else 'cerámica'
 
     fichas = []
@@ -1080,14 +1084,16 @@ def render_catalogo(idioma='es'):
             nota = CATALOGO_EN.get(nota, nota)
             nombre = CATALOGO_EN.get(nombre, nombre)
         datos = ' · '.join(x for x in (tecnica, medidas, str(ano)) if x)
-        correo = ('mailto:%s?subject=%s %s'
-                  % (CORREO, asunto.replace(' ', '%20'), nombre.replace(' ', '%20')))
+        from urllib.parse import quote
+        mensaje = '%s \u201c%s\u201d.' % (asunto, nombre)
+        chat = 'https://wa.me/%s?text=%s' % (WHATSAPP, quote(mensaje))
         if precio is None:
             cierre = '<p class="vendida">%s</p>' % ('Sold' if en else 'Vendida')
         else:
             cierre = ('<p class="precio">%s</p>'
-                      '<a class="consultar" href="%s">%s</a>'
-                      % (pesos(precio), correo, consultar))
+                      '<a class="consultar" href="%s" target="_blank"'
+                      ' rel="noopener">%s</a>'
+                      % (pesos(precio), chat, consultar))
         fichas.append(
             '<li%s>'
             '<div class="marco"><img src="assets/img/%s" alt="%s" width="1000" height="750" loading="lazy"></div>'
