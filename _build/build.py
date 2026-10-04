@@ -648,7 +648,7 @@ COLOCAR = {
         # cabecera, para que ambos arranquen a la misma altura
         'comp-lrjhvqx41': {'left': '476px', 'width': '636px',
                            'grid-area': '2 / 1 / 3 / 2',
-                           'margin': '1.47px 0px 10px 0px'},
+                           'margin': '-0.79px 0px 10px 0px'},
     },
 }
 
@@ -1295,7 +1295,7 @@ def flecha_en_proyectos(page):
         # de la flecha, hay que volver a medir.
         if c['id'] == 'comp-mh0s4d8j':
             c['geo']['grid-area'] = '2 / 1 / 3 / 2'
-            c['geo']['margin'] = '-0.11px 0px 20px 0px'
+            c['geo']['margin'] = '-4.13px 0px 20px 0px'
         hijos.append(c)
 
     flecha = {
@@ -1504,7 +1504,7 @@ TEMPLATE = """<!doctype html>
 <meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Forum&family=Inter:wght@300;400;500&family=Nunito+Sans:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Forum&family=Inter:wght@300;400;500;600;700&family=Nunito+Sans:ital,wght@0,200..900;1,200..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{pre}assets/css/site.css?v={vcss}">
 <style>
 {css}

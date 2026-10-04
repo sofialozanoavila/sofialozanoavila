@@ -89,8 +89,7 @@
   --font_9: normal normal normal 12px/1.4em avenir-lt-w01_35-light1475496,sans-serif;
   --font_10: normal normal normal 10px/1.4em 'open sans',sans-serif;
   /* Avenir Light no es una fuente web libre: se usa la más parecida disponible */
-  /* Grotesca neutra para la ficha del catálogo: es la que más se acerca al
-     dibujo de la letra de Zara, que es de licencia y no se puede usar. */
+  /* La letra de todo el sitio: una grotesca neutra. */
   --grotesca: Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --sans-light: 'Nunito Sans', 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
   --col-ancho: 980px;
@@ -126,6 +125,12 @@ a:hover { opacity: .65; }
 .font_8 { font: var(--font_8); font-family: var(--sans-light); }
 .font_9 { font: var(--font_9); font-family: var(--sans-light); }
 .font_10 { font: var(--font_10); }
+
+/* Una sola letra en todo el sitio. Lleva !important porque el HTML heredado
+   de Wix trae la fuente escrita dentro de cada etiqueta, y de otro modo
+   ganaría ella. Va aquí arriba a propósito: las reglas que vienen después
+   —como la Times del lugar y la curaduría— siguen pudiendo cambiarla. */
+body, body * { font-family: var(--grotesca) !important; }
 
 .color_0 { color: rgb(var(--color_0)); }
 .color_1 { color: rgb(var(--color_1)); }
@@ -193,6 +198,13 @@ a:hover { opacity: .65; }
 .color_63 { color: rgb(var(--color_63)); }
 .color_64 { color: rgb(var(--color_64)); }
 .color_65 { color: rgb(var(--color_65)); }
+
+/* El nombre cabe justo en su caja; con esta letra, un punto más ancha, se
+   partía en dos renglones. */
+@media (min-width: 860px) {
+  .nombre p, .nombre h1,
+  .nombre-proyectos p, .nombre-proyectos h1 { white-space: nowrap; }
+}
 
 /* --- bloques de texto ------------------------------------------------ */
 .rt p, .rt h1, .rt h2, .rt h3, .rt h4, .rt h5, .rt h6 { margin: 0; }
@@ -403,7 +415,7 @@ a:hover { opacity: .65; }
    altura que las del título: medido sobre la tinta real de cada fuente, no
    sobre la caja, que engaña porque cada tamaño lleva su propio interlineado.
    Si cambia el tamaño del título, hay que volver a medir. */
-.sec-obras .cuerpo { grid-column: 2; grid-row: 2; padding-top: 7.18px; }
+.sec-obras .cuerpo { grid-column: 2; grid-row: 2; margin-top: -1.42px; }
 
 .sec-obras .encabezado .rt + .rt { margin-top: 12px; }
 
@@ -496,7 +508,7 @@ a:hover { opacity: .65; }
   .sec-obras { padding: 0 0 60px; }
   .sec-obras .intro { display: block; margin: 0 0 44px; }
   .sec-obras .encabezado { margin-bottom: 20px; }
-  .sec-obras .cuerpo { padding-top: 0; }
+  .sec-obras .cuerpo { margin-top: 0; }
   .obra { display: block; margin-bottom: 44px; }
   .obra .ficha { margin-top: 9px; }
   .obra img { max-height: none; width: 100%; }
