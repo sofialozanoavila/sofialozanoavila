@@ -623,7 +623,17 @@ FICHAS = {
 
 # Fotografías propias que se añaden al final de una entrada, después de
 # las que venían del Wix.
+# Entradas cuyas fotografías propias van detrás de las que vienen del Wix,
+# en lugar de abrirlas.
+AL_FINAL = {'antejard\u00edn'}
+
 AGREGADAS = {
+    'antejard\u00edn': [
+        ('antejardin-plantas-montaje.jpg', 1164, 1600,
+         'Los dos cuadros de la serie, colgados en la pared'),
+        ('antejardin-plantas-01.jpg', 1254, 1600, 'Retrato con eucalipto'),
+        ('antejardin-plantas-02.jpg', 1226, 1600, 'Retrato con ramo de flores'),
+    ],
     'desmesura': [
         ('desmesura-montaje.jpg', 1600, 976, 'Los tres dibujos enmarcados en la pared'),
     ],
@@ -731,6 +741,9 @@ PIES = {
         'comp-mh0u6ow8': (['Dibujo. Lápiz de color sobre papel. Dimensiones variables. 2025'], ['Drawing. Coloured pencil on paper. Dimensions variable. 2025']),
     },
     'antejardín': {
+        'nueva-antejardin-plantas-montaje.jpg': (['De la serie \u201cPlantas y poder\u201d. Pintura. \u00d3leo sobre lienzo. 35 x 40 cms. 2026.'], ['From the series \u201cPlantas y poder\u201d. Painting. Oil on canvas. 35 x 40 cm. 2026.']),
+        'nueva-antejardin-plantas-01.jpg': (['Detalle. De la serie \u201cPlantas y poder\u201d. Pintura. \u00d3leo sobre lienzo. 35 x 40 cms. 2026.'], ['Detail. From the series \u201cPlantas y poder\u201d. Painting. Oil on canvas. 35 x 40 cm. 2026.']),
+        'nueva-antejardin-plantas-02.jpg': (['Detalle. De la serie \u201cPlantas y poder\u201d. Pintura. \u00d3leo sobre lienzo. 35 x 40 cms. 2026.'], ['Detail. From the series \u201cPlantas y poder\u201d. Painting. Oil on canvas. 35 x 40 cm. 2026.']),
         'comp-md1ogjko': (['Vista general de la exposición.'],
                           ['General view of the exhibition.']),
         'comp-md1ogjkk': (['Regadera. Cerámica, tierra. Dimensiones variables. 2025'], ['Watering can. Ceramic, soil. Dimensions variable. 2025']),
@@ -919,11 +932,12 @@ def render_lista(slug, origen, page, idioma):
     # Las fotografías propias abren la entrada; las que venían del Wix quedan
     # debajo. Se añaden después de ordenar, porque no tienen posición en la
     # cuadrícula original de la que tomar el orden.
-    obras = [{'pies': [], 'foto': {
+    nuevas = [{'pies': [], 'foto': {
         'id': 'nueva-' + archivo, 'type': 'image', 'geo': {},
         'archivo': 'assets/img/' + archivo,
         'w': ancho, 'h': alto, 'alt': alt}}
-        for archivo, ancho, alto, alt in AGREGADAS.get(origen, [])] + obras
+        for archivo, ancho, alto, alt in AGREGADAS.get(origen, [])]
+    obras = obras + nuevas if origen in AL_FINAL else nuevas + obras
 
     def texto(c):
         h = re.sub(r'href="([^"]*)"', lambda m: 'href="%s"' % local_href(m.group(1)), c['html'])
