@@ -204,6 +204,9 @@ def px(v, default=None):
 # «TIENDA» pasa a llamarse «cerámica» en todo el sitio. El texto
 # venía dentro del HTML heredado de Wix, así que se sustituye al generar.
 TEXTOS = {
+    # Los nombres propios también van en minúscula, como el resto de los
+    # títulos del sitio; «CV» se queda como está.
+    'cv': [('Bogot&aacute;, Colombia (1997)', 'bogot&aacute;, colombia (1997)')],
     # Venía del Wix con una mayúscula suelta en medio del nombre.
     'cuerpo-residual': [('cuerpo Residual', 'cuerpo residual')],
     # El proyecto pasa de llamarse «desmedida» a llevar el título de la serie.
