@@ -90,9 +90,26 @@
   --font_10: normal normal normal 10px/1.4em 'open sans',sans-serif;
   /* Avenir Light no es una fuente web libre: se usa la más parecida disponible */
   /* La letra de todo el sitio: una grotesca neutra. */
-  --grotesca: Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --grotesca: Inter, 'Inter respaldo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --sans-light: 'Nunito Sans', 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
   --col-ancho: 980px;
+}
+
+/* Mientras llega Inter, el navegador compone con la letra del sistema. Como
+   es más ancha, el texto ocupaba más renglones y la página daba un salto al
+   terminar de cargar. Aquí se encoge la de respaldo hasta que los renglones
+   caen donde van a caer, así el cambio de letra no mueve nada.
+   Las cifras salen de medir las dos maquetadas: una misma frase ocupa un
+   106,51 % en Inter de lo que ocupa en Arial. Las alturas son las de Inter
+   —0,969 y 0,241 de cuerpo— divididas por ese mismo factor. */
+@font-face {
+  font-family: 'Inter respaldo';
+  src: local('Arial'), local('Helvetica Neue'), local('Liberation Sans'),
+       local('Roboto');
+  size-adjust: 106.51%;
+  ascent-override: 90.98%;
+  descent-override: 22.63%;
+  line-gap-override: 0%;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
