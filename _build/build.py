@@ -1153,20 +1153,19 @@ CORREO = 'sofia771199@gmail.com'
 WHATSAPP = '573223940719'
 
 CATALOGO = [
-    ('flor-borrachero', 'Flor borrachero', 'Cerámica', '12 x 12 x 12 cm', 2026, 180000, ''),
-    ('pocillo', 'Pocillo', 'Cerámica', '8 x 8 x 10 cm', 2022, 150000, ''),
-    ('concha', 'Concha', 'Cerámica', '16,5 x 10,5 cm', 2026, 180000, ''),
-    ('caja-2', 'Caja 2', 'Cerámica', '16,5 x 11 cm', 2026, 180000, ''),
     ('monos-1', 'De la serie moños', 'Cerámica', '', 2026, 160000, ''),
     ('monos-2', 'De la serie moños', 'Cerámica', '5 x 6 x 4 cm', 2026, 160000, ''),
-    ('banda-elastica', 'Banda elástica', 'Cerámica', '12 x 5 x 3 cm', 2026, 160000, ''),
     ('monos-serie', 'Moños', 'Cerámica', '30 x 20 x 6 cm', 2026, 380000, 'Serie completa'),
     ('palas', 'Palas', 'Cerámica', '30 x 25 x 5 cm', 2025, 600000, 'Queda una disponible'),
     ('apariciones-instalacion', 'Apariciones', 'Cerámica y tierra', '50 x 50 x 50 cm', 2025,
      2100000, 'Instalación completa'),
     ('apariciones-piezas', 'Apariciones', 'Cerámica', '10 x 10 x 8 cm', 2025, 170000,
      'Por pieza · serie completa 400.000'),
-    # Vendidas: se muestran, pero sin precio.
+    ('banda-elastica', 'Banda elástica', 'Cerámica', '12 x 5 x 3 cm', 2026, 160000, ''),
+    ('concha', 'Concha', 'Cerámica', '16,5 x 10,5 cm', 2026, 180000, ''),
+    ('caja-2', 'Caja 2', 'Cerámica', '16,5 x 11 cm', 2026, 180000, ''),
+    ('pocillo', 'Pocillo', 'Cerámica', '8 x 8 x 10 cm', 2022, 150000, ''),
+    ('flor-borrachero', 'Flor borrachero', 'Cerámica', '12 x 12 x 12 cm', 2026, 180000, ''),
     ('vertebra', 'Vértebra', 'Cerámica', '20 x 5 x 5 cm', 2024, None, ''),
     ('caja', 'Caja', 'Cerámica', '15 x 8,5 x 4,5 cm', 2026, None, ''),
     ('cuchara', 'Cuchara', 'Cerámica', '16 x 4 x 2 cm', 2025, None, ''),
