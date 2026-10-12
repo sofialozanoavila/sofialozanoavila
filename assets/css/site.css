@@ -640,6 +640,10 @@ body, body * { font-family: var(--grotesca) !important; }
 body.p-cv .enlaces { display: none; }
 /* La cabecera del CV arranca en el margen, como los títulos de proyecto.
    Venía del Wix alineada a la derecha. */
+/* Las dos listas, tres puntos por debajo de lo que traían del Wix. */
+.lista-proyectos p,
+.lista-proyectos span { font-size: 17px !important; }
+
 /* «proyectos» y «talleres» al mismo cuerpo que el título de cada entrada. */
 body.p-proyectos #comp-mh0s4d8j p,
 body.p-proyectos #comp-mh0s4d8j span,
