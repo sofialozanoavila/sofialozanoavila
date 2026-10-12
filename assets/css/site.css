@@ -778,6 +778,13 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   /* En el celular el nombre repetiría lo que ya ofrecen la barra de arriba
      y la flecha, así que se retira y la página empieza por el título. */
   body.p-proyectos .nombre-proyectos { display: none !important; }
+  /* Apiladas, las dos columnas se leen una después de la otra: primero los
+     proyectos enteros y luego los talleres, no los dos títulos seguidos. */
+  body.p-proyectos #volver-proyectos { order: 0; }
+  body.p-proyectos #comp-mh0s4d8j { order: 1; }
+  body.p-proyectos #comp-luvkx06n1 { order: 2; }
+  body.p-proyectos #talleres-titulo { order: 3; margin-top: 18px; }
+  body.p-proyectos #talleres-lista { order: 4; }
 
   /* La línea de enlaces del inicio, al mismo tamaño que la de proyectos: a
      20 px se partía en dos renglones y quedaba apretada. */

@@ -163,6 +163,7 @@ MENU = [
     ('prótesis', 'protesis'), ('antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
     ('\u27ac cerámica', 'paisaje-interior'), ('bache', 'bache'),
+    ('comerse una flor', 'comerse-una-flor'),
     ('vasija/ver/vaciar', 'vasija-ver-vaciar'), ('procedimiento fértil', 'procedimiento-fertil'),
     ('de dudosa procedencia', 'de-dudosa-procedencia'), ('semi preciosas', 'semi-preciosas'),
     ('revisitar', 'revisitar'), ('inventario sobre lo que no veo', 'inventario-sobre-lo-que-no-veo'),
@@ -228,6 +229,16 @@ TITULOS = {
 
 # Nombres estables para algunas piezas, y así poder darles estilo propio
 # (los identificadores comp-… vienen de Wix y no dicen nada por sí solos).
+def sin_enlace(h, destino):
+    """Retira de la lista el renglón que lleva a esa página.
+
+    «vasija / ver / vaciar» es un taller, y vive en la columna de talleres;
+    aparecer también entre los proyectos lo contaría dos veces."""
+    return re.sub(r'<p\b[^>]*>(?:(?!</p>).)*?href="%s\.html"'
+                  r'(?:(?!</p>).)*?</p>\s*' % re.escape(destino),
+                  '', h, flags=re.S)
+
+
 def unir_enlaces(h):
     """Hace que el renglón entero de cada proyecto sea el enlace.
 
@@ -258,6 +269,7 @@ CLASES = {
         'comp-m2c3o77q': 'nombre-proyectos',   # sofía lozano ávila
         'comp-mtx4x6u5': 'enlaces-proyectos',  # contacto · CV · tienda
         'comp-luvkx06n1': 'lista-proyectos',   # los proyectos, por año
+        'talleres-lista': 'lista-proyectos',   # los talleres, al lado
     },
     'cv': {
         'comp-mrr1lget': 'enlaces',            # contacto · CV
@@ -303,6 +315,39 @@ def enlazar(slug, h):
 # columna de texto a la izquierda (ancho 419, en x=0) y columna de imágenes a
 # la derecha (ancho 541, en x=439), dentro del lienzo de 980 px.
 NUEVAS = {
+    'comerse-una-flor': {
+        'titulo': 'comerse una flor',
+        'volver': 'proyectos',
+        'ficha': ['2025',
+                  'Parque Nacional - Bogot\u00e1.',
+                  'Residencia En Bloque - Idartes.'],
+        'texto': [
+            'Este taller se realiz\u00f3 en el marco del desarrollo del proyecto '
+            '\u201cAntejard\u00edn\u201d y buscaba crear un espacio de conversaci\u00f3n '
+            'en torno a la flora del Parque Nacional, mientras se coloreaban tres '
+            'especies escogidas.',
+        ],
+        'ficha_en': ['2025',
+                     'Parque Nacional - Bogot\u00e1.',
+                     'En Bloque residency - Idartes.'],
+        'texto_en': [
+            'This workshop took place within the development of the project '
+            '\u201cAntejard\u00edn\u201d and set out to open a space for conversation '
+            'around the flora of the Parque Nacional, while three chosen species '
+            'were coloured in.',
+        ],
+        'pies_en': {
+            'Taller. Parque Nacional, Bogot\u00e1. 2025.':
+                'Workshop. Parque Nacional, Bogot\u00e1. 2025.',
+            'L\u00e1mina coloreada durante el taller. 2025.':
+                'Sheet coloured during the workshop. 2025.',
+        },
+        'fotos': [
+            ('comerse-02.jpg', 'Taller. Parque Nacional, Bogot\u00e1. 2025.'),
+            ('comerse-01.jpg', 'Taller. Parque Nacional, Bogot\u00e1. 2025.'),
+            ('comerse-03.jpg', 'L\u00e1mina coloreada durante el taller. 2025.'),
+        ],
+    },
     'protesis': {
         'titulo': 'prótesis',
         'volver': 'proyectos',
@@ -870,7 +915,7 @@ LISTA = {
     'inventario-sobre-lo-que-no-veo', 'la-linea-no-es-recta', 'otros-proyectos',
     'procedimiento-fertil', 'revisitar', 'semi-preciosas', 'señales',
     'todo-lo-que-no-cabe-en-una-vitrina', 'vasija-ver-vaciar',
-    'protesis',
+    'protesis', 'comerse-una-flor',
 }
 
 
@@ -952,8 +997,13 @@ def render_lista(slug, origen, page, idioma):
         return c.get('text', '').strip() == '\u21a9'
 
     flechas = [c for c in intro if es_flecha(c)]
-    cortos = [c for c in intro if not es_flecha(c) and len(c.get('text', '')) <= 250]
-    largos = [c for c in intro if not es_flecha(c) and len(c.get('text', '')) > 250]
+    # En las páginas escritas a mano el texto del proyecto viene marcado; en
+    # las heredadas de Wix se reconoce por su largo.
+    def es_cuerpo(c):
+        return c['id'] == 'n-texto' or len(c.get('text', '')) > 250
+
+    cortos = [c for c in intro if not es_flecha(c) and not es_cuerpo(c)]
+    largos = [c for c in intro if not es_flecha(c) and es_cuerpo(c)]
 
     ficha = FICHAS.get(origen)
 
@@ -1330,7 +1380,52 @@ def reordenar(slug, sec):
                 mesh={'grid-template-rows': 'repeat(%d, min-content) 1fr' % (filas - 1)})
 
 
-def flecha_en_proyectos(page):
+TXT_TITULO_COL = ('<p class="font_7" style="font-size:50px;">'
+                  '<span style="font-weight:bold;">'
+                  '<span style="font-size:50px;"><span style="color:#000000;">'
+                  '%s</span></span></span></p>')
+TXT_ANO_COL = ('<p class="font_8" style="font-size:20px; line-height:1.3em;">'
+               '<span style="font-size:20px;"><span style="color:#000000;">'
+               '<span style="font-weight:bold;">&nbsp; &nbsp; &nbsp;%s &asymp;'
+               '</span></span></span></p>')
+TXT_ENLACE_COL = ('<p class="font_8" style="font-size:20px; line-height:1.3em;">'
+                  '<a href="%s.html"><span style="font-weight:300;">'
+                  '<span style="font-size:20px;"><span style="color:#000000;">'
+                  '%s</span></span></span></a></p>')
+
+# Los talleres viven en su propia columna, al lado de los proyectos.
+TALLERES = [
+    (2025, 'comerse una flor', 'comerse-una-flor'),
+    (2024, 'vasija / ver / vaciar', 'vasija-ver-vaciar'),
+]
+
+
+def columna_talleres(idioma):
+    """Columna de la derecha en la página de proyectos."""
+    titulo = 'workshops' if idioma == 'en' else 'talleres'
+    filas = []
+    ano = None
+    for a, nombre, destino in TALLERES:
+        if a != ano:
+            if ano is not None:
+                filas.append('<p class="font_8" style="font-size:20px; '
+                             'line-height:1.3em;">&nbsp;</p>')
+            filas.append(TXT_ANO_COL % a)
+            ano = a
+        filas.append(TXT_ENLACE_COL % (destino, '%d / %s' % (a, nombre)))
+    return [
+        {'id': 'talleres-titulo', 'type': 'text',
+         'html': TXT_TITULO_COL % titulo,
+         'geo': {'grid-area': '3 / 1 / 4 / 2', 'left': '636px',
+                 'width': '506px', 'margin': '0px 0px 20px 0px'}},
+        {'id': 'talleres-lista', 'type': 'text',
+         'html': ''.join(filas),
+         'geo': {'grid-area': '4 / 1 / 5 / 2', 'left': '636px',
+                 'width': '506px', 'margin': '0px 0px 10px 0px'}},
+    ]
+
+
+def flecha_en_proyectos(page, idioma):
     """Añade la flecha de volver al listado de proyectos.
 
     Esa página no lleva menú superior, así que la flecha se inserta como una
@@ -1346,14 +1441,16 @@ def flecha_en_proyectos(page):
             # un puesto para dejarle sitio a la flecha debajo
             if a > 1:
                 c['geo']['grid-area'] = '%d / %d / %d / %d' % (a + 1, b, d + 1, e)
-        # El título «proyectos» comparte renglón con la flecha, y la línea de
-        # la flecha cae en el centro de sus mayúsculas: medido sobre la tinta
-        # real, no sobre la caja. Si cambia el cuerpo del título o el tamaño
-        # de la flecha, hay que volver a medir.
+        # Los proyectos pasan a la columna de la izquierda, bajo la flecha,
+        # para dejarle sitio a los talleres a la derecha.
+        if c['id'] in ('comp-mh0s4d8j', 'comp-luvkx06n1'):
+            c['geo']['left'] = '-162px'
         if c['id'] == 'comp-mh0s4d8j':
-            c['geo']['grid-area'] = '2 / 1 / 3 / 2'
-            c['geo']['margin'] = '-4.13px 0px 20px 0px'
+            c['geo']['grid-area'] = '3 / 1 / 4 / 2'
+            c['geo']['margin'] = '0px 0px 20px 0px'
         hijos.append(c)
+
+    hijos += columna_talleres(idioma)
 
     flecha = {
         'id': 'volver-proyectos',
@@ -1445,7 +1542,7 @@ def render_page(slug, page, idioma='es', origen=None):
         return render_lista(slug, origen, page, idioma), '', 0
 
     if slug == 'proyectos':
-        page = flecha_en_proyectos(page)
+        page = flecha_en_proyectos(page, idioma)
 
     if slug in GALERIA:
         return render_galeria(GALERIA[slug], page), '', 0
@@ -1495,6 +1592,8 @@ def render_page(slug, page, idioma='es', origen=None):
                 extra = CLASES.get(slug, {}).get(c['id'], '')
                 if extra == 'lista-proyectos':
                     h = unir_enlaces(h)
+                    if c['id'] == 'comp-luvkx06n1':
+                        h = sin_enlace(h, 'vasija-ver-vaciar')
                 if extra:
                     h = enganchar_idioma(slug, extra, h, idioma)
                 parts.append('<div id="%s" class="rt%s">%s</div>'
