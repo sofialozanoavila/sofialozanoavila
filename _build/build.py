@@ -163,6 +163,7 @@ MENU = [
     ('prótesis', 'protesis'), ('antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
     ('\u27ac cerámica', 'paisaje-interior'), ('bache', 'bache'),
+    ('superficies de paso', 'superficies-de-paso'),
     ('doblar una flor', 'doblar-una-flor'),
     ('vasija/ver/vaciar', 'vasija-ver-vaciar'), ('procedimiento fértil', 'procedimiento-fertil'),
     ('de dudosa procedencia', 'de-dudosa-procedencia'), ('semi preciosas', 'semi-preciosas'),
@@ -315,6 +316,79 @@ def enlazar(slug, h):
 # columna de texto a la izquierda (ancho 419, en x=0) y columna de imágenes a
 # la derecha (ancho 541, en x=439), dentro del lienzo de 980 px.
 NUEVAS = {
+    'superficies-de-paso': {
+        'titulo': 'superficies de paso',
+        'volver': 'proyectos',
+        'ficha': ['3 de Octubre del 2025',
+                  'Emblematic Art Gallery - Bogot\u00e1.',
+                  'Primer encuentro nacional de artistas mujeres.',
+                  '\u201cDesde sus adentros\u201d. Curadur\u00eda de Andrea Mu\u00f1oz.'],
+        'texto': [
+            'La celos\u00eda y el sif\u00f3n son superficies caladas que regulan lo que '
+            'puede atravesar un umbral. La celos\u00eda, ese tablero calado que cierra '
+            'ventanas, balcones o fachadas, deja pasar la luz y el aire mientras '
+            'bloquea la mirada directa desde afuera, dosificando la privacidad de lo '
+            'dom\u00e9stico. El sif\u00f3n hace lo mismo, pero al rev\u00e9s: ubicado en el '
+            'suelo, deja pasar el agua y retiene lo que no debe salir, drenando lo '
+            '\u00edntimo de la casa hacia lo p\u00fablico del alcantarillado.',
+            'Ambos funcionan como un stencil: existen por y desde el molde. Son '
+            'objetos matriz, pensados para repetirse y existir en multiplicidad, y su '
+            'forma es la de lo que dejan pasar. Una filtra la mirada; el otro filtra '
+            'el desecho. Una est\u00e1 en la pared; el otro, en el piso. Pero los dos '
+            'son maneras de decidir qu\u00e9 se deja pasar y qu\u00e9 se retiene en el '
+            'l\u00edmite entre lo privado y lo p\u00fablico.',
+            'De ah\u00ed parte esta actividad: un juego de sombras a partir de '
+            'celos\u00edas y sifones recortados en papel. Al proyectar su sombra, ambos '
+            'patrones \u2014flores, rejillas, tramas geom\u00e9tricas\u2014 se vuelven '
+            'casi indistinguibles entre s\u00ed. Esa ambig\u00fcedad es el punto de '
+            'partida para pensar en un espacio delimitado no por muros, sino por la '
+            'sombra misma: algo intocable que, sin embargo, marca un adentro y un '
+            'afuera.',
+            'Este taller fue impartido por Mar\u00eda Paula Mendoza y Sof\u00eda Lozano '
+            'en el marco del Primer encuentro nacional de artistas mujeres en '
+            'Emblematic Art Gallery, con la exposici\u00f3n \u201cDesde sus '
+            'adentros\u201d, curada por Andrea Mu\u00f1oz.',
+        ],
+        'ficha_en': ['3 October 2025',
+                     'Emblematic Art Gallery - Bogot\u00e1.',
+                     'First national gathering of women artists.',
+                     '\u201cDesde sus adentros\u201d. Curated by Andrea Mu\u00f1oz.'],
+        'texto_en': [
+            'The lattice screen and the drain are perforated surfaces that govern '
+            'what may cross a threshold. The lattice \u2014that pierced panel closing '
+            'windows, balconies or fa\u00e7ades\u2014 lets light and air through while '
+            'blocking the direct gaze from outside, metering out the privacy of the '
+            'domestic. The drain does the same in reverse: set into the floor, it '
+            'lets water through and holds back what should not leave, draining the '
+            'intimate of the house towards the public of the sewer.',
+            'Both work like a stencil: they exist by and from the mould. They are '
+            'matrix objects, meant to repeat and to exist in multiplicity, and their '
+            'form is the form of what they let through. One filters the gaze; the '
+            'other filters waste. One is on the wall; the other, on the floor. But '
+            'both are ways of deciding what is let through and what is held back at '
+            'the limit between the private and the public.',
+            'This activity starts from there: a play of shadows made with lattices '
+            'and drains cut out of paper. Cast as shadow, both patterns \u2014flowers, '
+            'grilles, geometric weaves\u2014 become almost indistinguishable from one '
+            'another. That ambiguity is the starting point for thinking of a space '
+            'bounded not by walls but by the shadow itself: something untouchable '
+            'that nonetheless marks an inside and an outside.',
+            'This workshop was led by Mar\u00eda Paula Mendoza and Sof\u00eda Lozano '
+            'within the First national gathering of women artists at Emblematic Art '
+            'Gallery, alongside the exhibition \u201cDesde sus adentros\u201d, curated '
+            'by Andrea Mu\u00f1oz.',
+        ],
+        'pies_en': {},
+        'fotos': [
+            ('superficies-05.jpg', ''),
+            ('superficies-01.jpg', ''),
+            ('superficies-02.jpg', ''),
+            ('superficies-03.jpg', ''),
+            ('superficies-04.jpg', ''),
+            ('superficies-06.jpg', ''),
+            ('superficies-07.jpg', ''),
+        ],
+    },
     'doblar-una-flor': {
         'titulo': 'doblar una flor',
         'volver': 'proyectos',
@@ -966,7 +1040,7 @@ LISTA = {
     'inventario-sobre-lo-que-no-veo', 'la-linea-no-es-recta', 'otros-proyectos',
     'procedimiento-fertil', 'revisitar', 'semi-preciosas', 'señales',
     'todo-lo-que-no-cabe-en-una-vitrina', 'vasija-ver-vaciar',
-    'protesis', 'doblar-una-flor',
+    'protesis', 'doblar-una-flor', 'superficies-de-paso',
 }
 
 
@@ -1445,6 +1519,7 @@ TXT_ENLACE_COL = ('<p class="font_8" style="font-size:20px; line-height:1.3em;">
 
 # Los talleres viven en su propia columna, al lado de los proyectos.
 TALLERES = [
+    (2025, 'superficies de paso', 'superficies-de-paso'),
     (2025, 'doblar una flor', 'doblar-una-flor'),
     (2024, 'vasija / ver / vaciar', 'vasija-ver-vaciar'),
 ]
