@@ -1380,9 +1380,9 @@ def reordenar(slug, sec):
                 mesh={'grid-template-rows': 'repeat(%d, min-content) 1fr' % (filas - 1)})
 
 
-TXT_TITULO_COL = ('<p class="font_7" style="font-size:50px;">'
+TXT_TITULO_COL = ('<p class="font_7" style="font-size:34px;">'
                   '<span style="font-weight:bold;">'
-                  '<span style="font-size:50px;"><span style="color:#000000;">'
+                  '<span style="font-size:34px;"><span style="color:#000000;">'
                   '%s</span></span></span></p>')
 TXT_ANO_COL = ('<p class="font_8" style="font-size:20px; line-height:1.3em;">'
                '<span style="font-size:20px;"><span style="color:#000000;">'
@@ -1416,12 +1416,12 @@ def columna_talleres(idioma):
     return [
         {'id': 'talleres-titulo', 'type': 'text',
          'html': TXT_TITULO_COL % titulo,
-         'geo': {'grid-area': '3 / 1 / 4 / 2', 'left': '636px',
-                 'width': '506px', 'margin': '0px 0px 20px 0px'}},
+         'geo': {'grid-area': '3 / 1 / 4 / 2', 'left': '730px',
+                 'width': '382px', 'margin': '0px 0px 20px 0px'}},
         {'id': 'talleres-lista', 'type': 'text',
          'html': ''.join(filas),
-         'geo': {'grid-area': '4 / 1 / 5 / 2', 'left': '636px',
-                 'width': '506px', 'margin': '0px 0px 10px 0px'}},
+         'geo': {'grid-area': '4 / 1 / 5 / 2', 'left': '730px',
+                 'width': '382px', 'margin': '0px 0px 10px 0px'}},
     ]
 
 
@@ -1444,7 +1444,8 @@ def flecha_en_proyectos(page, idioma):
         # Los proyectos pasan a la columna de la izquierda, bajo la flecha,
         # para dejarle sitio a los talleres a la derecha.
         if c['id'] in ('comp-mh0s4d8j', 'comp-luvkx06n1'):
-            c['geo']['left'] = '-162px'
+            c['geo']['left'] = '144px'
+            c['geo']['width'] = '510px'
         if c['id'] == 'comp-mh0s4d8j':
             c['geo']['grid-area'] = '3 / 1 / 4 / 2'
             c['geo']['margin'] = '0px 0px 20px 0px'
