@@ -319,7 +319,7 @@ NUEVAS = {
     'superficies-de-paso': {
         'titulo': 'superficies de paso',
         'volver': 'proyectos',
-        'ficha': ['3 de Octubre del 2025',
+        'ficha': ['3 de Octubre del 2026',
                   'Emblematic Art Gallery - Bogot\u00e1.',
                   'Primer encuentro nacional de artistas mujeres.',
                   '\u201cDesde sus adentros\u201d. Curadur\u00eda de Andrea Mu\u00f1oz.'],
@@ -349,7 +349,7 @@ NUEVAS = {
             'Emblematic Art Gallery, con la exposici\u00f3n \u201cDesde sus '
             'adentros\u201d, curada por Andrea Mu\u00f1oz.',
         ],
-        'ficha_en': ['3 October 2025',
+        'ficha_en': ['3 October 2026',
                      'Emblematic Art Gallery - Bogot\u00e1.',
                      'First national gathering of women artists.',
                      '\u201cDesde sus adentros\u201d. Curated by Andrea Mu\u00f1oz.'],
@@ -1519,7 +1519,7 @@ TXT_ENLACE_COL = ('<p class="font_8" style="font-size:20px; line-height:1.3em;">
 
 # Los talleres viven en su propia columna, al lado de los proyectos.
 TALLERES = [
-    (2025, 'superficies de paso', 'superficies-de-paso'),
+    (2026, 'superficies de paso', 'superficies-de-paso'),
     (2025, 'doblar una flor', 'doblar-una-flor'),
     (2024, 'vasija / ver / vaciar', 'vasija-ver-vaciar'),
 ]
