@@ -163,7 +163,7 @@ MENU = [
     ('prótesis', 'protesis'), ('antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
     ('\u27ac cerámica', 'paisaje-interior'), ('bache', 'bache'),
-    ('comerse una flor', 'comerse-una-flor'),
+    ('doblar una flor', 'doblar-una-flor'),
     ('vasija/ver/vaciar', 'vasija-ver-vaciar'), ('procedimiento fértil', 'procedimiento-fertil'),
     ('de dudosa procedencia', 'de-dudosa-procedencia'), ('semi preciosas', 'semi-preciosas'),
     ('revisitar', 'revisitar'), ('inventario sobre lo que no veo', 'inventario-sobre-lo-que-no-veo'),
@@ -315,37 +315,88 @@ def enlazar(slug, h):
 # columna de texto a la izquierda (ancho 419, en x=0) y columna de imágenes a
 # la derecha (ancho 541, en x=439), dentro del lienzo de 980 px.
 NUEVAS = {
-    'comerse-una-flor': {
-        'titulo': 'comerse una flor',
+    'doblar-una-flor': {
+        'titulo': 'doblar una flor',
         'volver': 'proyectos',
-        'ficha': ['2025',
-                  'Parque Nacional - Bogot\u00e1.',
+        'ficha': ['30 de Mayo del 2025',
+                  'Casa Fern\u00e1ndez - Bogot\u00e1.',
+                  'Segunda Jornada de Estudios Abiertos.',
                   'Residencia En Bloque - Idartes.'],
         'texto': [
-            'Este taller se realiz\u00f3 en el marco del desarrollo del proyecto '
-            '\u201cAntejard\u00edn\u201d y buscaba crear un espacio de conversaci\u00f3n '
-            'en torno a la flora del Parque Nacional, mientras se coloreaban tres '
-            'especies escogidas.',
+            'Como parte de la Segunda Jornada de Estudios Abiertos, realizada el '
+            '30 de mayo de 2025, se llev\u00f3 a cabo una conversaci\u00f3n con los '
+            'asistentes sobre el proyecto \u201cAntejard\u00edn\u201d y se realiz\u00f3 '
+            'el taller \u201cDoblar una flor\u201d, desarrollado en Casa Fern\u00e1ndez, '
+            'en el marco de la Residencia En Bloque de Idartes.',
+            'La conversaci\u00f3n abri\u00f3 con una presentaci\u00f3n del proyecto, que se '
+            'interesa por el antejard\u00edn como espacio intermedio entre la calle y '
+            'la casa: un lugar ni completamente p\u00fablico ni del todo privado, con '
+            'un car\u00e1cter liminal, de umbral. El proyecto trabaja con los objetos '
+            'que pueblan ese espacio \u2014regaderas, palas, recipientes, tierra y '
+            'fuentes\u2014 y c\u00f3mo, en lugar de reproducir su forma o su uso, los '
+            'desajusta para dejar ver su fragilidad. Se habl\u00f3 de las piezas '
+            'cer\u00e1micas que resultan de ese proceso, como regaderas sin orificios, '
+            'recipientes que escurren y flores de cer\u00e1mica que sobresalen de una '
+            'monta\u00f1a de tierra. Estas piezas no buscan resolver una funci\u00f3n, '
+            'sino plantear preguntas sobre ella y sobre el orden de lo dom\u00e9stico, '
+            'lo decorativo y lo \u00fatil.',
+            'A partir de ese marco, el taller propuso trasladar la pregunta por el '
+            'jard\u00edn al entorno inmediato: la flora del Parque Nacional. Los '
+            'participantes conversaron sobre las plantas que habitan este espacio '
+            'p\u00fablico, sus formas, sus nombres y las relaciones que las personas '
+            'tienen con ellas, mientras coloreaban l\u00e1minas de tres especies '
+            'escogidas. Colorear funcion\u00f3 como una actividad pausada que '
+            'acompa\u00f1\u00f3 la charla y favoreci\u00f3 la observaci\u00f3n atenta de '
+            'cada flor.',
+            'El taller, de car\u00e1cter abierto y participativo, cont\u00f3 con seis '
+            'asistentes. As\u00ed, el proyecto se extendi\u00f3 m\u00e1s all\u00e1 de la sala '
+            'de exposici\u00f3n, hacia un espacio de intercambio donde las personas '
+            'pudieron relacionarse con la flora del parque a trav\u00e9s del dibujo.',
         ],
-        'ficha_en': ['2025',
-                     'Parque Nacional - Bogot\u00e1.',
+        'ficha_en': ['30 May 2025',
+                     'Casa Fern\u00e1ndez - Bogot\u00e1.',
+                     'Second Open Studios Day.',
                      'En Bloque residency - Idartes.'],
         'texto_en': [
-            'This workshop took place within the development of the project '
-            '\u201cAntejard\u00edn\u201d and set out to open a space for conversation '
-            'around the flora of the Parque Nacional, while three chosen species '
-            'were coloured in.',
+            'As part of the Second Open Studios Day, held on 30 May 2025, a '
+            'conversation was held with those attending about the project '
+            '\u201cAntejard\u00edn\u201d, together with the workshop \u201cDoblar una '
+            'flor\u201d, run at Casa Fern\u00e1ndez within the En Bloque residency of '
+            'Idartes.',
+            'The conversation opened with a presentation of the project, which takes '
+            'an interest in the antejard\u00edn \u2014the front garden\u2014 as a space '
+            'between the street and the house: a place neither wholly public nor '
+            'wholly private, liminal, a threshold. The project works with the objects '
+            'that inhabit it \u2014watering cans, spades, containers, soil and '
+            'fountains\u2014 and with how, rather than reproducing their shape or '
+            'their use, it unsettles them to let their fragility show. We spoke about '
+            'the ceramic pieces that come out of that process: watering cans without '
+            'holes, containers that leak, ceramic flowers rising out of a mound of '
+            'earth. These pieces do not set out to resolve a function but to raise '
+            'questions about it, and about the order of the domestic, the decorative '
+            'and the useful.',
+            'From there, the workshop proposed carrying the question of the garden '
+            'into the immediate surroundings: the flora of the Parque Nacional. The '
+            'participants talked about the plants that inhabit this public space, '
+            'their forms, their names and the relationships people have with them, '
+            'while colouring in prints of three chosen species. Colouring worked as '
+            'an unhurried activity that accompanied the talk and encouraged close '
+            'attention to each flower.',
+            'The workshop, open and participatory, was attended by six people. In '
+            'this way the project reached beyond the exhibition room, into a space '
+            'of exchange where people could relate to the flora of the park through '
+            'drawing.',
         ],
         'pies_en': {
-            'Taller. Parque Nacional, Bogot\u00e1. 2025.':
-                'Workshop. Parque Nacional, Bogot\u00e1. 2025.',
+            'Taller. Casa Fern\u00e1ndez, Bogot\u00e1. 2025.':
+                'Workshop. Casa Fern\u00e1ndez, Bogot\u00e1. 2025.',
             'L\u00e1mina coloreada durante el taller. 2025.':
-                'Sheet coloured during the workshop. 2025.',
+                'Print coloured in during the workshop. 2025.',
         },
         'fotos': [
-            ('comerse-02.jpg', 'Taller. Parque Nacional, Bogot\u00e1. 2025.'),
-            ('comerse-01.jpg', 'Taller. Parque Nacional, Bogot\u00e1. 2025.'),
-            ('comerse-03.jpg', 'L\u00e1mina coloreada durante el taller. 2025.'),
+            ('doblar-02.jpg', 'Taller. Casa Fern\u00e1ndez, Bogot\u00e1. 2025.'),
+            ('doblar-01.jpg', 'Taller. Casa Fern\u00e1ndez, Bogot\u00e1. 2025.'),
+            ('doblar-03.jpg', 'L\u00e1mina coloreada durante el taller. 2025.'),
         ],
     },
     'protesis': {
@@ -915,7 +966,7 @@ LISTA = {
     'inventario-sobre-lo-que-no-veo', 'la-linea-no-es-recta', 'otros-proyectos',
     'procedimiento-fertil', 'revisitar', 'semi-preciosas', 'señales',
     'todo-lo-que-no-cabe-en-una-vitrina', 'vasija-ver-vaciar',
-    'protesis', 'comerse-una-flor',
+    'protesis', 'doblar-una-flor',
 }
 
 
@@ -1395,7 +1446,7 @@ TXT_ENLACE_COL = ('<p class="font_8" style="font-size:20px; line-height:1.3em;">
 
 # Los talleres viven en su propia columna, al lado de los proyectos.
 TALLERES = [
-    (2025, 'comerse una flor', 'comerse-una-flor'),
+    (2025, 'doblar una flor', 'doblar-una-flor'),
     (2024, 'vasija / ver / vaciar', 'vasija-ver-vaciar'),
 ]
 
