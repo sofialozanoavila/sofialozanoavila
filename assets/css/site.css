@@ -644,11 +644,18 @@ body.p-cv .enlaces { display: none; }
 .lista-proyectos p,
 .lista-proyectos span { font-size: 17px !important; }
 
-/* «proyectos» y «talleres» al mismo cuerpo que el título de cada entrada. */
+/* «proyectos» y «talleres» se componen exactamente como el título de cada
+   entrada: mismo cuerpo, peso normal, negro e interlineado. */
 body.p-proyectos #comp-mh0s4d8j p,
 body.p-proyectos #comp-mh0s4d8j span,
 body.p-proyectos #talleres-titulo p,
-body.p-proyectos #talleres-titulo span { font-size: 34px !important; }
+body.p-proyectos #talleres-titulo span {
+  font-size: 34px !important;
+  font-weight: 400 !important;
+  color: #000000 !important;
+}
+body.p-proyectos #comp-mh0s4d8j p,
+body.p-proyectos #talleres-titulo p { line-height: 1.4em !important; }
 
 body.p-cv #comp-lrp5e671 h2,
 body.p-cv #comp-lrp5e671 h2 span {
