@@ -640,6 +640,13 @@ body, body * { font-family: var(--grotesca) !important; }
 body.p-cv .enlaces { display: none; }
 /* La cabecera del CV arranca en el margen, como los títulos de proyecto.
    Venía del Wix alineada a la derecha. */
+/* El inicio, en versión ligera: ni el nombre ni «Artista / Bogotá, Colombia»
+   llevan negrilla. «Artista» venía del Wix en negrita. */
+body.p-index .nombre p,
+body.p-index .nombre span,
+body.p-index .lugar p,
+body.p-index .lugar span { font-weight: 300 !important; }
+
 /* Las dos listas, tres puntos por debajo de lo que traían del Wix. */
 .lista-proyectos p,
 .lista-proyectos span { font-size: 17px !important; }
