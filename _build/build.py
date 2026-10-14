@@ -1233,6 +1233,9 @@ CATALOGO = [
      '250 x 50 cm', 2025, 2500000, ''),
     ('filtraciones', 'Filtraciones', 'Dibujo. L\u00e1piz sobre papel',
      '35 x 50 cm', 2026, 1500000, ''),
+    ('nada-basura', 'Nada de lo que se mide es basura',
+     'Serie de tres dibujos. Impresi\u00f3n digital y tinta blanca sobre papel',
+     '50 x 35 cm c/u', 2020, 0, ''),
     ('collar-1', 'Variaciones de un collar', 'Dibujo. L\u00e1piz sobre papel',
      'Medidas variables', 2023, 0, ''),
     ('collar-2', 'Variaciones de un collar', 'Dibujo. L\u00e1piz sobre papel',
@@ -1270,6 +1273,9 @@ CATALOGO_EN = {
     'Tejido ca\u00f1a flecha, fibras naturales': 'Ca\u00f1a flecha weaving, natural fibres',
     'Dibujo. L\u00e1piz sobre papel': 'Drawing. Pencil on paper',
     'Medidas variables': 'Dimensions variable',
+    'Serie de tres dibujos. Impresi\u00f3n digital y tinta blanca sobre papel':
+        'Series of three drawings. Digital print and white ink on paper',
+    'Nada de lo que se mide es basura': 'Nada de lo que se mide es basura',
 }
 
 
@@ -1281,7 +1287,8 @@ def pesos(n):
 # en el orden en que se muestran.
 GRUPOS = [
     ('tejido', 'tejido', 'weaving', ['medir-el-aire']),
-    ('dibujo', 'dibujo', 'drawing', ['filtraciones', 'collar-1', 'collar-2']),
+    ('dibujo', 'dibujo', 'drawing',
+     ['nada-basura', 'filtraciones', 'collar-1', 'collar-2']),
     ('ceramica', 'cer\u00e1mica', 'ceramics',
      ['monos-1', 'monos-2', 'monos-serie', 'palas',
       'apariciones-instalacion', 'apariciones-piezas', 'banda-elastica',
@@ -1869,6 +1876,37 @@ HORMIGA_SVG = """<div id="dibujo-hormiga" hidden>
 </svg>
 </div>"""
 
+HORMIGA_RECTA = """<div id="dibujo-hormiga-recta" hidden>
+<svg viewBox="0 0 64 64" width="32" height="32" aria-hidden="true">
+ <g>
+  <g class="h-patas-a" fill="none" stroke="#000" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+   <path d="M28 21 L18 15 L12.5 19"/>
+   <path d="M28 31 L17 37 L13 45"/>
+   <path d="M36 26 L48.5 26 L54.5 32"/>
+  </g>
+  <g class="h-patas-b" fill="none" stroke="#000" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+   <path d="M28 26 L15.5 26 L9.5 32"/>
+   <path d="M36 21 L46 15 L51.5 19"/>
+   <path d="M36 31 L47 37 L51 45"/>
+  </g>
+  <g class="h-antenas" fill="none" stroke="#000" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+   <path d="M29.5 10 L24 4 L19.5 5.5"/>
+   <path d="M34.5 10 L40 4 L44.5 5.5"/>
+  </g>
+  <path d="M32 32.5 L32 37.5" fill="none" stroke="#000" stroke-width="2.4"
+        stroke-linecap="round"/>
+  <g fill="#000">
+   <ellipse cx="32" cy="14" rx="5" ry="4.4"/>
+   <ellipse cx="32" cy="26" rx="4.2" ry="6"/>
+   <ellipse cx="32" cy="46" rx="6.6" ry="8.2"/>
+  </g>
+ </g>
+</svg>
+</div>"""
+
 
 # Entradas que se quedan siempre en la barra; el resto va dentro del «+».
 PRINCIPALES = {'proyectos', 'talleres', 'paisaje-interior', 'cv', 'contacto'}
@@ -1930,6 +1968,7 @@ TEMPLATE = """<!doctype html>
 <script src="{pre}assets/js/menu.js?v={vmenu}" defer></script>
 <script src="{pre}assets/js/hormiga.js?v={vhor}" defer></script>
 <script src="{pre}assets/js/ampliar.js?v={vamp}" defer></script>
+<script src="{pre}assets/js/hormiguero.js?v={vhgo}" defer></script>
 </body>
 </html>
 """
@@ -1981,7 +2020,8 @@ for slug, page in pages.items():
             vmenu=version('assets/js/menu.js'),
             vhor=version('assets/js/hormiga.js'),
             vamp=version('assets/js/ampliar.js'),
-            hormiga=HORMIGA_SVG,
+            vhgo=version('assets/js/hormiguero.js'),
+            hormiga=HORMIGA_SVG + HORMIGA_RECTA,
             title=(TITULO_EN.get(out) if idioma == 'en' else None)
                   or TITULOS.get(out, page['title']),
             desc=(DESC_EN if idioma == 'en'

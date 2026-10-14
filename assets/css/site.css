@@ -202,6 +202,27 @@ body.con-ampliada { overflow: hidden; }
 /* las fotografías del catálogo avisan de que se pueden abrir */
 .catalogo [data-ampliar] { cursor: inherit; }
 
+/* El hormiguero del inicio: van por detrás del texto y no estorban al ratón. */
+.hormiguero {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hormiguero .hormiga {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  opacity: .85;
+}
+.hormiguero .hormiga svg { display: block; }
+/* el contenido del inicio va por delante de ellas */
+body.p-index main, body.p-index .site-header { position: relative; z-index: 1; }
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
