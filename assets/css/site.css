@@ -231,12 +231,15 @@ body.con-ampliada { overflow: hidden; }
   position: absolute;
   top: 0;
   left: 0;
-  width: 32px;
-  height: 32px;
-  margin: -16px 0 0 -16px;
-  opacity: .85;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
 }
-.hormiguero .hormiga svg { display: block; }
+.hormiguero .hormiga svg { display: block; width: 100%; height: 100%; }
+/* A este tamaño el trazo fino se deshace en gris al suavizar los bordes; se
+   engorda para que las patas se vean tan negras como el cuerpo. */
+.hormiguero .hormiga svg g[stroke],
+.hormiguero .hormiga svg path[stroke] { stroke-width: 3.2; }
 /* el contenido del inicio va por delante de ellas */
 body.p-index main, body.p-index .site-header { position: relative; z-index: 1; }
 
