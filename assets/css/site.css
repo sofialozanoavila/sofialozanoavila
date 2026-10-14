@@ -671,8 +671,10 @@ body, body * { font-family: var(--grotesca) !important; }
 @media (min-width: 860px) {
   .sec-tienda .lienzo {
     display: grid;
-    grid-template-columns: 420px 1fr;
-    column-gap: 56px;
+    /* 160 px después del margen del texto: en una ventana de 1440 eso deja
+       las palabras a 200 px del borde de la pantalla. */
+    grid-template-columns: 160px 1fr;
+    column-gap: 0;
     align-items: start;
   }
   .sec-tienda .cabecera { grid-column: 1; margin-bottom: 0; }
@@ -695,6 +697,7 @@ body, body * { font-family: var(--grotesca) !important; }
   display: inline-block;
   font-family: var(--grotesca);
   font-size: 17px;
+  font-weight: 300;
   line-height: 1.3em;
   color: rgb(var(--color_18));
   text-decoration: none;
