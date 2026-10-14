@@ -145,20 +145,27 @@ html, body {
 .hormiga-cursor.anda .h-patas-b { animation: paso .26s linear infinite reverse; }
 .hormiga-cursor.anda .h-antenas { animation: antena .52s ease-in-out infinite; }
 @keyframes paso {
+  0%   { transform: rotate(-14deg); }
+  50%  { transform: rotate(14deg); }
+  100% { transform: rotate(-14deg); }
+}
+@keyframes antena {
   0%   { transform: rotate(-7deg); }
   50%  { transform: rotate(7deg); }
   100% { transform: rotate(-7deg); }
 }
-@keyframes antena {
-  0%   { transform: rotate(-4deg); }
-  50%  { transform: rotate(4deg); }
-  100% { transform: rotate(-4deg); }
-}
-/* Quien pide en su sistema que no haya movimiento, no lo tiene. */
+/* Quien pide en su sistema que haya menos movimiento no se queda sin la
+   hormiga: camina más despacio y con el paso más corto. Antes se le apagaba
+   del todo, y eso dejaba sin ella a cualquiera con esa opción activada. */
 @media (prefers-reduced-motion: reduce) {
   .hormiga-cursor.anda .h-patas-a,
-  .hormiga-cursor.anda .h-patas-b,
-  .hormiga-cursor.anda .h-antenas { animation: none; }
+  .hormiga-cursor.anda .h-patas-b { animation-duration: .6s; }
+  .hormiga-cursor.anda .h-antenas { animation-duration: 1.2s; }
+  @keyframes paso {
+    0%   { transform: rotate(-7deg); }
+    50%  { transform: rotate(7deg); }
+    100% { transform: rotate(-7deg); }
+  }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
