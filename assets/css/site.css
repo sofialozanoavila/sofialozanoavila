@@ -236,10 +236,10 @@ body.con-ampliada { overflow: hidden; }
   margin: -12px 0 0 -12px;
 }
 .hormiguero .hormiga svg { display: block; width: 100%; height: 100%; }
-/* A este tamaño el trazo fino se deshace en gris al suavizar los bordes; se
-   engorda para que las patas se vean tan negras como el cuerpo. */
+/* A este tamaño el trazo demasiado fino se deshace en gris al suavizar los
+   bordes. 2,5 es lo más delgado que sigue viéndose negro. */
 .hormiguero .hormiga svg g[stroke],
-.hormiguero .hormiga svg path[stroke] { stroke-width: 3.2; }
+.hormiguero .hormiga svg path[stroke] { stroke-width: 2.5; }
 /* el contenido del inicio va por delante de ellas */
 body.p-index main, body.p-index .site-header { position: relative; z-index: 1; }
 
