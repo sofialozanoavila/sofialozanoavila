@@ -31,6 +31,10 @@ def ascii_slug(s):
 
 
 SLUG = {k: ('index' if k == 'home' else ascii_slug(k)) for k in pages}
+# La página de la tienda se llamaba «paisaje interior» en Wix; su dirección
+# ahora dice lo que es.
+if 'paisaje-interior' in SLUG:
+    SLUG['paisaje-interior'] = 'tienda'
 
 # Traducciones al inglés, párrafo a párrafo. Se sustituye solo el texto: las
 # etiquetas y los estilos del original se conservan intactos.
@@ -1358,7 +1362,7 @@ def render_catalogo(grupo, idioma='es'):
     return ('<section class="sec sec-catalogo">\n'
             '<div class="lienzo">\n'
             '<div class="cabecera">'
-            '<div class="rt volver"><p><a href="paisaje-interior.html">\u21a9</a></p></div>'
+            '<div class="rt volver"><p><a href="tienda.html">\u21a9</a></p></div>'
             '<div class="rt titulo"><h1>%s</h1></div>'
             '</div>\n'
             '<ul class="catalogo">\n%s\n</ul>\n'
@@ -1919,7 +1923,9 @@ def header_html(active, idioma):
         cur = ' aria-current="page"' if href == active + '.html' else ''
         if idioma == 'en':
             label = MENU_EN.get(label, label)
-        clase = (' class="principal m-%s"' % ascii_slug(target)) if target in PRINCIPALES else ''
+        # la clase sale de la dirección final, no del nombre heredado de Wix
+        clase = (' class="principal m-%s"' % SLUG.get(target, ascii_slug(target))
+                 ) if target in PRINCIPALES else ''
         items.append('<li%s><a href="%s"%s>%s</a></li>' % (clase, href, cur, label))
     if PUBLICAR_EN:
         items.append(selector_idioma(idioma, active + '.html'))

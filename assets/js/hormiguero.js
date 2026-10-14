@@ -34,11 +34,22 @@
       // el rumbo en radianes; 0 apunta a la derecha
       rumbo: Math.random() * Math.PI * 2,
       // cada una anda a su paso, para que no parezcan un desfile
-      paso: (lento ? 6 : 14) + Math.random() * (lento ? 6 : 16),
+      paso: (lento ? 14 : 34) + Math.random() * (lento ? 12 : 36),
       // cada cuánto se detiene, y cuánto rato
       quieta: 0
     });
   }
+
+  // la cadencia de las patas va con la velocidad: la que corre, trota; y
+  // ninguna arranca en el mismo punto del paso que su vecina
+  hormigas.forEach(function (h) {
+    var seg = Math.max(0.14, Math.min(0.5, 11 / h.paso));
+    h.nodo.style.setProperty('--cadencia', seg.toFixed(3) + 's');
+    h.nodo.querySelectorAll('.h-patas-a, .h-patas-b, .h-antenas')
+      .forEach(function (g) {
+        g.style.animationDelay = (-Math.random() * seg).toFixed(3) + 's';
+      });
+  });
 
   var antes = 0;
   function cuadro(ahora) {
@@ -52,7 +63,7 @@
       } else {
         h.nodo.classList.add('anda');
         // el rumbo se tuerce un poco en cada paso: de ahí lo errático
-        h.rumbo += (Math.random() - 0.5) * 2.4 * dt;
+        h.rumbo += (Math.random() - 0.5) * 3.2 * dt;
         h.x += Math.cos(h.rumbo) * h.paso * dt;
         h.y += Math.sin(h.rumbo) * h.paso * dt;
         // al salir por un borde, entra por el contrario

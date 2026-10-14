@@ -141,9 +141,24 @@ html, body {
 .hormiga-cursor .h-patas-a,
 .hormiga-cursor .h-patas-b,
 .hormiga-cursor .h-antenas { transform-origin: 32px 26px; }
-.hormiga-cursor.anda .h-patas-a { animation: paso .26s linear infinite; }
-.hormiga-cursor.anda .h-patas-b { animation: paso .26s linear infinite reverse; }
-.hormiga-cursor.anda .h-antenas { animation: antena .52s ease-in-out infinite; }
+/* El paso con aceleración suave en vez de velocidad constante: la pata frena
+   al final del recorrido y arranca otra vez, que es como se mueve de verdad.
+   La cadencia la pone cada hormiga según lo rápido que ande. */
+.hormiga-cursor.anda .h-patas-a,
+.hormiguero .hormiga.anda .h-patas-a {
+  animation: paso var(--cadencia, .26s) ease-in-out infinite;
+}
+.hormiga-cursor.anda .h-patas-b,
+.hormiguero .hormiga.anda .h-patas-b {
+  animation: paso var(--cadencia, .26s) ease-in-out infinite reverse;
+}
+.hormiga-cursor.anda .h-antenas,
+.hormiguero .hormiga.anda .h-antenas {
+  animation: antena calc(var(--cadencia, .26s) * 2.6) ease-in-out infinite;
+}
+.hormiguero .hormiga .h-patas-a,
+.hormiguero .hormiga .h-patas-b,
+.hormiguero .hormiga .h-antenas { transform-origin: 32px 26px; }
 @keyframes paso {
   0%   { transform: rotate(-14deg); }
   50%  { transform: rotate(14deg); }
@@ -161,6 +176,8 @@ html, body {
   .hormiga-cursor.anda .h-patas-a,
   .hormiga-cursor.anda .h-patas-b { animation-duration: .6s; }
   .hormiga-cursor.anda .h-antenas { animation-duration: 1.2s; }
+  .hormiguero .hormiga.anda .h-patas-a,
+  .hormiguero .hormiga.anda .h-patas-b { animation-duration: .7s; }
   @keyframes paso {
     0%   { transform: rotate(-7deg); }
     50%  { transform: rotate(7deg); }
@@ -481,7 +498,7 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 .menu .m-talleres { order: 2; }
 .menu .m-contacto { order: 3; }
 .menu .m-cv { order: 4; }
-.menu .m-paisaje-interior { order: 5; }
+.menu .m-tienda { order: 5; }
 .menu .idioma { order: 6; margin-left: .4em; }
 .menu .more { order: 7; }
 .submenu { order: 7; }

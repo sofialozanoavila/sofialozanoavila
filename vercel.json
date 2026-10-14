@@ -29,6 +29,16 @@
       "source": "/en/comerse-una-flor.html",
       "destination": "/en/doblar-una-flor.html",
       "permanent": true
+    },
+    {
+      "source": "/paisaje-interior.html",
+      "destination": "/tienda.html",
+      "permanent": true
+    },
+    {
+      "source": "/en/paisaje-interior.html",
+      "destination": "/en/tienda.html",
+      "permanent": true
     }
   ]
 }
