@@ -112,14 +112,14 @@ IDIOMAS = ('es', 'en')
 
 MENU_EN = {
     'proyectos': 'projects',
-    '\u27ac cerámica': '\u27ac ceramics',
+    '\u27ac tienda': '\u27ac shop',
     'contacto': 'contact',
 }
 
 TITULO_EN = {
     'index': 'sofía lozano ávila | artist',
     'proyectos': 'projects | sofialozanoavila',
-    'paisaje-interior': 'ceramics | sofialozanoavila',
+    'paisaje-interior': 'shop | sofialozanoavila',
     'contacto': 'contact | sofialozanoavila',
     'cv': 'cv | sofialozanoavila',
 }
@@ -137,14 +137,14 @@ TEXTO_EN = {
         ('>contacto', '>contact'),
     ],
     'paisaje-interior': [
-        ('>cerámica<', '>ceramics<'),
+        ('>tienda<', '>shop<'),
         ('Cerámica. Dimensiones variables.', 'Ceramic. Dimensions variable.'),
     ],
 }
 
 # Enlaces que aparecen en varias páginas
 COMUNES_EN = [
-    ('\u27ac cerámica', '\u27ac ceramics'),
+    ('\u27ac tienda', '\u27ac shop'),
     ('Vista general.', 'General view.'),
     ('Detalle.', 'Detail.'),
 ]
@@ -162,7 +162,7 @@ MENU = [
     ('sofía lozano ávila', ''), ('proyectos', 'proyectos'),
     ('prótesis', 'protesis'), ('antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
-    ('\u27ac cerámica', 'paisaje-interior'), ('bache', 'bache'),
+    ('\u27ac tienda', 'paisaje-interior'), ('bache', 'bache'),
     ('superficies de paso', 'superficies-de-paso'),
     ('doblar una flor', 'doblar-una-flor'),
     ('vasija/ver/vaciar', 'vasija-ver-vaciar'), ('procedimiento fértil', 'procedimiento-fertil'),
@@ -213,17 +213,17 @@ TEXTOS = {
     'cuerpo-residual': [('cuerpo Residual', 'cuerpo residual')],
     # El proyecto pasa de llamarse «desmedida» a llevar el título de la serie.
     'desmesura': [('>desmedida<', '>nada de lo que se mide es basura<')],
-    'paisaje-interior': [('>TIENDA<', '>cerámica<')],
+    'paisaje-interior': [('>TIENDA<', '>tienda<')],
     'index': [('<span style="color:#FF0006;">\u27ac tienda</span>',
-               '<span>\u27ac cerámica</span>')],
+               '<span>\u27ac tienda</span>')],
     'proyectos': [('<span style="color:#FF0006;">\u27ac tienda</span>',
-                   '<span>\u27ac cerámica</span>'),
+                   '<span>\u27ac tienda</span>'),
                   ('2020 / desmedida',
                    '2020 / nada de lo que se mide es basura')],
 }
 
 TITULOS = {
-    'paisaje-interior': 'cerámica | sofialozanoavila',
+    'paisaje-interior': 'tienda | sofialozanoavila',
     'desmesura': 'nada de lo que se mide es basura | sofialozanoavila',
 }
 
@@ -1227,6 +1227,14 @@ CORREO = 'sofia771199@gmail.com'
 WHATSAPP = '573223940719'
 
 CATALOGO = [
+    ('medir-el-aire', 'Medir el aire', 'Tejido ca\u00f1a flecha, fibras naturales',
+     '250 x 50 cm', 2025, 2500000, ''),
+    ('filtraciones', 'Filtraciones', 'Dibujo. L\u00e1piz sobre papel',
+     '35 x 50 cm', 2026, 1500000, ''),
+    ('collar-1', 'Variaciones de un collar', 'Dibujo. L\u00e1piz sobre papel',
+     'Medidas variables', 2023, 0, ''),
+    ('collar-2', 'Variaciones de un collar', 'Dibujo. L\u00e1piz sobre papel',
+     'Medidas variables', 2023, 0, ''),
     ('monos-1', 'De la serie moños', 'Cerámica', '', 2026, 160000, ''),
     ('monos-2', 'De la serie moños', 'Cerámica', '5 x 6 x 4 cm', 2026, 160000, ''),
     ('monos-serie', 'Moños', 'Cerámica', '30 x 20 x 6 cm', 2026, 380000, 'Serie completa'),
@@ -1257,6 +1265,9 @@ CATALOGO_EN = {
     'Por pieza · serie completa 400.000': 'Per piece · complete series 400,000',
     # descriptivo, no es un título de obra
     'De la serie moños': 'From the moños series',
+    'Tejido ca\u00f1a flecha, fibras naturales': 'Ca\u00f1a flecha weaving, natural fibres',
+    'Dibujo. L\u00e1piz sobre papel': 'Drawing. Pencil on paper',
+    'Medidas variables': 'Dimensions variable',
 }
 
 
@@ -1268,7 +1279,7 @@ def render_catalogo(idioma='es'):
     en = idioma == 'en'
     consultar = 'Enquire' if en else 'Consultar'
     asunto = 'Hello Sofía, I am writing about' if en else 'Hola Sofía, te escribo por'
-    titulo = 'ceramics' if en else 'cerámica'
+    titulo = 'shop' if en else 'tienda'
 
     fichas = []
     for clave, nombre, tecnica, medidas, ano, precio, nota in CATALOGO:
@@ -1283,6 +1294,12 @@ def render_catalogo(idioma='es'):
         chat = 'https://wa.me/%s?text=%s' % (WHATSAPP, quote(mensaje))
         if precio is None:
             cierre = '<p class="vendida">%s</p>' % ('Sold' if en else 'Vendida')
+        elif precio == 0:
+            cierre = ('<p class="precio">%s</p>'
+                      '<a class="consultar" href="%s" target="_blank"'
+                      ' rel="noopener">%s</a>'
+                      % ('Price on request' if en else 'Precio a consultar',
+                         chat, consultar))
         else:
             cierre = ('<p class="precio">%s</p>'
                       '<a class="consultar" href="%s" target="_blank"'
@@ -1290,7 +1307,7 @@ def render_catalogo(idioma='es'):
                       % (pesos(precio), chat, consultar))
         fichas.append(
             '<li%s>'
-            '<div class="marco"><img src="assets/img/%s" alt="%s" width="1000" height="750" loading="lazy"></div>'
+            '<div class="marco"><img src="assets/img/%s" alt="%s" width="1000" height="750" loading="lazy" data-ampliar></div>'
             '<h3>%s</h3>'
             '<p class="datos">%s</p>'
             '%s'
@@ -1838,6 +1855,7 @@ TEMPLATE = """<!doctype html>
 <script src="{pre}assets/js/escala.js?v={vesc}" defer></script>
 <script src="{pre}assets/js/menu.js?v={vmenu}" defer></script>
 <script src="{pre}assets/js/hormiga.js?v={vhor}" defer></script>
+<script src="{pre}assets/js/ampliar.js?v={vamp}" defer></script>
 </body>
 </html>
 """
@@ -1876,6 +1894,7 @@ for slug, page in pages.items():
             vesc=version('assets/js/escala.js'),
             vmenu=version('assets/js/menu.js'),
             vhor=version('assets/js/hormiga.js'),
+            vamp=version('assets/js/ampliar.js'),
             hormiga=HORMIGA_SVG,
             title=(TITULO_EN.get(out) if idioma == 'en' else None)
                   or TITULOS.get(out, page['title']),

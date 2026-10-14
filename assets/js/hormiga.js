@@ -16,11 +16,29 @@
   document.body.appendChild(caja);
   document.documentElement.classList.add('con-hormiga');
 
-  var x = -100, y = -100, pintada = true;
+  // Al cambiar de página la hormiga aparecía solo cuando se movía el ratón,
+  // y entre tanto no había cursor ninguno. Se guarda la última posición para
+  // dibujarla ya puesta, sin que se vea la flecha del sistema por el camino.
+  var x = -100, y = -100;
+  try {
+    var guardado = sessionStorage.getItem('hormiga');
+    if (guardado) {
+      var par = guardado.split(',');
+      x = parseFloat(par[0]); y = parseFloat(par[1]);
+    }
+  } catch (e) { /* ventana privada: se queda sin recordar */ }
+
+  var pintada = true;
   function mover() {
     caja.style.transform = 'translate3d(' + (x - 12) + 'px,' + (y - 8) + 'px,0)';
     pintada = true;
   }
+  mover();
+
+  window.addEventListener('pagehide', function () {
+    try { sessionStorage.setItem('hormiga', x + ',' + y); } catch (e) {}
+  });
+
   document.addEventListener('mousemove', function (e) {
     x = e.clientX; y = e.clientY;
     if (pintada) { pintada = false; requestAnimationFrame(mover); }

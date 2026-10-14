@@ -168,6 +168,40 @@ html, body {
   }
 }
 
+/* La fotografía ampliada, encima de todo lo demás. */
+.ampliada {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background: rgba(255, 255, 255, .97);
+}
+.ampliada[hidden] { display: none; }
+.ampliada img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.ampliada .cerrar {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  border: 0;
+  background: none;
+  font: 300 34px/1 var(--grotesca);
+  color: rgb(var(--color_18));
+  padding: 4px 8px;
+}
+/* mientras está abierta, la página de atrás no se desplaza */
+body.con-ampliada { overflow: hidden; }
+/* las fotografías del catálogo avisan de que se pueden abrir */
+.catalogo [data-ampliar] { cursor: inherit; }
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
