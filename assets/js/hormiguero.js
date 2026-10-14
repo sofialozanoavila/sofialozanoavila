@@ -13,15 +13,21 @@
   campo.setAttribute('aria-hidden', 'true');
   document.body.appendChild(campo);
 
-  var ancho = 0, alto = 0;
+  var ancho = 0, alto = 0, factor = 1;
   function medir() {
     ancho = document.documentElement.clientWidth;
     alto = document.documentElement.clientHeight;
+    // A la misma velocidad en píxeles, cruzar una pantalla ancha parece mucho
+    // más lento que cruzar la de un celular. La velocidad se mide contra los
+    // 500 px del celular, que es el paso que se quiere ver en todas partes.
+    factor = Math.min(Math.max(ancho / 500, 1), 3);
+    if (hormigas) cadencia();
   }
+  var hormigas = null;
   medir();
   window.addEventListener('resize', medir);
 
-  var hormigas = [];
+  hormigas = [];
   for (var i = 0; i < CUANTAS; i++) {
     var e = document.createElement('div');
     e.className = 'hormiga anda';
@@ -42,14 +48,18 @@
 
   // la cadencia de las patas va con la velocidad: la que corre, trota; y
   // ninguna arranca en el mismo punto del paso que su vecina
-  hormigas.forEach(function (h) {
-    var seg = Math.max(0.14, Math.min(0.5, 11 / h.paso));
-    h.nodo.style.setProperty('--cadencia', seg.toFixed(3) + 's');
-    h.nodo.querySelectorAll('.h-patas-a, .h-patas-b, .h-antenas')
-      .forEach(function (g) {
-        g.style.animationDelay = (-Math.random() * seg).toFixed(3) + 's';
-      });
-  });
+  function cadencia() {
+    hormigas.forEach(function (h) {
+      var seg = Math.max(0.1, Math.min(0.5, 11 / (h.paso * factor)));
+      h.nodo.style.setProperty('--cadencia', seg.toFixed(3) + 's');
+      if (h.desfase === undefined) h.desfase = Math.random();
+      h.nodo.querySelectorAll('.h-patas-a, .h-patas-b, .h-antenas')
+        .forEach(function (g) {
+          g.style.animationDelay = (-h.desfase * seg).toFixed(3) + 's';
+        });
+    });
+  }
+  cadencia();
 
   var antes = 0;
   function cuadro(ahora) {
@@ -64,8 +74,8 @@
         h.nodo.classList.add('anda');
         // el rumbo se tuerce un poco en cada paso: de ahí lo errático
         h.rumbo += (Math.random() - 0.5) * 3.2 * dt;
-        h.x += Math.cos(h.rumbo) * h.paso * dt;
-        h.y += Math.sin(h.rumbo) * h.paso * dt;
+        h.x += Math.cos(h.rumbo) * h.paso * factor * dt;
+        h.y += Math.sin(h.rumbo) * h.paso * factor * dt;
         // al salir por un borde, entra por el contrario
         if (h.x < -40) h.x = ancho + 40;
         if (h.x > ancho + 40) h.x = -40;
