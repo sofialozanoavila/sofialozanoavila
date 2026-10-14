@@ -666,6 +666,23 @@ body, body * { font-family: var(--grotesca) !important; }
 }
 .catalogo img { width: 100%; height: 100%; object-fit: contain; }
 
+/* En la tienda las tres técnicas van al lado del título, en la columna donde
+   empieza el texto en las páginas de proyecto. */
+@media (min-width: 860px) {
+  .sec-tienda .lienzo {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    column-gap: 56px;
+    align-items: start;
+  }
+  .sec-tienda .cabecera { grid-column: 1; margin-bottom: 0; }
+  /* Los 92,42 px bajan la primera palabra hasta que sus mayúsculas arrancan
+     a la misma altura que las de «tienda»: medido sobre la tinta, no sobre
+     la caja. Si cambia el cuerpo de alguno de los dos, hay que volver a
+     medirlo. */
+  .sec-tienda .tecnicas { grid-column: 2; margin-top: 92.42px; }
+}
+
 /* La tienda es solo la lista de las tres técnicas, en una columna y con la
    misma letra que los nombres de proyecto. */
 .tecnicas {
