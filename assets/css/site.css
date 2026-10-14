@@ -666,23 +666,22 @@ body, body * { font-family: var(--grotesca) !important; }
 }
 .catalogo img { width: 100%; height: 100%; object-fit: contain; }
 
-/* Las subdivisiones por técnica. Se componen como los años de la lista de
-   proyectos: mismo cuerpo, en negrilla, ocupando el ancho entero. */
-.catalogo .grupo {
-  grid-column: 1 / -1;
+/* La tienda es solo la lista de las tres técnicas, en una columna y con la
+   misma letra que los nombres de proyecto. */
+.tecnicas {
+  list-style: none;
   margin: 0;
+  padding: 0;
 }
-.catalogo .grupo h2 {
+.tecnicas li + li { margin-top: 4px; }
+.tecnicas a {
+  display: inline-block;
   font-family: var(--grotesca);
   font-size: 17px;
-  font-weight: 700;
   line-height: 1.3em;
   color: rgb(var(--color_18));
-  margin: 0;
+  text-decoration: none;
 }
-/* el primero no necesita el aire que separa un grupo del anterior */
-.catalogo .grupo + li { margin-top: 0; }
-.catalogo li.grupo:not(:first-child) { margin-top: 40px; }
 
 /* Ficha de cada pieza, medida sobre las fichas de producto de Zara: todo
    en mayúsculas, cuerpo pequeño, sin negrilla, con algo de espaciado entre

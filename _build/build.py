@@ -1278,9 +1278,9 @@ def pesos(n):
 # La tienda se divide por técnica. Cada grupo lleva las claves de sus obras,
 # en el orden en que se muestran.
 GRUPOS = [
-    ('tejidos', 'weavings', ['medir-el-aire']),
-    ('dibujos', 'drawings', ['filtraciones', 'collar-1', 'collar-2']),
-    ('cer\u00e1mica', 'ceramics',
+    ('tejido', 'tejido', 'weaving', ['medir-el-aire']),
+    ('dibujo', 'dibujo', 'drawing', ['filtraciones', 'collar-1', 'collar-2']),
+    ('ceramica', 'cer\u00e1mica', 'ceramics',
      ['monos-1', 'monos-2', 'monos-serie', 'palas',
       'apariciones-instalacion', 'apariciones-piezas', 'banda-elastica',
       'concha', 'caja-2', 'pocillo', 'flor-borrachero',
@@ -1288,31 +1288,45 @@ GRUPOS = [
 ]
 
 
-def render_catalogo(idioma='es'):
+def render_tienda(idioma='es'):
+    """La tienda es solo la lista de las tres t\u00e9cnicas."""
+    en = idioma == 'en'
+    filas = ''.join(
+        '<li><a href="%s.html">%s</a></li>' % (slug, nom_en if en else nom_es)
+        for slug, nom_es, nom_en, _ in GRUPOS)
+    return ('<section class="sec sec-catalogo sec-tienda">\n'
+            '<div class="lienzo">\n'
+            '<div class="cabecera">'
+            '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
+            '<div class="rt titulo"><h1>%s</h1></div>'
+            '</div>\n'
+            '<ul class="tecnicas lista-proyectos">%s</ul>\n'
+            '</div>\n'
+            '</section>' % ('shop' if en else 'tienda', filas))
+
+
+def render_catalogo(grupo, idioma='es'):
     en = idioma == 'en'
     consultar = 'Enquire' if en else 'Consultar'
     asunto = 'Hello Sofía, I am writing about' if en else 'Hola Sofía, te escribo por'
-    titulo = 'shop' if en else 'tienda'
-
     porclave = {o[0]: o for o in CATALOGO}
-    sueltas = [c for c in porclave if not any(c in g[2] for g in GRUPOS)]
+    sueltas = [c for c in porclave if not any(c in g[3] for g in GRUPOS)]
     if sueltas:
         raise SystemExit('obras sin grupo en la tienda: %s' % ', '.join(sueltas))
 
+    slug, nom_es, nom_en, claves = [g for g in GRUPOS if g[0] == grupo][0]
+    titulo = nom_en if en else nom_es
     fichas = []
-    for nombre_es, nombre_en, claves in GRUPOS:
-        fichas.append('<li class="grupo"><h2>%s</h2></li>'
-                      % (nombre_en if en else nombre_es))
-        for clave in claves:
-            obra = porclave.get(clave)
-            if not obra:
-                raise SystemExit('la tienda nombra una obra que no existe: %s' % clave)
-            fichas.append(ficha_pieza(obra, en, consultar, asunto))
+    for clave in claves:
+        obra = porclave.get(clave)
+        if not obra:
+            raise SystemExit('la tienda nombra una obra que no existe: %s' % clave)
+        fichas.append(ficha_pieza(obra, en, consultar, asunto))
 
     return ('<section class="sec sec-catalogo">\n'
             '<div class="lienzo">\n'
             '<div class="cabecera">'
-            '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
+            '<div class="rt volver"><p><a href="paisaje-interior.html">\u21a9</a></p></div>'
             '<div class="rt titulo"><h1>%s</h1></div>'
             '</div>\n'
             '<ul class="catalogo">\n%s\n</ul>\n'
@@ -1709,7 +1723,10 @@ def render_page(slug, page, idioma='es', origen=None):
         return render_contacto(CONTACTO), '', 0
 
     if slug == 'paisaje-interior':
-        return render_catalogo(idioma), '', 0
+        return render_tienda(idioma), '', 0
+
+    if slug in [g[0] for g in GRUPOS]:
+        return render_catalogo(slug, idioma), '', 0
 
     if origen in LISTA:
         return render_lista(slug, origen, page, idioma), '', 0
@@ -1897,6 +1914,13 @@ for slug, cfg in NUEVAS.items():
     pages[slug] = render_nueva(slug, cfg)
     PAGINAS_EN[slug] = render_nueva(slug, cfg, 'en')
     SLUG[slug] = slug
+
+# Las tres técnicas de la tienda son páginas por derecho propio.
+for _g, _es, _en, _ in GRUPOS:
+    pages[_g] = {'title': '%s | sofialozanoavila' % _es, 'landing': False,
+                 'sections': []}
+    SLUG[_g] = _g
+    TITULO_EN[_g] = '%s | sofialozanoavila' % _en
 
 for slug, page in pages.items():
     out = SLUG[slug]
