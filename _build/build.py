@@ -112,6 +112,7 @@ IDIOMAS = ('es', 'en')
 
 MENU_EN = {
     'proyectos': 'projects',
+    'talleres': 'workshops',
     '\u27ac tienda': '\u27ac shop',
     'contacto': 'contact',
 }
@@ -160,6 +161,7 @@ def ruta_idioma(idioma, destino):
 # --- menú superior, en el mismo orden que el sitio original -------------------
 MENU = [
     ('sofía lozano ávila', ''), ('proyectos', 'proyectos'),
+    ('talleres', 'talleres'),
     ('prótesis', 'protesis'), ('antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
     ('\u27ac tienda', 'paisaje-interior'), ('bache', 'bache'),
@@ -1288,6 +1290,29 @@ GRUPOS = [
 ]
 
 
+def render_talleres(idioma='es'):
+    """Los talleres, en su propia página."""
+    en = idioma == 'en'
+    filas = []
+    ano = None
+    for a, nombre, destino in TALLERES:
+        if a != ano:
+            if ano is not None:
+                filas.append('<p class="font_8">&nbsp;</p>')
+            filas.append(TXT_ANO_COL % a)
+            ano = a
+        filas.append(TXT_ENLACE_COL % (destino, '%d / %s' % (a, nombre)))
+    return ('<section class="sec sec-catalogo sec-talleres">\n'
+            '<div class="lienzo">\n'
+            '<div class="cabecera">'
+            '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
+            '<div class="rt titulo"><h1>%s</h1></div>'
+            '</div>\n'
+            '<div class="rt lista-proyectos lista-talleres">%s</div>\n'
+            '</div>\n'
+            '</section>' % ('workshops' if en else 'talleres', ''.join(filas)))
+
+
 def render_tienda(idioma='es'):
     """La tienda es solo la lista de las tres t\u00e9cnicas."""
     en = idioma == 'en'
@@ -1637,14 +1662,13 @@ def flecha_en_proyectos(page, idioma):
             c['geo']['margin'] = '0px 0px 20px 0px'
         hijos.append(c)
 
-    hijos += columna_talleres(idioma)
 
     flecha = {
         'id': 'volver-proyectos',
         'type': 'text',
         'html': TXT_VOLVER % 'index',
         'geo': {'grid-area': '2 / 1 / 3 / 2', 'left': '-162px',
-                'width': '310px', 'margin': '13px 0px 4px 0px'},
+                'width': '310px', 'margin': '30px 0px 4px 0px'},
     }
     mesh = dict(sec.get('mesh') or {})
     filas = re.match(r'repeat\((\d+),', mesh.get('grid-template-rows', '') or '')
@@ -1724,6 +1748,9 @@ def render_page(slug, page, idioma='es', origen=None):
 
     if slug == 'paisaje-interior':
         return render_tienda(idioma), '', 0
+
+    if slug == 'talleres':
+        return render_talleres(idioma), '', 0
 
     if slug in [g[0] for g in GRUPOS]:
         return render_catalogo(slug, idioma), '', 0
@@ -1844,7 +1871,7 @@ HORMIGA_SVG = """<div id="dibujo-hormiga" hidden>
 
 
 # Entradas que se quedan siempre en la barra; el resto va dentro del «+».
-PRINCIPALES = {'proyectos', 'paisaje-interior', 'cv', 'contacto'}
+PRINCIPALES = {'proyectos', 'talleres', 'paisaje-interior', 'cv', 'contacto'}
 
 
 def header_html(active, idioma):
@@ -1914,6 +1941,11 @@ for slug, cfg in NUEVAS.items():
     pages[slug] = render_nueva(slug, cfg)
     PAGINAS_EN[slug] = render_nueva(slug, cfg, 'en')
     SLUG[slug] = slug
+
+pages['talleres'] = {'title': 'talleres | sofialozanoavila', 'landing': False,
+                     'sections': []}
+SLUG['talleres'] = 'talleres'
+TITULO_EN['talleres'] = 'workshops | sofialozanoavila'
 
 # Las tres técnicas de la tienda son páginas por derecho propio.
 for _g, _es, _en, _ in GRUPOS:

@@ -368,11 +368,13 @@ body, body * { font-family: var(--grotesca) !important; }
 .pic a { display: block; height: 100%; }
 
 /* --- menú superior --------------------------------------------------- */
-/* En escritorio, inicio y proyectos conservan su diseño original, sin menú.
-   En el celular la barra aparece en todas las páginas. */
-@media (min-width: 860px) {
-  body.landing .site-header { display: none; }
-}
+/* La barra de arriba es la misma en todas las páginas. El inicio y proyectos
+   traían del Wix su propia línea de enlaces, que al añadir «talleres» ya no
+   decía lo mismo que el resto; se retira y se quedan con la barra. */
+.enlaces, .enlaces-proyectos { display: none !important; }
+/* En proyectos el nombre repetiría lo que ya ofrecen la barra y la flecha,
+   así que la página empieza por el título, como el resto. */
+body.p-proyectos .nombre-proyectos { display: none !important; }
 
 .site-header {
   padding: 15px 0;
@@ -455,11 +457,12 @@ body, body * { font-family: var(--grotesca) !important; }
 /* Orden de la barra, el mismo del inicio:
    proyectos · contacto · cv · piezas disponibles · EN · + */
 .menu .m-proyectos { order: 1; }
-.menu .m-contacto { order: 2; }
-.menu .m-cv { order: 3; }
-.menu .m-paisaje-interior { order: 4; }
-.menu .idioma { order: 5; margin-left: .4em; }
-.menu .more { order: 6; }
+.menu .m-talleres { order: 2; }
+.menu .m-contacto { order: 3; }
+.menu .m-cv { order: 4; }
+.menu .m-paisaje-interior { order: 5; }
+.menu .idioma { order: 6; margin-left: .4em; }
+.menu .more { order: 7; }
 .submenu { order: 7; }
 
 /* botón para desplegar el menú en pantallas angostas */
@@ -665,6 +668,15 @@ body, body * { font-family: var(--grotesca) !important; }
   margin-bottom: 14px;
 }
 .catalogo img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Los talleres se componen como los proyectos: título y lista en la misma
+   columna, corrida hacia el centro. */
+@media (min-width: 860px) {
+  .sec-talleres .cabecera,
+  .sec-talleres .lista-talleres { margin-left: 24%; }
+  .sec-talleres .cabecera { margin-bottom: 20px; }
+}
+.lista-talleres p { margin: 0; }
 
 /* En la tienda las tres técnicas van al lado del título, en la columna donde
    empieza el texto en las páginas de proyecto. */
@@ -926,9 +938,6 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   body.p-proyectos .sec > * { flex: 0 0 100%; }
   body.p-proyectos .nombre-proyectos,
   body.p-proyectos .enlaces-proyectos { flex: 0 0 auto; white-space: nowrap; }
-  /* En el celular el nombre repetiría lo que ya ofrecen la barra de arriba
-     y la flecha, así que se retira y la página empieza por el título. */
-  body.p-proyectos .nombre-proyectos { display: none !important; }
   /* Apiladas, las dos columnas se leen una después de la otra: primero los
      proyectos enteros y luego los talleres, no los dos títulos seguidos. */
   body.p-proyectos #volver-proyectos { order: 0; }
@@ -962,9 +971,9 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   .menu {
     justify-content: flex-start;
     gap: 2px 0;
-    /* Con el idioma movido al «+», en la barra quedan cuatro enlaces y
-       caben a 17 px sin que se parta en dos renglones. */
-    font-size: 17px;
+    /* Con el idioma dentro del «+», en la barra quedan cinco enlaces más el
+       botón. A 15 px caben en un solo renglón; a 16 ya se parte en dos. */
+    font-size: 15px;
     letter-spacing: normal;
   }
   .site-header nav { max-width: none; padding: 0 var(--margen); }
@@ -995,9 +1004,6 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   .submenu .idioma { margin-left: 0; }
   .submenu li a { padding: 4px 6px; white-space: normal; }
 
-  /* La línea de enlaces de inicio y proyectos repetiría lo que ya está en la
-     barra, así que se oculta. */
-  .enlaces, .enlaces-proyectos { display: none !important; }
 }
 
 /* --- la flecha, en el mismo sitio en el celular ------------------------
