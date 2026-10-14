@@ -124,7 +124,7 @@ MENU_EN = {
 TITULO_EN = {
     'index': 'sofía lozano ávila | artist',
     'proyectos': 'projects | sofialozanoavila',
-    'paisaje-interior': 'shop | sofialozanoavila',
+    'tienda': 'shop | sofialozanoavila',
     'contacto': 'contact | sofialozanoavila',
     'cv': 'cv | sofialozanoavila',
 }
@@ -229,7 +229,7 @@ TEXTOS = {
 }
 
 TITULOS = {
-    'paisaje-interior': 'tienda | sofialozanoavila',
+    'tienda': 'tienda | sofialozanoavila',
     'desmesura': 'nada de lo que se mide es basura | sofialozanoavila',
 }
 
@@ -1757,7 +1757,8 @@ def render_page(slug, page, idioma='es', origen=None):
     if slug == 'contacto':
         return render_contacto(CONTACTO), '', 0
 
-    if slug == 'paisaje-interior':
+    # ojo: aquí «slug» es ya el nombre del archivo, no la clave de Wix
+    if slug == 'tienda':
         return render_tienda(idioma), '', 0
 
     if slug == 'talleres':
