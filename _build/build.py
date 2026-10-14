@@ -1275,14 +1275,53 @@ def pesos(n):
     return '$' + '{:,}'.format(n).replace(',', '.') + ' COP'
 
 
+# La tienda se divide por técnica. Cada grupo lleva las claves de sus obras,
+# en el orden en que se muestran.
+GRUPOS = [
+    ('tejidos', 'weavings', ['medir-el-aire']),
+    ('dibujos', 'drawings', ['filtraciones', 'collar-1', 'collar-2']),
+    ('cer\u00e1mica', 'ceramics',
+     ['monos-1', 'monos-2', 'monos-serie', 'palas',
+      'apariciones-instalacion', 'apariciones-piezas', 'banda-elastica',
+      'concha', 'caja-2', 'pocillo', 'flor-borrachero',
+      'vertebra', 'caja', 'cuchara']),
+]
+
+
 def render_catalogo(idioma='es'):
     en = idioma == 'en'
     consultar = 'Enquire' if en else 'Consultar'
     asunto = 'Hello Sofía, I am writing about' if en else 'Hola Sofía, te escribo por'
     titulo = 'shop' if en else 'tienda'
 
+    porclave = {o[0]: o for o in CATALOGO}
+    sueltas = [c for c in porclave if not any(c in g[2] for g in GRUPOS)]
+    if sueltas:
+        raise SystemExit('obras sin grupo en la tienda: %s' % ', '.join(sueltas))
+
     fichas = []
-    for clave, nombre, tecnica, medidas, ano, precio, nota in CATALOGO:
+    for nombre_es, nombre_en, claves in GRUPOS:
+        fichas.append('<li class="grupo"><h2>%s</h2></li>'
+                      % (nombre_en if en else nombre_es))
+        for clave in claves:
+            obra = porclave.get(clave)
+            if not obra:
+                raise SystemExit('la tienda nombra una obra que no existe: %s' % clave)
+            fichas.append(ficha_pieza(obra, en, consultar, asunto))
+
+    return ('<section class="sec sec-catalogo">\n'
+            '<div class="lienzo">\n'
+            '<div class="cabecera">'
+            '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
+            '<div class="rt titulo"><h1>%s</h1></div>'
+            '</div>\n'
+            '<ul class="catalogo">\n%s\n</ul>\n'
+            '</div>\n'
+            '</section>' % (titulo, '\n'.join(fichas)))
+
+
+def ficha_pieza(obra, en, consultar, asunto):
+    for clave, nombre, tecnica, medidas, ano, precio, nota in [obra]:
         archivo = 'pieza-%s.jpg' % clave
         if en:
             tecnica = CATALOGO_EN.get(tecnica, tecnica)
@@ -1305,9 +1344,10 @@ def render_catalogo(idioma='es'):
                       '<a class="consultar" href="%s" target="_blank"'
                       ' rel="noopener">%s</a>'
                       % (pesos(precio), chat, consultar))
-        fichas.append(
+        return (
             '<li%s>'
-            '<div class="marco"><img src="assets/img/%s" alt="%s" width="1000" height="750" loading="lazy" data-ampliar></div>'
+            '<div class="marco"><img src="assets/img/%s" alt="%s" width="1000"'
+            ' height="750" loading="lazy" data-ampliar></div>'
             '<h3>%s</h3>'
             '<p class="datos">%s</p>'
             '%s'
@@ -1317,16 +1357,6 @@ def render_catalogo(idioma='es'):
                archivo, nombre, nombre, datos,
                ('<p class="nota">%s</p>' % nota) if nota else '',
                cierre))
-
-    return ('<section class="sec sec-catalogo">\n'
-            '<div class="lienzo">\n'
-            '<div class="cabecera">'
-            '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
-            '<div class="rt titulo"><h1>%s</h1></div>'
-            '</div>\n'
-            '<ul class="catalogo">\n%s\n</ul>\n'
-            '</div>\n'
-            '</section>' % (titulo, '\n'.join(fichas)))
 
 
 # --- página de contacto ------------------------------------------------------
