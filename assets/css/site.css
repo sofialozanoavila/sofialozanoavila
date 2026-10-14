@@ -125,6 +125,42 @@ html, body {
             url('../img/cursor-hormiga@2x.png') 2x) 12 8, auto;
 }
 
+/* Cuando el guion dibuja la hormiga, el puntero del sistema se apaga: si no,
+   se verían dos. Sin guion se queda la imagen fija de arriba. */
+.con-hormiga, .con-hormiga body, .con-hormiga a, .con-hormiga button { cursor: none; }
+.hormiga-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  transition: opacity .15s ease;
+}
+/* Las seis patas se mueven en dos tríos alternos, que es como camina una
+   hormiga: tres apoyadas mientras las otras tres avanzan. */
+.hormiga-cursor .h-patas-a,
+.hormiga-cursor .h-patas-b,
+.hormiga-cursor .h-antenas { transform-origin: 32px 26px; }
+.hormiga-cursor.anda .h-patas-a { animation: paso .26s linear infinite; }
+.hormiga-cursor.anda .h-patas-b { animation: paso .26s linear infinite reverse; }
+.hormiga-cursor.anda .h-antenas { animation: antena .52s ease-in-out infinite; }
+@keyframes paso {
+  0%   { transform: rotate(-7deg); }
+  50%  { transform: rotate(7deg); }
+  100% { transform: rotate(-7deg); }
+}
+@keyframes antena {
+  0%   { transform: rotate(-4deg); }
+  50%  { transform: rotate(4deg); }
+  100% { transform: rotate(-4deg); }
+}
+/* Quien pide en su sistema que no haya movimiento, no lo tiene. */
+@media (prefers-reduced-motion: reduce) {
+  .hormiga-cursor.anda .h-patas-a,
+  .hormiga-cursor.anda .h-patas-b,
+  .hormiga-cursor.anda .h-antenas { animation: none; }
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }

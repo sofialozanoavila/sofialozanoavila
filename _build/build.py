@@ -1745,6 +1745,40 @@ def render_page(slug, page, idioma='es', origen=None):
     return '\n'.join(body), desktop, int(widest)
 
 
+# La hormiga del cursor, dibujada con vectores para poder animarle las
+# patas. Va escondida en la página y el guion la clona.
+HORMIGA_SVG = """<div id="dibujo-hormiga" hidden>
+<svg viewBox="0 0 64 64" width="32" height="32" aria-hidden="true">
+ <g transform="rotate(-28 32 32)">
+  <g class="h-patas-a" fill="none" stroke="#000" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+   <path d="M28 21 L18 15 L12.5 19"/>
+   <path d="M28 31 L17 37 L13 45"/>
+   <path d="M36 26 L48.5 26 L54.5 32"/>
+  </g>
+  <g class="h-patas-b" fill="none" stroke="#000" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+   <path d="M28 26 L15.5 26 L9.5 32"/>
+   <path d="M36 21 L46 15 L51.5 19"/>
+   <path d="M36 31 L47 37 L51 45"/>
+  </g>
+  <g class="h-antenas" fill="none" stroke="#000" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+   <path d="M29.5 10 L24 4 L19.5 5.5"/>
+   <path d="M34.5 10 L40 4 L44.5 5.5"/>
+  </g>
+  <path d="M32 32.5 L32 37.5" fill="none" stroke="#000" stroke-width="2.4"
+        stroke-linecap="round"/>
+  <g fill="#000">
+   <ellipse cx="32" cy="14" rx="5" ry="4.4"/>
+   <ellipse cx="32" cy="26" rx="4.2" ry="6"/>
+   <ellipse cx="32" cy="46" rx="6.6" ry="8.2"/>
+  </g>
+ </g>
+</svg>
+</div>"""
+
+
 # Entradas que se quedan siempre en la barra; el resto va dentro del «+».
 PRINCIPALES = {'proyectos', 'paisaje-interior', 'cv', 'contacto'}
 
@@ -1800,8 +1834,10 @@ TEMPLATE = """<!doctype html>
 <main id="contenido">
 {body}
 </main>
+{hormiga}
 <script src="{pre}assets/js/escala.js?v={vesc}" defer></script>
 <script src="{pre}assets/js/menu.js?v={vmenu}" defer></script>
+<script src="{pre}assets/js/hormiga.js?v={vhor}" defer></script>
 </body>
 </html>
 """
@@ -1839,6 +1875,8 @@ for slug, page in pages.items():
             vcss=version('assets/css/site.css'),
             vesc=version('assets/js/escala.js'),
             vmenu=version('assets/js/menu.js'),
+            vhor=version('assets/js/hormiga.js'),
+            hormiga=HORMIGA_SVG,
             title=(TITULO_EN.get(out) if idioma == 'en' else None)
                   or TITULOS.get(out, page['title']),
             desc=(DESC_EN if idioma == 'en'
