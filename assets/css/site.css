@@ -112,6 +112,19 @@
   line-gap-override: 0%;
 }
 
+/* El cursor es una hormiga. El punto sensible —los dos números— cae sobre
+   su cabeza, que es la punta con la que se señala. La versión de 64 px es
+   para las pantallas de mucha densidad. */
+html, body {
+  cursor: url('../img/cursor-hormiga.png') 12 8, auto;
+  cursor: -webkit-image-set(
+            url('../img/cursor-hormiga.png') 1x,
+            url('../img/cursor-hormiga@2x.png') 2x) 12 8, auto;
+  cursor: image-set(
+            url('../img/cursor-hormiga.png') 1x,
+            url('../img/cursor-hormiga@2x.png') 2x) 12 8, auto;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
