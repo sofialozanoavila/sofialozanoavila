@@ -710,6 +710,37 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 }
 .catalogo img { width: 100%; height: 100%; object-fit: contain; }
 
+/* El CV: una columna estrecha con las fechas y, al lado, lo que ocurrió. */
+.hoja-vida { list-style: none; margin: 0; padding: 0; }
+.hoja-vida li {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  column-gap: 24px;
+  font-family: var(--grotesca);
+  font-size: 14px;
+  line-height: 1.55em;
+  color: rgb(var(--color_18));
+  margin: 0 0 6px;
+}
+.hoja-vida .fecha { font-weight: 300; color: rgb(118, 118, 118); white-space: nowrap; }
+.hoja-vida .hecho { max-width: 54em; }
+/* Los apartados abren con su nombre, en negrilla y ocupando el ancho. */
+.hoja-vida .apartado { display: block; margin: 34px 0 12px; }
+.hoja-vida li.apartado:first-child { margin-top: 0; }
+.hoja-vida .apartado h2 {
+  font-family: var(--grotesca);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.55em;
+  margin: 0;
+}
+@media (min-width: 860px) {
+  .sec-cv .cabecera { margin-bottom: 44px; }
+}
+@media (max-width: 859px) {
+  .hoja-vida li { grid-template-columns: 72px 1fr; column-gap: 12px; }
+}
+
 /* Los talleres se componen como los proyectos: título y lista en la misma
    columna, corrida hacia el centro. */
 @media (min-width: 860px) {
@@ -721,6 +752,16 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 
 /* En la tienda las tres técnicas van al lado del título, en la columna donde
    empieza el texto en las páginas de proyecto. */
+@media (max-width: 859px) {
+  .sec-tienda .lienzo {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 26px;
+    align-items: start;
+  }
+  .sec-tienda .cabecera { grid-column: 1; margin-bottom: 0; }
+  .sec-tienda .tecnicas { grid-column: 2; margin-top: 10px; }
+}
 @media (min-width: 860px) {
   .sec-tienda .lienzo {
     display: grid;

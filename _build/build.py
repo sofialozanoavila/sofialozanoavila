@@ -1301,6 +1301,101 @@ GRUPOS = [
 ]
 
 
+# El CV, en dos columnas: la fecha a la izquierda y el hecho a la derecha.
+# Se escribe aqu\xed y no en el HTML heredado de Wix, para poder darle forma.
+CV = [
+    ('EDUCACI\xd3N', 'EDUCATION', [
+        ('2014-2019', 'Maestra en Artes Pl\xe1sticas. Universidad El Bosque (UEB), Facultad de creaci\xf3n y comunicaci\xf3n, Bogot\xe1 (COL)', 'Fine Arts degree. Universidad El Bosque (UEB), Faculty of creation and communication, Bogot\xe1 (COL)'),
+        ('2016', 'Programa de intercambio, Universidad Nacional Aut\xf3noma de M\xe9xico (UNAM). Licenciatura en artes Visuales, Facultad de artes y dise\xf1o (FAD), Ciudad de M\xe9xico', 'Exchange programme, Universidad Nacional Aut\xf3noma de M\xe9xico (UNAM). Visual Arts, Faculty of art and design (FAD), Mexico City'),
+    ]),
+    ('EXPOSICIONES INDIVIDUALES', 'SOLO EXHIBITIONS', [
+        ('2025', 'Antejard\xedn / Flotante, Bogot\xe1 (COL)', ''),
+        ('2025', 'La vitrina / Universidad de Los Andes, Bogot\xe1 (COL)', ''),
+        ('2023', 'Procedimiento F\xe9rtil / Espacio El Dorado, Bogot\xe1 (COL)', ''),
+    ]),
+    ('EXPOSICIONES COLECTIVAS / PROYECTOS', 'GROUP EXHIBITIONS / PROJECTS', [
+        ('2026', 'Desde sus adentros / Emblematic Art Gallery, Bogot\xe1 (COL)', ''),
+        ('2026', 'Atrapar, calar, tejer mitos / Expoartesano, Medell\xedn (COL)', ''),
+        ('2026', 'Pausa / Perezoso caf\xe9, Bogot\xe1 (COL)', ''),
+        ('2025', 'Atrapar, calar, tejer mitos / ARTBO 2025 / Claustro de las Aguas de Artesan\xedas de Colombia / Sala de la Universidad del Rosario \u2014 Facultad de Artes y Dise\xf1o / Expoartesan\xedas 2025, Bogot\xe1 (COL)', ''),
+        ('2025', 'Asuntos de hogar / Casa 73#22, Bogot\xe1 (COL)', ''),
+        ('2025', 'Pinturas y dibujos / Galer\xeda Jenny Vil\xe1, Cali (COL)', ''),
+        ('2025', 'Todo lo que no cabe en una vitrina / La vitrina - Universidad de Los Andes, Bogot\xe1 (COL)', ''),
+        ('2024', 'MEDIO / Bogot\xe1 (COL)', ''),
+        ('2024', 'Una moneda al aire / Artec\xe1mara - ARTBO / \xc1gora centro de convenciones (COL)', ''),
+        ('2023', 'Open Studio / No Lugar, Arte contempor\xe1neo, Quito (EC)', ''),
+        ('2023', 'Fragmentos m\xf3viles / Plural Nodo Cultural, Bogot\xe1 (COL)', ''),
+        ('2022', 'Dibujar como pensar / Galer\xeda La Balsa, Medell\xedn (COL)', ''),
+        ('2022', 'Festival de arte contempor\xe1neo de Manizales (COL)', ''),
+        ('2022', 'SOFA muestra archivo Vestales / Corferias, Bogot\xe1 (COL)', ''),
+        ('2022', 'Feria Del Mill\xf3n / Plaza La Santa Mar\xeda, Bogot\xe1 (COL)', ''),
+        ('2022', 'La Suya Patria / Origen Magenta, Bogot\xe1 (COL)', ''),
+        ('2021', 'SE\xd1ALES / F\xe1brica de instantes. Colectivo Destello / J\xf3venes en Movimiento', ''),
+        ('2021', 'Rechazada / Pintura ayer, hoy y ma\xf1ana / Galer\xeda Jenny Vil\xe1, Cali (COL)', ''),
+        ('2021', 'ARTBO | Tutor', ''),
+        ('2020', 'BARC\xda Spotlights / secci\xf3n artistas emergentes', 'BARC\xda Spotlights / emerging artists section'),
+        ('2020', 'ENLUNARTE. Categor\xeda Artes y Oficios. Proyecto: \u201cAlguna Vez Fuimos Oro\u201d', 'ENLUNARTE. Arts and Crafts category. Project: \u201cAlguna Vez Fuimos Oro\u201d'),
+        ('2019', 'MUESTRA/SUBASTA, Sal\xf3n Zea Mays. Julio-Agosto', 'MUESTRA/SUBASTA, Sal\xf3n Zea Mays. July-August'),
+        ('2018', 'Sal\xf3n de Artistas Bernardo P\xe1ramo, Sal\xf3n Zea Mays, Ch\xeda', ''),
+        ('2018', 'La l\xednea no es recta / espacio Ode\xf3n (Tesis Meritoria), Bogot\xe1 (COL)', 'La l\xednea no es recta / espacio Ode\xf3n (Distinguished thesis), Bogot\xe1 (COL)'),
+        ('2017', 'Apariciones / Feria 40 x 40. Carta Abierta, Bogot\xe1 (COL)', ''),
+        ('2017', 'EXXE-HOMO en Nest Art Center, Bogot\xe1 (COL)', 'EXXE-HOMO at Nest Art Center, Bogot\xe1 (COL)'),
+    ]),
+    ('BECAS Y EST\xcdMULOS', 'GRANTS AND AWARDS', [
+        ('2024', 'Beca de circulaci\xf3n nacional para artistas visuales / IDARTES', 'National circulation grant for visual artists / IDARTES'),
+        ('2023', 'J\xf3venes Talentos 2023 / ICETEX', ''),
+        ('2023', 'Beca en Circulaci\xf3n nacional para artistas y dem\xe1s agentes de las artes visuales / Ministerio de Cultura de Colombia', 'National circulation grant for artists and other agents of the visual arts / Ministry of Culture of Colombia'),
+    ]),
+    ('RESIDENCIAS', 'RESIDENCIES', [
+        ('2025', 'Residencias de creaci\xf3n art\xedstica del CIC - cer\xe1mica / Universidad de Los Andes, Bogot\xe1 (COL)', 'CIC artistic creation residencies - ceramics / Universidad de Los Andes, Bogot\xe1 (COL)'),
+        ('2024', 'Residencias Art\xedsticas En Bloque / IDARTES, Bogot\xe1 (COL)', 'En Bloque artistic residencies / IDARTES, Bogot\xe1 (COL)'),
+        ('2023', 'No Lugar, Quito (EC)', ''),
+    ]),
+    ('PUBLICACIONES', 'PUBLICATIONS', [
+        ('2024', 'Cat\xe1logo \u201cUna Moneda al aire\u201d / ARTBO 2024', '\u201cUna Moneda al aire\u201d catalogue / ARTBO 2024'),
+        ('2018', 'Peri\xf3dico ARTERIA ED. 64, Julio - Agosto. Art\xedculo: \u201cProyectos de grado sobresalientes en lo que va del a\xf1o\u201d', 'ARTERIA newspaper, ED. 64, July - August. Article: \u201cProyectos de grado sobresalientes en lo que va del a\xf1o\u201d'),
+        ('2018', 'Cat\xe1logo \u201cSal\xf3n de Artistas Bernardo P\xe1ramo\u201d, Ch\xeda (COL)', '\u201cSal\xf3n de Artistas Bernardo P\xe1ramo\u201d catalogue, Ch\xeda (COL)'),
+    ]),
+    ('CHARLAS', 'TALKS', [
+        ('2024', 'Objetos en duda / Conferencia con H\xe9ctor Garc\xeda Botero. Evento abierto al p\xfablico. Universidad El Bosque', 'Objetos en duda / Lecture with H\xe9ctor Garc\xeda Botero. Open to the public. Universidad El Bosque'),
+        ('2023', 'Un Mundo Sin Hallazgos / Charla con H\xe9ctor Garc\xeda Botero. Evento abierto al p\xfablico. Galer\xeda Espacio El Dorado', 'Un Mundo Sin Hallazgos / Talk with H\xe9ctor Garc\xeda Botero. Open to the public. Galer\xeda Espacio El Dorado'),
+    ]),
+    ('PRODUCCI\xd3N, DISE\xd1O E INVESTIGACI\xd3N', 'PRODUCTION, DESIGN AND RESEARCH', [
+        ('2024', 'Dise\xf1o y producci\xf3n del proyecto \u201cDominio Previo\u201d. Museo de Arte Miguel Urrutia - MAMU, Bogot\xe1 (COL)', 'Design and production of the project \u201cDominio Previo\u201d. Museo de Arte Miguel Urrutia - MAMU, Bogot\xe1 (COL)'),
+        ('2020', 'Asistente de producci\xf3n. Proyecto \u201cLa f\xe1bula de Aracne\u201d de Juliana G\xf3ngora. Sal\xf3n Nacional de Artistas 2020 - Universidad Jorge Tadeo Lozano, Bogot\xe1 (COL)', 'Production assistant. Project \u201cLa f\xe1bula de Aracne\u201d by Juliana G\xf3ngora. Sal\xf3n Nacional de Artistas 2020 - Universidad Jorge Tadeo Lozano, Bogot\xe1 (COL)'),
+        ('2018-2019', 'Comunicaci\xf3n, gesti\xf3n de medios e investigaci\xf3n. SGR Galer\xeda, Bogot\xe1 (COL)', 'Communications, media management and research. SGR Galer\xeda, Bogot\xe1 (COL)'),
+    ]),
+    ('EXPERIENCIA PEDAG\xd3GICA', 'TEACHING', [
+        ('2024', 'Profesora invitada / Taller de Experimentaci\xf3n con Materiales II. Artes, Facultad de Creaci\xf3n (FACREA), Universidad del Rosario, Bogot\xe1 (COL)', 'Visiting lecturer / Materials Experimentation Workshop II. Arts, Faculty of Creation (FACREA), Universidad del Rosario, Bogot\xe1 (COL)'),
+        ('2024', 'Profesora (talleres y actividades acad\xe9micas). Universidad El Bosque, Bogot\xe1. Dise\xf1o y ejecuci\xf3n del taller \u201cMapas y cartograf\xedas\u201d / Dise\xf1o y coordinaci\xf3n de club de dibujo para estudiantes / Dise\xf1o y desarrollo de taller de inmersi\xf3n con arcilla', 'Lecturer (workshops and academic activities). Universidad El Bosque, Bogot\xe1. Design and running of the workshop \u201cMapas y cartograf\xedas\u201d / Design and coordination of a student drawing club / Design and development of a clay immersion workshop'),
+        ('2024', 'Docente / Taller independiente de cer\xe1mica, Bogot\xe1. Taller introductorio de cer\xe1mica prehisp\xe1nica: modelado manual, terra sigillata, engobes y pigmentos naturales', 'Teacher / Independent ceramics workshop, Bogot\xe1. Introductory workshop on pre-Hispanic ceramics: hand modelling, terra sigillata, slips and natural pigments'),
+    ]),
+]
+
+
+def render_cv(idioma='es'):
+    """El CV: una columna de fechas y, al lado, lo que pasó en cada una."""
+    en = idioma == 'en'
+    filas = []
+    for titulo_es, titulo_en, items in CV:
+        filas.append('<li class="apartado"><h2>%s</h2></li>'
+                     % (titulo_en if en else titulo_es))
+        for fecha, texto, texto_en in items:
+            filas.append('<li><span class="fecha">%s</span>'
+                         '<span class="hecho">%s</span></li>'
+                         % (fecha, (texto_en or texto) if en else texto))
+    cabecera = ['bogot\u00e1, colombia (1997)', 'CV']
+    return ('<section class="sec sec-catalogo sec-cv">\n'
+            '<div class="lienzo">\n'
+            '<div class="cabecera">'
+            '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
+            '<div class="rt titulo"><h1>%s</h1></div>'
+            '</div>\n'
+            '<ul class="hoja-vida">%s</ul>\n'
+            '</div>\n'
+            '</section>' % ('<br>'.join(cabecera), ''.join(filas)))
+
+
 def render_talleres(idioma='es'):
     """Los talleres, en su propia página."""
     en = idioma == 'en'
@@ -1763,6 +1858,9 @@ def render_page(slug, page, idioma='es', origen=None):
 
     if slug == 'talleres':
         return render_talleres(idioma), '', 0
+
+    if slug == 'cv':
+        return render_cv(idioma), '', 0
 
     if slug in [g[0] for g in GRUPOS]:
         return render_catalogo(slug, idioma), '', 0
