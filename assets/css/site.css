@@ -452,7 +452,6 @@ body, body * { font-family: var(--grotesca) !important; }
    avisa es la nube de polvo que levanta la hormiga. Solo se les quita el
    subrayado para que el gesto quede limpio. */
 .lista-proyectos a:hover,
-.tecnicas a:hover,
 .site-header .menu a:hover,
 .enlaces a:hover,
 .enlaces-proyectos a:hover,
@@ -808,7 +807,6 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 }
 .rejilla h3 { color: rgb(var(--color_18)); }
 .rejilla .ano { color: rgb(130, 130, 130); }
-/* al pasar el cursor, el mismo resalte de la lista anterior */
 @media (max-width: 1100px) {
   .rejilla { grid-template-columns: repeat(2, 1fr); gap: 44px 36px; }
 }
@@ -870,40 +868,95 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 }
 .lista-talleres p { margin: 0; }
 
-/* En la tienda las tres técnicas van al lado del título, en la columna donde
-   empieza el texto en las páginas de proyecto. */
-/* En la tienda, el título y las tres técnicas comparten renglón. Se alinean
-   por la línea de base —no por la caja ni por la altura de las mayúsculas—,
-   así la primera palabra queda justo enfrente de «tienda» en cualquier
-   pantalla y con cualquier cuerpo de letra. */
-.fila-tienda {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  column-gap: 26px;
-  align-items: baseline;
-}
-.sec-tienda .cabecera { margin-bottom: 0; }
-@media (min-width: 860px) {
-  .fila-tienda { grid-template-columns: 160px 1fr; column-gap: 0; }
-}
-
-/* La tienda es solo la lista de las tres técnicas, en una columna y con la
-   misma letra que los nombres de proyecto. */
-.tecnicas {
+/* Los proyectos como retícula: una imagen por proyecto, con el nombre y el
+   año debajo. En el celular van uno debajo de otro. */
+.rejilla {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 56px 48px;
 }
-.tecnicas { margin-top: 0; }
-.tecnicas li + li { margin-top: 4px; }
-.tecnicas a {
-  display: inline-block;
+.rejilla a { display: block; text-decoration: none; color: inherit; }
+.rejilla .marco {
+  aspect-ratio: 4 / 3;
+  background: rgb(var(--color_11));
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+.rejilla img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rejilla h3,
+.rejilla .ano {
   font-family: var(--grotesca);
-  font-size: 17px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.4em;
+  margin: 0;
+}
+.rejilla h3 { color: rgb(var(--color_18)); }
+.rejilla .ano { color: rgb(130, 130, 130); }
+@media (max-width: 1100px) {
+  .rejilla { grid-template-columns: repeat(2, 1fr); gap: 44px 36px; }
+}
+@media (max-width: 859px) {
+  .rejilla { grid-template-columns: 1fr; gap: 34px; }
+}
+
+/* El CV: una columna estrecha con las fechas y, al lado, lo que ocurrió. */
+.hoja-vida { list-style: none; margin: 0; padding: 0; }
+.hoja-vida li {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  column-gap: 24px;
+  font-family: var(--grotesca);
+  font-size: 14px;
+  /* todo el CV en el peso ligero; solo los apartados van en negrilla */
   font-weight: 300;
-  line-height: 1.3em;
+  line-height: 1.55em;
   color: rgb(var(--color_18));
-  text-decoration: none;
+  margin: 0 0 6px;
+}
+.hoja-vida .fecha { color: rgb(118, 118, 118); white-space: nowrap; }
+.hoja-vida .hecho { max-width: 54em; }
+/* Los apartados abren con su nombre, en negrilla y ocupando el ancho. */
+.hoja-vida .apartado { display: block; margin: 34px 0 12px; }
+.hoja-vida li.apartado:first-child { margin-top: 0; }
+.hoja-vida .apartado h2 {
+  font-family: var(--grotesca);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.55em;
+  margin: 0;
+}
+/* El CV se lee como el resto del sitio: la cabecera en el riel de la
+   izquierda y todo el contenido en la columna de la derecha, alineados por
+   la línea de base del primer renglón. */
+.sec-cv .cabecera { margin-bottom: 0; }
+.fila-cv { display: grid; align-items: baseline; }
+@media (min-width: 860px) {
+  .fila-cv {
+    grid-template-columns: 420px 1fr;
+    column-gap: 56px;
+  }
+}
+@media (max-width: 859px) {
+  .fila-cv { grid-template-columns: 1fr; }
+  .fila-cv .hoja-vida { margin-top: 30px; }
+}
+@media (max-width: 859px) {
+  .hoja-vida li { grid-template-columns: 72px 1fr; column-gap: 12px; }
+}
+
+/* Los talleres se componen como los proyectos: título y lista en la misma
+   columna, corrida hacia el centro. */
+@media (min-width: 860px) {
+  .sec-talleres .cabecera,
+  .sec-talleres .lista-talleres { margin-left: 24%; }
+  .sec-talleres .cabecera { margin-bottom: 20px; }
+}
+.lista-talleres p { margin: 0; }
+
 }
 
 /* Ficha de cada pieza, medida sobre las fichas de producto de Zara: todo

@@ -1482,24 +1482,27 @@ def render_talleres(idioma='es'):
 
 
 def render_tienda(idioma='es'):
-    """La tienda es solo la lista de las tres t\u00e9cnicas."""
+    """La tienda: una imagen por técnica, sin año. La portada de cada una es
+    la primera obra de su grupo, así nunca queda huérfana."""
     en = idioma == 'en'
-    filas = ''.join(
-        '<li><a href="%s.html">%s</a></li>' % (slug, nom_en if en else nom_es)
-        for slug, nom_es, nom_en, _ in GRUPOS)
-    # El título y las técnicas comparten renglón: así la primera palabra
-    # arranca justo enfrente de «tienda», sin medidas a mano.
-    return ('<section class="sec sec-catalogo sec-tienda">\n'
+    fichas = []
+    for slug, nom_es, nom_en, claves in GRUPOS:
+        nombre = nom_en if en else nom_es
+        fichas.append(
+            '<li><a href="%s.html">'
+            '<div class="marco"><img src="assets/img/pieza-%s.jpg" alt="%s" '
+            'loading="lazy"></div>'
+            '<h3>%s</h3></a></li>'
+            % (slug, claves[0], nombre, nombre))
+    return ('<section class="sec sec-catalogo sec-rejilla">\n'
             '<div class="lienzo">\n'
             '<div class="cabecera">'
             '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
-            '</div>\n'
-            '<div class="fila-tienda">'
             '<div class="rt titulo"><h1>%s</h1></div>'
-            '<ul class="tecnicas lista-proyectos">%s</ul>'
             '</div>\n'
+            '<ul class="rejilla">\n%s\n</ul>\n'
             '</div>\n'
-            '</section>' % ('shop' if en else 'tienda', filas))
+            '</section>' % ('shop' if en else 'tienda', '\n'.join(fichas)))
 
 
 def render_catalogo(grupo, idioma='es'):
