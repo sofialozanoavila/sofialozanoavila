@@ -219,6 +219,29 @@ body.con-ampliada { overflow: hidden; }
 /* las fotografías del catálogo avisan de que se pueden abrir */
 .catalogo [data-ampliar] { cursor: inherit; }
 
+/* El polvo que se levanta al pasar por encima de un enlace. */
+.humo {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  overflow: hidden;
+}
+.humo .nube {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(120, 120, 120, .38);
+  animation: soplo .9s ease-out forwards;
+}
+@keyframes soplo {
+  0%   { transform: translate(0, 0) scale(.3); opacity: 0; }
+  18%  { opacity: .85; }
+  100% { transform: translate(var(--lado), var(--sube)) scale(1.9); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .humo .nube { animation-duration: 1.4s; }
+}
+
 /* El hormiguero del inicio: van por detrás del texto y no estorban al ratón. */
 .hormiguero {
   position: fixed;
@@ -359,36 +382,17 @@ body, body * { font-family: var(--grotesca) !important; }
 .rt a { text-decoration: none; }
 .rt a:hover { text-decoration: underline; }
 
-/* En la lista de proyectos el cursor no subraya: enciende el nombre con un
-   resalte de terracota. El texto se fuerza en blanco porque cada enlace
-   trae su propio color escrito en línea. */
-.lista-proyectos a:hover { text-decoration: none; opacity: 1; }
+/* Al pasar el cursor, los enlaces ya no se resaltan con un color: lo que
+   avisa es la nube de polvo que levanta la hormiga. Solo se les quita el
+   subrayado para que el gesto quede limpio. */
 .lista-proyectos a:hover,
-.lista-proyectos a:hover span {
-  background-color: var(--resalte);
-  color: #FFFFFF !important;
-}
-
-/* El menú de arriba se enciende igual, pero en café con letra blanca, para
-   no confundirlo con la lista de proyectos. */
+.tecnicas a:hover,
 .site-header .menu a:hover,
 .enlaces a:hover,
 .enlaces-proyectos a:hover,
 .nombre a:hover,
-.nombre-proyectos a:hover { text-decoration: none; opacity: 1; }
-.site-header .menu a:hover,
-.site-header .menu a:hover span,
-.enlaces a:hover,
-.enlaces a:hover span,
-.enlaces-proyectos a:hover,
-.enlaces-proyectos a:hover span,
-.nombre a:hover,
-.nombre a:hover span,
 .nombre-proyectos a:hover,
-.nombre-proyectos a:hover span {
-  background-color: var(--resalte-menu);
-  color: #FFFFFF !important;
-}
+.rejilla a:hover { text-decoration: none; opacity: 1; }
 
 /* --- flecha de volver ------------------------------------------------
    Dibujo vectorial en lugar del carácter ↩, que algunos móviles convierten
@@ -739,11 +743,6 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 .rejilla h3 { color: rgb(var(--color_18)); }
 .rejilla .ano { color: rgb(130, 130, 130); }
 /* al pasar el cursor, el mismo resalte de la lista anterior */
-.rejilla a:hover { opacity: 1; }
-.rejilla a:hover h3 {
-  background-color: var(--resalte);
-  color: #FFFFFF;
-}
 @media (max-width: 1100px) {
   .rejilla { grid-template-columns: repeat(2, 1fr); gap: 44px 36px; }
 }
@@ -801,7 +800,9 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
     align-items: start;
   }
   .sec-tienda .cabecera { grid-column: 1; margin-bottom: 0; }
-  .sec-tienda .tecnicas { grid-column: 2; margin-top: 10px; }
+  /* Los 87,86 px bajan la primera palabra hasta que sus mayúsculas arrancan
+     a la altura de las de «tienda». Medido sobre la tinta. */
+  .sec-tienda .tecnicas { grid-column: 2; margin-top: 87.86px; }
 }
 @media (min-width: 860px) {
   .sec-tienda .lienzo {

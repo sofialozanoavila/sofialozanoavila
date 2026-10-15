@@ -1454,26 +1454,27 @@ def render_proyectos_reticula(idioma='es'):
 
 
 def render_talleres(idioma='es'):
-    """Los talleres, en su propia página."""
+    """Los talleres, en la misma retícula que los proyectos."""
     en = idioma == 'en'
-    filas = []
-    ano = None
-    for a, nombre, destino in TALLERES:
-        if a != ano:
-            if ano is not None:
-                filas.append('<p class="font_8">&nbsp;</p>')
-            filas.append(TXT_ANO_COL % a)
-            ano = a
-        filas.append(TXT_ENLACE_COL % (destino, '%d / %s' % (a, nombre)))
-    return ('<section class="sec sec-catalogo sec-talleres">\n'
+    fichas = []
+    for ano, nombre, destino, archivo in TALLERES:
+        if en:
+            nombre = NOMBRES_EN.get(nombre, nombre)
+        fichas.append(
+            '<li><a href="%s.html">'
+            '<div class="marco"><img src="assets/img/%s" alt="%s" '
+            'loading="lazy"></div>'
+            '<h3>%s</h3><p class="ano">%d</p></a></li>'
+            % (destino, archivo, nombre, nombre, ano))
+    return ('<section class="sec sec-catalogo sec-rejilla">\n'
             '<div class="lienzo">\n'
             '<div class="cabecera">'
             '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
             '<div class="rt titulo"><h1>%s</h1></div>'
             '</div>\n'
-            '<div class="rt lista-proyectos lista-talleres">%s</div>\n'
+            '<ul class="rejilla">\n%s\n</ul>\n'
             '</div>\n'
-            '</section>' % ('workshops' if en else 'talleres', ''.join(filas)))
+            '</section>' % ('workshops' if en else 'talleres', '\n'.join(fichas)))
 
 
 def render_tienda(idioma='es'):
@@ -1768,9 +1769,9 @@ TXT_ENLACE_COL = ('<p class="font_8" style="font-size:20px; line-height:1.3em;">
 
 # Los talleres viven en su propia columna, al lado de los proyectos.
 TALLERES = [
-    (2026, 'superficies de paso', 'superficies-de-paso'),
-    (2025, 'doblar una flor', 'doblar-una-flor'),
-    (2024, 'vasija / ver / vaciar', 'vasija-ver-vaciar'),
+    (2026, 'superficies de paso', 'superficies-de-paso', 'superficies-05.jpg'),
+    (2025, 'doblar una flor', 'doblar-una-flor', 'doblar-02.jpg'),
+    (2024, 'vasija / ver / vaciar', 'vasija-ver-vaciar', 'vasija-01.jpg'),
 ]
 
 
@@ -1779,7 +1780,7 @@ def columna_talleres(idioma):
     titulo = 'workshops' if idioma == 'en' else 'talleres'
     filas = []
     ano = None
-    for a, nombre, destino in TALLERES:
+    for a, nombre, destino, _ in TALLERES:
         if a != ano:
             if ano is not None:
                 filas.append('<p class="font_8" style="font-size:20px; '
@@ -2134,6 +2135,7 @@ TEMPLATE = """<!doctype html>
 <script src="{pre}assets/js/hormiga.js?v={vhor}" defer></script>
 <script src="{pre}assets/js/ampliar.js?v={vamp}" defer></script>
 <script src="{pre}assets/js/hormiguero.js?v={vhgo}" defer></script>
+<script src="{pre}assets/js/humo.js?v={vhum}" defer></script>
 </body>
 </html>
 """
@@ -2186,6 +2188,7 @@ for slug, page in pages.items():
             vhor=version('assets/js/hormiga.js'),
             vamp=version('assets/js/ampliar.js'),
             vhgo=version('assets/js/hormiguero.js'),
+            vhum=version('assets/js/humo.js'),
             hormiga=HORMIGA_SVG + HORMIGA_RECTA,
             title=(TITULO_EN.get(out) if idioma == 'en' else None)
                   or TITULOS.get(out, page['title']),
