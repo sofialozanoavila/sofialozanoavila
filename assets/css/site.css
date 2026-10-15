@@ -301,6 +301,17 @@ body.con-obras, body.con-obras a, body.con-obras button {
             url('../img/cursor-pala@2x.png') 2x) 8 7, auto;
 }
 
+/* En talleres, un lápiz: el punto sensible cae en la punta. */
+body.p-talleres, body.p-talleres a, body.p-talleres button {
+  cursor: url('../img/cursor-lapiz.png') 4 24, auto;
+  cursor: -webkit-image-set(
+            url('../img/cursor-lapiz.png') 1x,
+            url('../img/cursor-lapiz@2x.png') 2x) 4 24, auto;
+  cursor: image-set(
+            url('../img/cursor-lapiz.png') 1x,
+            url('../img/cursor-lapiz@2x.png') 2x) 4 24, auto;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
