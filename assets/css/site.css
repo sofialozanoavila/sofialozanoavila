@@ -102,6 +102,23 @@
    Las cifras salen de medir las dos maquetadas: una misma frase ocupa un
    106,51 % en Inter de lo que ocupa en Arial. Las alturas son las de Inter
    —0,969 y 0,241 de cuerpo— divididas por ese mismo factor. */
+/* Inter, servida desde el propio dominio. Antes venía de Google con
+   «display=optional», que solo da unos 100 ms de margen: si la letra no llega
+   a tiempo se queda la de reserva para toda la visita, y como además la hoja
+   de Google se pedía sin bloquear, nunca llegaba a tiempo. El sitio entero se
+   veía en Arial —que no tiene versión light, de ahí que el menú se viera en
+   negrilla—. Ahora es un archivo propio, precargado y con «swap»: entra en
+   cuanto está. Es una tipografía variable, así que un solo archivo cubre
+   todos los pesos. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 @font-face {
   font-family: 'Inter respaldo';
   src: local('Arial'), local('Helvetica Neue'), local('Liberation Sans'),
@@ -144,21 +161,15 @@ html, body {
 /* El paso con aceleración suave en vez de velocidad constante: la pata frena
    al final del recorrido y arranca otra vez, que es como se mueve de verdad.
    La cadencia la pone cada hormiga según lo rápido que ande. */
-.hormiga-cursor.anda .h-patas-a,
-.hormiguero .hormiga.anda .h-patas-a {
+.hormiga-cursor.anda .h-patas-a {
   animation: paso var(--cadencia, .26s) ease-in-out infinite;
 }
-.hormiga-cursor.anda .h-patas-b,
-.hormiguero .hormiga.anda .h-patas-b {
+.hormiga-cursor.anda .h-patas-b {
   animation: paso var(--cadencia, .26s) ease-in-out infinite reverse;
 }
-.hormiga-cursor.anda .h-antenas,
-.hormiguero .hormiga.anda .h-antenas {
+.hormiga-cursor.anda .h-antenas {
   animation: antena calc(var(--cadencia, .26s) * 2.6) ease-in-out infinite;
 }
-.hormiguero .hormiga .h-patas-a,
-.hormiguero .hormiga .h-patas-b,
-.hormiguero .hormiga .h-antenas { transform-origin: 32px 26px; }
 @keyframes paso {
   0%   { transform: rotate(-14deg); }
   50%  { transform: rotate(14deg); }
@@ -176,8 +187,6 @@ html, body {
   .hormiga-cursor.anda .h-patas-a,
   .hormiga-cursor.anda .h-patas-b { animation-duration: .6s; }
   .hormiga-cursor.anda .h-antenas { animation-duration: 1.2s; }
-  .hormiguero .hormiga.anda .h-patas-a,
-  .hormiguero .hormiga.anda .h-patas-b { animation-duration: .7s; }
   @keyframes paso {
     0%   { transform: rotate(-7deg); }
     50%  { transform: rotate(7deg); }
@@ -273,7 +282,9 @@ body.p-index .nombre > p { visibility: hidden; }
 }
 
 
-/* El hormiguero del inicio: van por detrás del texto y no estorban al ratón. */
+/* El hormiguero del inicio: va por detrás del texto y no estorba al ratón.
+   Cada hormiga es un lienzo diminuto que se mueve con transform, para que el
+   compositor lo lleve sin repintar (ver hormiguero.js). */
 .hormiguero {
   position: fixed;
   inset: 0;
@@ -288,33 +299,23 @@ body.p-index .nombre > p { visibility: hidden; }
   width: 20px;
   height: 20px;
   margin: -10px 0 0 -10px;
+  will-change: transform;
 }
-.hormiguero .hormiga svg { display: block; width: 100%; height: 100%; }
-/* El trazo va en unidades del dibujo, así que al encoger la hormiga adelgaza
-   y se deshace en gris al suavizar los bordes. Se engorda en la misma
-   proporción para que las patas sigan pesando lo mismo en pantalla. */
-.hormiguero .hormiga svg g[stroke],
-.hormiguero .hormiga svg path[stroke] { stroke-width: 3; }
+.hormiguero .hormiga {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  will-change: transform;
+}
 /* el contenido del inicio va por delante de ellas */
 body.p-index main { position: relative; z-index: 1; }
 /* La barra, por encima del contenido: el desplegable del «+» vive dentro
    de ella, y si empatan en altura el contenido gana por venir después y el
    menú desplegado se cruzaba con «soy artista…» en el celular. */
 body.p-index .site-header { position: relative; z-index: 2; }
-
-/* En proyectos y dentro de cada proyecto el cursor es una pala, con la
-   hoja arriba: el punto sensible cae en su punta, que es con lo que se
-   escarba. */
-body.p-proyectos, body.p-proyectos a, body.p-proyectos button,
-body.con-obras, body.con-obras a, body.con-obras button {
-  cursor: url('../img/cursor-pala.png') 8 7, auto;
-  cursor: -webkit-image-set(
-            url('../img/cursor-pala.png') 1x,
-            url('../img/cursor-pala@2x.png') 2x) 8 7, auto;
-  cursor: image-set(
-            url('../img/cursor-pala.png') 1x,
-            url('../img/cursor-pala@2x.png') 2x) 8 7, auto;
-}
 
 /* En talleres, un lápiz: el punto sensible cae en la punta. */
 body.p-talleres, body.p-talleres a, body.p-talleres button {
@@ -1075,6 +1076,28 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
 /* mismo tamaño de flecha que en las páginas de proyecto */
 .sec-contacto .volver p { font-size: 40px; line-height: 1; }
 
+/* El título, compuesto como el de talleres, proyectos y el CV. */
+.sec-contacto .cabecera { margin-bottom: 44px; }
+.sec-contacto .titulo { margin-left: 0; }
+.sec-contacto .titulo h1 {
+  font: var(--font_0);
+  font-size: 34px;
+  font-weight: 400;
+  margin: 6px 0 0;
+  color: rgb(var(--color_18));
+}
+
+/* La presentación: una columna de ancho cómodo de leer, no toda la pantalla. */
+.sobre-mi {
+  max-width: 62ch;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgb(var(--color_18));
+}
+.sobre-mi p { margin: 0 0 1.1em; }
+.sobre-mi p:last-child { margin-bottom: 0; }
+
 .contactos {
   list-style: none;
   margin: 48px 0 0 0;
@@ -1106,6 +1129,9 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   .sec-contacto { padding: 0 20px 60px; }
   .sec-contacto .lienzo { width: auto; }
   .sec-contacto .volver { margin-left: 0; }
+  .sec-contacto .cabecera { margin-bottom: 30px; }
+  .sec-contacto .titulo h1 { font-size: 28px; }
+  .sobre-mi { font-size: 15.5px; line-height: 1.65; }
   .contactos { margin: 36px 0 0; font-size: 17px; }
 }
 

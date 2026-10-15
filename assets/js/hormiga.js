@@ -5,11 +5,8 @@
 (function () {
   var fino = window.matchMedia('(pointer: fine)');
   if (!fino.matches) return;
-  // En proyectos y dentro de cada proyecto manda la pala, y en talleres el
-  // lápiz; en ninguno de los tres sale la hormiga.
-  var cl = document.body.classList;
-  if (cl.contains('p-proyectos') || cl.contains('con-obras') ||
-      cl.contains('p-talleres')) return;
+  // En talleres manda el lápiz; en el resto del sitio, la hormiga.
+  if (document.body.classList.contains('p-talleres')) return;
 
   var molde = document.getElementById('dibujo-hormiga');
   if (!molde) return;

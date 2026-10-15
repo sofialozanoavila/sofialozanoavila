@@ -11,16 +11,8 @@
   var suave = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var ultimo = 0;
 
-  // La tierra sale de donde escarba la herramienta, no del punto del ratón.
-  // La pala lleva el punto sensible en la punta de la hoja, arriba, y el filo
-  // con el que escarba queda abajo: hay que bajar los granos hasta ahí. El
-  // lápiz y la hormiga sí tocan el suelo justo en el punto sensible.
-  var cl = document.body.classList;
   // En talleres no salta tierra: el lápiz deja su trazo (ver trazo.js).
-  if (cl.contains('p-talleres')) return;
-  var hay_pala = cl.contains('p-proyectos') || cl.contains('con-obras');
-  var desx = hay_pala ? 6 : 0;
-  var desy = hay_pala ? 11 : 0;
+  if (document.body.classList.contains('p-talleres')) return;
 
   function soplo(x, y) {
     // Unos pocos granos, no una nube: salen disparados hacia los lados y
@@ -59,6 +51,6 @@
     var ahora = e.timeStamp;
     if (ahora - ultimo < (suave ? 420 : 170)) return;
     ultimo = ahora;
-    soplo(e.clientX + desx, e.clientY + desy);
+    soplo(e.clientX, e.clientY);
   }, { passive: true });
 })();

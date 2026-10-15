@@ -1653,18 +1653,43 @@ def titulo_en_minuscula(html):
     return html[:m.start(2)] + nuevo + html[m.end(2):]
 
 
-def render_contacto(cfg):
+# La presentación de la página de contacto, tal como la escribió Sofía.
+SOBRE_MI = [
+    'Hola. Soy Sofía y soy artista plástica. Mi práctica ha sido una búsqueda constante acerca de las cosas que están ocultas, las partes o fragmentos de una cosa o imagen, o una excavación constante entre mis recuerdos o las anécdotas que me cuentan mis familiares. El dibujo ha sido, desde que era muy pequeña, un impulso casi frenético por capturar todo lo que me rodeaba. Luego, años después, descubrí la cerámica, un mundo que al día de hoy sigo estudiando y al que me acerco desde una permanente curiosidad.',
+    'Mi forma de trabajar comienza por un encuentro con un objeto, un libro o una imagen. De ahí se desprenden otras preguntas acerca de su ubicación, de su contexto, de su posible continuación, de aquello que no dice y de aquello que nos revela. En varias ocasiones mi trabajo ha tomado forma de instalación, es decir, de la creación de un espacio más allá del objeto-obra.',
+    'Esta página ha sido creada con esas mismas inquietudes, que son el motor del ser artista. He integrado elementos que generan nuevas interacciones. Abajo podrás encontrar los canales a través de los cuales puedes contactarme si algo de lo que aquí se muestra te interesa.',
+]
+
+SOBRE_MI_EN = [
+    'Hello. I am Sofía and I am a visual artist. My practice has been a constant search into the things that lie hidden, the parts or fragments of a thing or an image, or a constant excavation among my memories and the stories my family tells me. Drawing has been, since I was very small, an almost frantic impulse to capture everything around me. Then, years later, I came upon ceramics, a world I am still studying today and approach with unending curiosity.',
+    'My way of working begins with an encounter with an object, a book or an image. From there other questions unfold: about where it is, about its context, about how it might continue, about what it does not say and what it reveals to us. Several times my work has taken the form of an installation — the making of a space beyond the object as artwork.',
+    'This page was made out of those same preoccupations, which are what drives being an artist. I have built into it elements that give rise to new interactions. Below you will find the channels through which you can reach me, if something shown here interests you.',
+]
+
+
+def render_contacto(cfg, idioma='es'):
+    """Contacto: el título y la presentación arriba, y debajo por dónde
+    escribirle. El título se compone como el de talleres o el del CV."""
+    en = idioma == 'en'
     filas = []
     for icono, etiqueta, destino, fuera in cfg['enlaces']:
         extra = ' target="_blank" rel="noopener"' if fuera else ''
-        filas.append('<li><a href="%s"%s>%s<span>%s</span></a></li>'
-                     % (destino, extra, icono, etiqueta))
-    return ('<section class="sec sec-contacto" data-ancho="1033">\n'
+        filas.append('<li><a href="@1@"@2@>@3@<span>@4@</span></a></li>'
+                     .replace('@1@', destino).replace('@2@', extra)
+                     .replace('@3@', icono).replace('@4@', etiqueta))
+    parrafos = ''.join('<p>' + t + '</p>'
+                       for t in (SOBRE_MI_EN if en else SOBRE_MI))
+    return ('<section class="sec sec-contacto">\n'
             '<div class="lienzo">\n'
-            '<div class="rt volver"><p><a href="%s">\u21a9</a></p></div>\n'
-            '<ul class="contactos">\n%s\n</ul>\n'
+            '<div class="cabecera">'
+            '<div class="rt volver"><p><a href="' + cfg['volver'] + '">\u21a9</a></p></div>'
+            '<div class="rt titulo"><h1>'
+            + ('about me' if en else 'sobre m\u00ed') + '</h1></div>'
             '</div>\n'
-            '</section>' % (cfg['volver'], '\n'.join(filas)))
+            '<div class="sobre-mi">' + parrafos + '</div>\n'
+            '<ul class="contactos">\n' + '\n'.join(filas) + '\n</ul>\n'
+            '</div>\n'
+            '</section>')
 
 
 # --- páginas en modo galería -------------------------------------------------
@@ -1932,7 +1957,7 @@ def comp_css(c, x0, arriba=None, escenario=None):
 
 def render_page(slug, page, idioma='es', origen=None):
     if slug == 'contacto':
-        return render_contacto(CONTACTO), '', 0
+        return render_contacto(CONTACTO, idioma), '', 0
 
     # ojo: aquí «slug» es ya el nombre del archivo, no la clave de Wix
     if slug == 'tienda':
@@ -2137,12 +2162,8 @@ TEMPLATE = """<!doctype html>
 <meta name="format-detection" content="telephone=no">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" media="print" onload="this.media='all'"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=optional">
-<noscript><link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=optional"></noscript>
+<link rel="preload" href="{pre}assets/fonts/inter-latin.woff2" as="font"
+      type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{pre}assets/css/site.css?v={vcss}">
 <noscript><style>body.p-index .nombre > p {{ visibility: visible; }}</style></noscript>
 <style>
