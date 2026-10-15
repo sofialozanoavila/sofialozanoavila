@@ -246,7 +246,7 @@ body.con-ampliada { overflow: hidden; }
   position: absolute;
   width: 0;
   height: 0;
-  filter: blur(1.6px);
+  filter: blur(1.1px);
   animation: sube 1.2s cubic-bezier(.22, .7, .3, 1) forwards;
 }
 .humo .nube i {

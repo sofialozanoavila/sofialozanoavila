@@ -18,16 +18,16 @@
     n.className = 'nube';
     n.style.left = x + 'px';
     n.style.top = y + 'px';
-    n.style.setProperty('--sube', (-26 - Math.random() * 18).toFixed(0) + 'px');
-    n.style.setProperty('--lado', ((Math.random() - 0.5) * 26).toFixed(0) + 'px');
-    var cuantos = 4 + Math.floor(Math.random() * 3);
+    n.style.setProperty('--sube', (-15 - Math.random() * 11).toFixed(0) + 'px');
+    n.style.setProperty('--lado', ((Math.random() - 0.5) * 15).toFixed(0) + 'px');
+    var cuantos = 3 + Math.floor(Math.random() * 2);
     for (var i = 0; i < cuantos; i++) {
       var b = document.createElement('i');
-      var tam = 9 + Math.random() * 13;
+      var tam = 5 + Math.random() * 7;
       b.style.width = b.style.height = tam.toFixed(1) + 'px';
-      b.style.left = ((Math.random() - 0.5) * 26 - tam / 2).toFixed(1) + 'px';
-      b.style.top = ((Math.random() - 0.5) * 16 - tam / 2).toFixed(1) + 'px';
-      b.style.setProperty('--crece', (2.3 + Math.random() * 1.1).toFixed(2));
+      b.style.left = ((Math.random() - 0.5) * 14 - tam / 2).toFixed(1) + 'px';
+      b.style.top = ((Math.random() - 0.5) * 9 - tam / 2).toFixed(1) + 'px';
+      b.style.setProperty('--crece', (1.7 + Math.random() * 0.8).toFixed(2));
       b.style.animationDelay = (Math.random() * 0.09).toFixed(3) + 's';
       n.appendChild(b);
     }
