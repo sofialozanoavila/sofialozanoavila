@@ -232,46 +232,6 @@ body.con-ampliada { overflow: hidden; }
   pointer-events: none;
 }
 
-/* El polvo que se levanta al pasar por encima de un enlace. Cada bocanada
-   son varios borrones desenfocados que se abren juntos: de cerca son manchas,
-   de lejos una nube. */
-.humo {
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-  pointer-events: none;
-  overflow: hidden;
-}
-.humo .nube {
-  position: absolute;
-  width: 0;
-  height: 0;
-  filter: blur(1.1px);
-  animation: sube 1.2s cubic-bezier(.22, .7, .3, 1) forwards;
-}
-.humo .nube i {
-  position: absolute;
-  display: block;
-  border-radius: 50%;
-  background: radial-gradient(circle at 42% 38%,
-              rgba(104, 104, 104, .66), rgba(104, 104, 104, .22) 66%,
-              rgba(104, 104, 104, 0) 100%);
-  animation: abre 1.2s cubic-bezier(.16, .8, .3, 1) forwards;
-}
-@keyframes sube {
-  0%   { transform: translate(0, 0); opacity: 0; }
-  14%  { opacity: 1; }
-  70%  { opacity: .75; }
-  100% { transform: translate(var(--lado), var(--sube)); opacity: 0; }
-}
-@keyframes abre {
-  0%   { transform: scale(.35); }
-  100% { transform: scale(var(--crece, 2)); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .humo .nube, .humo .nube i { animation-duration: 1.8s; }
-}
-
 /* El nombre del inicio, dibujado por hormigas. El texto sigue ahí pero sin
    verse: lo leen los lectores de pantalla y los buscadores. */
 .nombre.con-hormigas { position: relative; }
@@ -285,7 +245,8 @@ body.con-ampliada { overflow: hidden; }
   pointer-events: none;
 }
 
-/* El polvo que se levanta al pasar por encima de un enlace. */
+/* Tierra removida: al pasar por encima de un enlace saltan unos granos que
+   suben, caen y se apagan, como si la hormiga escarbara. */
 .humo {
   position: fixed;
   inset: 0;
@@ -293,20 +254,25 @@ body.con-ampliada { overflow: hidden; }
   pointer-events: none;
   overflow: hidden;
 }
-.humo .nube {
+.humo .nube { position: absolute; }
+.humo .nube i {
   position: absolute;
+  display: block;
   border-radius: 50%;
-  background: rgba(120, 120, 120, .38);
-  animation: soplo .9s ease-out forwards;
+  background: rgb(84, 84, 84);
+  animation: grano var(--rato, .62s) cubic-bezier(.33, .05, .55, 1) forwards;
 }
-@keyframes soplo {
-  0%   { transform: translate(0, 0) scale(.3); opacity: 0; }
-  18%  { opacity: .85; }
-  100% { transform: translate(var(--lado), var(--sube)) scale(1.9); opacity: 0; }
+/* sube rápido, se frena arriba y cae: el salto de un grano de tierra */
+@keyframes grano {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0; }
+  10%  { opacity: 1; }
+  42%  { transform: translate(calc(var(--dx) * .55), var(--alto)) scale(1); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--caida)) scale(.7); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .humo .nube { animation-duration: 1.4s; }
+  .humo .nube i { animation-duration: 1s; }
 }
+
 
 /* El hormiguero del inicio: van por detrás del texto y no estorban al ratón. */
 .hormiguero {
@@ -332,17 +298,18 @@ body.con-ampliada { overflow: hidden; }
 /* el contenido del inicio va por delante de ellas */
 body.p-index main, body.p-index .site-header { position: relative; z-index: 1; }
 
-/* En proyectos y dentro de cada proyecto el cursor es una pala. El punto
-   sensible cae en la punta del mango, arriba a la izquierda. */
+/* En proyectos y dentro de cada proyecto el cursor es una pala, con la
+   hoja arriba: el punto sensible cae en su punta, que es con lo que se
+   escarba. */
 body.p-proyectos, body.p-proyectos a, body.p-proyectos button,
 body.con-obras, body.con-obras a, body.con-obras button {
-  cursor: url('../img/cursor-pala.png') 10 6, auto;
+  cursor: url('../img/cursor-pala.png') 8 7, auto;
   cursor: -webkit-image-set(
             url('../img/cursor-pala.png') 1x,
-            url('../img/cursor-pala@2x.png') 2x) 10 6, auto;
+            url('../img/cursor-pala@2x.png') 2x) 8 7, auto;
   cursor: image-set(
             url('../img/cursor-pala.png') 1x,
-            url('../img/cursor-pala@2x.png') 2x) 10 6, auto;
+            url('../img/cursor-pala@2x.png') 2x) 8 7, auto;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

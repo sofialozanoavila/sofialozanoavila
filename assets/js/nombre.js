@@ -51,7 +51,7 @@
     var datos = c.getImageData(0, 0, m.width, m.height).data;
     var salida = [];
     // una rejilla fina: un punto por cada hueco con tinta
-    var malla = Math.max(2.4, cuerpo / 20);
+    var malla = Math.max(3, cuerpo / 15);
     for (var y = 0; y < m.height; y += malla) {
       for (var x = 0; x < m.width; x += malla) {
         var px = Math.round(x), py = Math.round(y);
@@ -87,6 +87,7 @@
     // dispara más de un cambio de tamaño y la entrada se veía dos veces.
     var firma = [ancho, alto, cuerpo, lineas.join('|')].join(',');
     if (firma === antes_medido) return;
+    quietas = false;
     var primera = antes_medido === '';
     antes_medido = firma;
 
@@ -123,7 +124,7 @@
   var cunos = [];
 
   function tallar() {
-    var r = 0.85;
+    var r = 1.05;
     cunos = [];
     for (var f = 0; f < FASES; f++) {
       for (var g = 0; g < GIROS; g++) {
@@ -159,10 +160,17 @@
     ctx.drawImage(cunos[fase * GIROS + g], x - LADO / 2, y - LADO / 2, LADO, LADO);
   }
 
-  var t0 = 0;
+  var t0 = 0, ultimo_dibujo = 0, quietas = false;
   function cuadro(ahora) {
+    requestAnimationFrame(cuadro);
     var dt = Math.min((ahora - t0) / 1000, 0.05);
     t0 = ahora;
+    // Mientras caminan hace falta cada cuadro. Una vez puestas solo tiemblan
+    // un poco, y con quince veces por segundo no se nota la diferencia: el
+    // navegador hace la cuarta parte del trabajo.
+    if (quietas && ahora - ultimo_dibujo < 66) return;
+    ultimo_dibujo = ahora;
+    var lejanas = 0;
     ctx.clearRect(0, 0, lienzo.width, lienzo.height);
     for (var i = 0; i < hormigas.length; i++) {
       var h = hormigas[i];
@@ -171,6 +179,7 @@
       var oy = Math.sin(ahora / 640 + h.fase) * 0.7;
       var ex = h.dx + ox - h.x, ey = h.dy + oy - h.y;
       var lejos = Math.hypot(ex, ey);
+      if (lejos > 1.6) lejanas++;
       var paso = Math.min(1, (suave ? 1.1 : 2.2) * h.prisa * dt);
       h.x += ex * paso; h.y += ey * paso;
       if (lejos > 0.4) h.rumbo = Math.atan2(ey, ex);
@@ -178,7 +187,7 @@
       var fase = (lejos > 1) ? (Math.floor(ahora / 110 + h.fase * 3) & 1) : 0;
       hormiga(h.x, h.y, h.rumbo + Math.PI / 2, fase);
     }
-    requestAnimationFrame(cuadro);
+    quietas = lejanas === 0;
   }
 
   var andando = false;
@@ -187,7 +196,7 @@
     andando = true;
     tallar();
     medir();
-    requestAnimationFrame(function (t) { t0 = t; cuadro(t); });
+    requestAnimationFrame(function (t) { t0 = t; ultimo_dibujo = t; cuadro(t); });
   }
 
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(arrancar);

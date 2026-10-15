@@ -5,7 +5,7 @@
   var molde = document.getElementById('dibujo-hormiga-recta');
   if (!molde) return;
 
-  var CUANTAS = 12;
+  var CUANTAS = 9;
   var lento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var campo = document.createElement('div');

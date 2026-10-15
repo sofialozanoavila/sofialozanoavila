@@ -1481,6 +1481,11 @@ def render_talleres(idioma='es'):
             '</section>' % ('workshops' if en else 'talleres', '\n'.join(fichas)))
 
 
+# La obra que hace de portada de cada técnica. Si no se nombra aquí, se usa
+# la primera del grupo.
+PORTADA_GRUPO = {'dibujo': 'collar-1'}
+
+
 def render_tienda(idioma='es'):
     """La tienda: una imagen por técnica, sin año. La portada de cada una es
     la primera obra de su grupo, así nunca queda huérfana."""
@@ -1493,7 +1498,7 @@ def render_tienda(idioma='es'):
             '<div class="marco"><img src="assets/img/pieza-%s.jpg" alt="%s" '
             'loading="lazy"></div>'
             '<h3>%s</h3></a></li>'
-            % (slug, claves[0], nombre, nombre))
+            % (slug, PORTADA_GRUPO.get(slug, claves[0]), nombre, nombre))
     return ('<section class="sec sec-catalogo sec-rejilla">\n'
             '<div class="lienzo">\n'
             '<div class="cabecera">'
