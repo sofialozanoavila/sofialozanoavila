@@ -332,6 +332,19 @@ body.con-ampliada { overflow: hidden; }
 /* el contenido del inicio va por delante de ellas */
 body.p-index main, body.p-index .site-header { position: relative; z-index: 1; }
 
+/* En proyectos y dentro de cada proyecto el cursor es una pala. El punto
+   sensible cae en la punta del mango, arriba a la izquierda. */
+body.p-proyectos, body.p-proyectos a, body.p-proyectos button,
+body.con-obras, body.con-obras a, body.con-obras button {
+  cursor: url('../img/cursor-pala.png') 10 6, auto;
+  cursor: -webkit-image-set(
+            url('../img/cursor-pala.png') 1x,
+            url('../img/cursor-pala@2x.png') 2x) 10 6, auto;
+  cursor: image-set(
+            url('../img/cursor-pala.png') 1x,
+            url('../img/cursor-pala@2x.png') 2x) 10 6, auto;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; }
@@ -859,14 +872,6 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
   .hoja-vida li { grid-template-columns: 72px 1fr; column-gap: 12px; }
 }
 
-/* Los talleres se componen como los proyectos: título y lista en la misma
-   columna, corrida hacia el centro. */
-@media (min-width: 860px) {
-  .sec-talleres .cabecera,
-  .sec-talleres .lista-talleres { margin-left: 24%; }
-  .sec-talleres .cabecera { margin-bottom: 20px; }
-}
-.lista-talleres p { margin: 0; }
 
 /* Los proyectos como retícula: una imagen por proyecto, con el nombre y el
    año debajo. En el celular van uno debajo de otro. */
@@ -948,16 +953,7 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
   .hoja-vida li { grid-template-columns: 72px 1fr; column-gap: 12px; }
 }
 
-/* Los talleres se componen como los proyectos: título y lista en la misma
-   columna, corrida hacia el centro. */
-@media (min-width: 860px) {
-  .sec-talleres .cabecera,
-  .sec-talleres .lista-talleres { margin-left: 24%; }
-  .sec-talleres .cabecera { margin-bottom: 20px; }
-}
-.lista-talleres p { margin: 0; }
 
-}
 
 /* Ficha de cada pieza, medida sobre las fichas de producto de Zara: todo
    en mayúsculas, cuerpo pequeño, sin negrilla, con algo de espaciado entre

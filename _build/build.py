@@ -2209,7 +2209,8 @@ for slug, page in pages.items():
                   else (desc or 'sofía lozano ávila — artista, Bogotá, Colombia.')),
             css=css,
             header=header_html(out, idioma),
-            bodyclass=('landing' if page['landing'] else 'inner') + ' p-' + out,
+            bodyclass=(('landing' if page['landing'] else 'inner') + ' p-' + out
+                       + (' con-obras' if slug in LISTA or slug in NUEVAS else '')),
             body=body,
         )
         html = titulo_en_minuscula(html)

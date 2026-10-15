@@ -115,27 +115,48 @@
     });
   }
 
-  function hormiga(x, y, giro, t) {
-    ctx.save();
-    ctx.translate(x, y);
-    ctx.rotate(giro);
-    var r = 0.85;                       // medio cuerpo, en píxeles
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 0.55;
-    ctx.lineCap = 'round';
-    var vaiven = Math.sin(t) * 0.5;
-    ctx.beginPath();
-    for (var i = -1; i <= 1; i++) {
-      var yy = i * r * 0.9;
-      ctx.moveTo(-r * 0.5, yy); ctx.lineTo(-r * 1.9, yy + vaiven * (i + 2) * 0.4);
-      ctx.moveTo(r * 0.5, yy);  ctx.lineTo(r * 1.9, yy - vaiven * (i + 2) * 0.4);
+  // Dibujar cada hormiga con trazos costaba 19 órdenes de lienzo por bicho y
+  // por cuadro: con 750, más de ochocientas mil por segundo. Se dibuja una
+  // sola vez en pequeño, girada en 36 posiciones y con dos fases del paso, y
+  // luego solo se estampa. Pasa de 19 órdenes a una.
+  var GIROS = 36, FASES = 2, LADO = 14;
+  var cunos = [];
+
+  function tallar() {
+    var r = 0.85;
+    cunos = [];
+    for (var f = 0; f < FASES; f++) {
+      for (var g = 0; g < GIROS; g++) {
+        var c = document.createElement('canvas');
+        c.width = c.height = Math.round(LADO * dpr);
+        var p = c.getContext('2d');
+        p.setTransform(dpr, 0, 0, dpr, 0, 0);
+        p.translate(LADO / 2, LADO / 2);
+        p.rotate(g / GIROS * Math.PI * 2);
+        var vaiven = (f === 0 ? 0.5 : -0.5);
+        p.strokeStyle = '#000';
+        p.lineWidth = 0.55;
+        p.lineCap = 'round';
+        p.beginPath();
+        for (var i = -1; i <= 1; i++) {
+          var yy = i * r * 0.9;
+          p.moveTo(-r * 0.5, yy); p.lineTo(-r * 1.9, yy + vaiven * (i + 2) * 0.4);
+          p.moveTo(r * 0.5, yy);  p.lineTo(r * 1.9, yy - vaiven * (i + 2) * 0.4);
+        }
+        p.stroke();
+        p.fillStyle = '#000';
+        p.beginPath(); p.ellipse(0, -r * 1.5, r * 0.62, r * 0.55, 0, 0, 6.3); p.fill();
+        p.beginPath(); p.ellipse(0, 0, r * 0.52, r * 0.62, 0, 0, 6.3); p.fill();
+        p.beginPath(); p.ellipse(0, r * 1.7, r * 0.8, r, 0, 0, 6.3); p.fill();
+        cunos.push(c);
+      }
     }
-    ctx.stroke();
-    ctx.fillStyle = '#000';
-    ctx.beginPath(); ctx.ellipse(0, -r * 1.5, r * 0.62, r * 0.55, 0, 0, 6.3); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(0, 0, r * 0.52, r * 0.62, 0, 0, 6.3); ctx.fill();
-    ctx.beginPath(); ctx.ellipse(0, r * 1.7, r * 0.8, r, 0, 0, 6.3); ctx.fill();
-    ctx.restore();
+  }
+
+  function hormiga(x, y, giro, fase) {
+    var g = Math.round(giro / (Math.PI * 2) * GIROS) % GIROS;
+    if (g < 0) g += GIROS;
+    ctx.drawImage(cunos[fase * GIROS + g], x - LADO / 2, y - LADO / 2, LADO, LADO);
   }
 
   var t0 = 0;
@@ -153,8 +174,9 @@
       var paso = Math.min(1, (suave ? 1.1 : 2.2) * h.prisa * dt);
       h.x += ex * paso; h.y += ey * paso;
       if (lejos > 0.4) h.rumbo = Math.atan2(ey, ex);
-      hormiga(h.x, h.y, h.rumbo + Math.PI / 2,
-              ahora / 90 * (lejos > 1 ? 1 : 0.25) + h.fase);
+      // la fase del paso solo cambia mientras camina
+      var fase = (lejos > 1) ? (Math.floor(ahora / 110 + h.fase * 3) & 1) : 0;
+      hormiga(h.x, h.y, h.rumbo + Math.PI / 2, fase);
     }
     requestAnimationFrame(cuadro);
   }
@@ -163,6 +185,7 @@
   function arrancar() {
     if (andando) return;
     andando = true;
+    tallar();
     medir();
     requestAnimationFrame(function (t) { t0 = t; cuadro(t); });
   }
