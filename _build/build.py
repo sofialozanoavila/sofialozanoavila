@@ -1683,11 +1683,15 @@ def render_contacto(cfg, idioma='es'):
             '<div class="lienzo">\n'
             '<div class="cabecera">'
             '<div class="rt volver"><p><a href="' + cfg['volver'] + '">\u21a9</a></p></div>'
+            '</div>\n'
+            '<div class="fila-sobre">'
             '<div class="rt titulo"><h1>'
             + ('about me' if en else 'sobre m\u00ed') + '</h1></div>'
+            '<div class="columna">'
+            '<div class="sobre-mi">' + parrafos + '</div>'
+            '<ul class="contactos">\n' + '\n'.join(filas) + '\n</ul>'
+            '</div>'
             '</div>\n'
-            '<div class="sobre-mi">' + parrafos + '</div>\n'
-            '<ul class="contactos">\n' + '\n'.join(filas) + '\n</ul>\n'
             '</div>\n'
             '</section>')
 

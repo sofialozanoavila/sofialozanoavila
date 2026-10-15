@@ -847,16 +847,16 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
    izquierda y todo el contenido en la columna de la derecha, alineados por
    la línea de base del primer renglón. */
 .sec-cv .cabecera { margin-bottom: 0; }
-.fila-cv { display: grid; align-items: baseline; }
+.fila-cv, .fila-sobre { display: grid; align-items: baseline; }
 @media (min-width: 860px) {
-  .fila-cv {
+  .fila-cv, .fila-sobre {
     grid-template-columns: 420px 1fr;
     column-gap: 56px;
   }
 }
 @media (max-width: 859px) {
-  .fila-cv { grid-template-columns: 1fr; }
-  .fila-cv .hoja-vida { margin-top: 30px; }
+  .fila-cv, .fila-sobre { grid-template-columns: 1fr; }
+  .fila-cv .hoja-vida, .fila-sobre .columna { margin-top: 30px; }
 }
 @media (max-width: 859px) {
   .hoja-vida li { grid-template-columns: 72px 1fr; column-gap: 12px; }
@@ -898,50 +898,6 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
   .rejilla { grid-template-columns: 1fr; gap: 34px; }
 }
 
-/* El CV: una columna estrecha con las fechas y, al lado, lo que ocurrió. */
-.hoja-vida { list-style: none; margin: 0; padding: 0; }
-.hoja-vida li {
-  display: grid;
-  grid-template-columns: 90px 1fr;
-  column-gap: 24px;
-  font-family: var(--grotesca);
-  font-size: 14px;
-  /* todo el CV en el peso ligero; solo los apartados van en negrilla */
-  font-weight: 300;
-  line-height: 1.55em;
-  color: rgb(var(--color_18));
-  margin: 0 0 6px;
-}
-.hoja-vida .fecha { color: rgb(118, 118, 118); white-space: nowrap; }
-.hoja-vida .hecho { max-width: 54em; }
-/* Los apartados abren con su nombre, en negrilla y ocupando el ancho. */
-.hoja-vida .apartado { display: block; margin: 34px 0 12px; }
-.hoja-vida li.apartado:first-child { margin-top: 0; }
-.hoja-vida .apartado h2 {
-  font-family: var(--grotesca);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.55em;
-  margin: 0;
-}
-/* El CV se lee como el resto del sitio: la cabecera en el riel de la
-   izquierda y todo el contenido en la columna de la derecha, alineados por
-   la línea de base del primer renglón. */
-.sec-cv .cabecera { margin-bottom: 0; }
-.fila-cv { display: grid; align-items: baseline; }
-@media (min-width: 860px) {
-  .fila-cv {
-    grid-template-columns: 420px 1fr;
-    column-gap: 56px;
-  }
-}
-@media (max-width: 859px) {
-  .fila-cv { grid-template-columns: 1fr; }
-  .fila-cv .hoja-vida { margin-top: 30px; }
-}
-@media (max-width: 859px) {
-  .hoja-vida li { grid-template-columns: 72px 1fr; column-gap: 12px; }
-}
 
 
 
@@ -1076,8 +1032,10 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
 /* mismo tamaño de flecha que en las páginas de proyecto */
 .sec-contacto .volver p { font-size: 40px; line-height: 1; }
 
-/* El título, compuesto como el de talleres, proyectos y el CV. */
-.sec-contacto .cabecera { margin-bottom: 44px; }
+/* Contacto se lee como el CV: la flecha y el título en el riel de la
+   izquierda, y todo lo demás en la columna de la derecha, alineados por la
+   línea de base del primer renglón. */
+.sec-contacto .cabecera { margin-bottom: 0; }
 .sec-contacto .titulo { margin-left: 0; }
 .sec-contacto .titulo h1 {
   font: var(--font_0);
@@ -1087,15 +1045,16 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   color: rgb(var(--color_18));
 }
 
-/* La presentación: una columna de ancho cómodo de leer, no toda la pantalla. */
+/* La presentación, con el mismo cuerpo que las entradas del CV. */
 .sobre-mi {
-  max-width: 62ch;
-  font-size: 17px;
+  font-family: var(--grotesca);
+  font-size: 14px;
   font-weight: 300;
-  line-height: 1.7;
+  line-height: 1.55em;
   color: rgb(var(--color_18));
+  max-width: 54em;
 }
-.sobre-mi p { margin: 0 0 1.1em; }
+.sobre-mi p { margin: 0 0 1.3em; }
 .sobre-mi p:last-child { margin-bottom: 0; }
 
 .contactos {
@@ -1129,9 +1088,8 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   .sec-contacto { padding: 0 20px 60px; }
   .sec-contacto .lienzo { width: auto; }
   .sec-contacto .volver { margin-left: 0; }
-  .sec-contacto .cabecera { margin-bottom: 30px; }
+  .sec-contacto .cabecera { margin-bottom: 0; }
   .sec-contacto .titulo h1 { font-size: 28px; }
-  .sobre-mi { font-size: 15.5px; line-height: 1.65; }
   .contactos { margin: 36px 0 0; font-size: 17px; }
 }
 
