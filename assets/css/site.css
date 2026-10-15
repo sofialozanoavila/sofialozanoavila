@@ -225,9 +225,12 @@ body.con-ampliada { overflow: hidden; }
    nada, y así no se alcanza a ver el nombre en negro antes de las hormigas.
    Sin guiones vuelve a verse, con la regla del <noscript>. */
 body.p-index .nombre > p { visibility: hidden; }
+/* El guion le da tamaño y posición: toda la ventana mientras las hormigas
+   entran, y la caja del nombre en cuanto se paran. */
 .nombre-hormigas {
   position: fixed;
-  inset: 0;
+  left: 0;
+  top: 0;
   z-index: 0;
   pointer-events: none;
 }
@@ -292,7 +295,11 @@ body.p-index .nombre > p { visibility: hidden; }
 .hormiguero .hormiga svg g[stroke],
 .hormiguero .hormiga svg path[stroke] { stroke-width: 2.5; }
 /* el contenido del inicio va por delante de ellas */
-body.p-index main, body.p-index .site-header { position: relative; z-index: 1; }
+body.p-index main { position: relative; z-index: 1; }
+/* La barra, por encima del contenido: el desplegable del «+» vive dentro
+   de ella, y si empatan en altura el contenido gana por venir después y el
+   menú desplegado se cruzaba con «soy artista…» en el celular. */
+body.p-index .site-header { position: relative; z-index: 2; }
 
 /* En proyectos y dentro de cada proyecto el cursor es una pala, con la
    hoja arriba: el punto sensible cae en su punta, que es con lo que se
@@ -1005,6 +1012,23 @@ body.p-index .lugar span { font-weight: 300 !important; }
    que no se mueve de sitio— para que «Bogotá, Colombia.» no se parta en dos. */
 @media (min-width: 860px) {
   body.p-index #comp-mtx3uuyd { left: 40%; width: 60%; }
+
+  /* El inicio ocupa el alto de la ventana y su texto se centra en ella: el
+     nombre y la frase quedan a media página, como en la maqueta. El alto
+     sobrante baja en cadena desde el cuerpo hasta la fila de la retícula. */
+  body.p-index { display: flex; flex-direction: column; min-height: 100vh; }
+  /* La barra sale del flujo: si no, el texto se centraría en lo que queda
+     bajo ella y bajaría media cabecera respecto al centro de la ventana. */
+  body.p-index .site-header { position: absolute; top: 0; left: 0; right: 0; }
+  body.p-index main { flex: 1 0 auto; display: flex; flex-direction: column; }
+  body.p-index #comp-lrebomay { flex: 1 0 auto; }
+  body.p-index #comp-lrfas7qe,
+  body.p-index #comp-mtx3uuyd { align-self: center; }
+
+  /* «soy artista…» se compone como el menú de arriba: mismo cuerpo, mismo
+     interletraje. Venía del Wix a 25 px. */
+  body.p-index .lugar p,
+  body.p-index .lugar span { font-size: 20px !important; }
 }
 
 /* Las dos listas, tres puntos por debajo de lo que traían del Wix. */

@@ -70,15 +70,35 @@
   }
 
   var vw = 0, vh = 0, origen = { x: 0, y: 0 }, sucio = null;
+  var caja_nombre = { ancho: 0, alto: 0 };
+  // Dónde está la esquina del lienzo dentro de la ventana. Las hormigas se
+  // calculan siempre en coordenadas de ventana; el lienzo se mueve debajo.
+  var cx = 0, cy = 0;
 
-  function encuadrar() {
+  /* Mientras entran, el lienzo es toda la ventana: tienen que verse viniendo
+     de los bordes. Pero un lienzo de ese tamaño, con las hormigas sueltas
+     pasando por encima, obliga al navegador a repintar media pantalla en cada
+     cuadro —medido: de 60 a 43 cuadros por segundo—. En cuanto el nombre está
+     puesto se encoge a la caja del texto, que es una fracción de eso. */
+  function encuadrar(grande) {
     vw = document.documentElement.clientWidth;
     vh = document.documentElement.clientHeight;
-    lienzo.style.width = vw + 'px';
-    lienzo.style.height = vh + 'px';
-    lienzo.width = Math.ceil(vw * dpr);
-    lienzo.height = Math.ceil(vh * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var ancho, alto;
+    if (grande) {
+      cx = 0; cy = 0; ancho = vw; alto = vh;
+    } else {
+      cx = Math.floor(origen.x - LADO);
+      cy = Math.floor(origen.y - LADO);
+      ancho = Math.ceil(caja_nombre.ancho + LADO * 2);
+      alto = Math.ceil(caja_nombre.alto + LADO * 2);
+    }
+    lienzo.style.left = cx + 'px';
+    lienzo.style.top = cy + 'px';
+    lienzo.style.width = ancho + 'px';
+    lienzo.style.height = alto + 'px';
+    lienzo.width = Math.ceil(ancho * dpr);
+    lienzo.height = Math.ceil(alto * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, -cx * dpr, -cy * dpr);
     sucio = null;
   }
 
@@ -103,7 +123,11 @@
       var h = hormigas[i];
       h.dx += mx; h.dy += my; h.x += mx; h.y += my;
     }
-    quietas = false; sucio = null;
+    sucio = null;
+    // Ya puestas no hace falta despertar el bucle: se mueve el lienzo y se
+    // vuelven a estampar una vez.
+    if (parado) { encuadrar(false); estampar(); return; }
+    quietas = false;
   }
 
   var antes_medido = '';
@@ -125,15 +149,15 @@
 
     // Si nada ha cambiado, no se vuelve a empezar: al cargar, el navegador
     // dispara más de un cambio de tamaño y la entrada se veía dos veces.
-    encuadrar();
+    caja_nombre.ancho = ancho; caja_nombre.alto = alto;
+    var caja = bloque.getBoundingClientRect();
+    origen.x = caja.left; origen.y = caja.top;
     var firma = [ancho, alto, cuerpo, lineas.join('|')].join(',');
     if (firma === antes_medido) { reasentar(); return; }
+    encuadrar(true);
     quietas = false;
     var primera = antes_medido === '';
     antes_medido = firma;
-
-    var caja = bloque.getBoundingClientRect();
-    origen.x = caja.left; origen.y = caja.top;
 
     var destinos = puntos(lineas, ancho, alto, cuerpo, letra, salto);
     var viejas = hormigas;
@@ -197,8 +221,27 @@
     ctx.drawImage(cunos[fase * GIROS + g], x - LADO / 2, y - LADO / 2, LADO, LADO);
   }
 
-  var t0 = 0, ultimo_dibujo = 0, quietas = false;
+  var t0 = 0, ultimo_dibujo = 0, quietas = false, parado = true;
+
+  /* Las estampa a todas, sin moverlas: para el último cuadro, cuando ya están
+     en su sitio y el bucle se va a detener. */
+  function estampar() {
+    ctx.clearRect(cx, cy, lienzo.width / dpr, lienzo.height / dpr);
+    for (var i = 0; i < hormigas.length; i++) {
+      var h = hormigas[i];
+      hormiga(h.x, h.y, h.rumbo + Math.PI / 2, 0);
+    }
+    sucio = null;
+  }
+
+  function seguir() {
+    if (!parado) return;
+    parado = false;
+    requestAnimationFrame(function (t) { t0 = t; ultimo_dibujo = t; cuadro(t); });
+  }
+
   function cuadro(ahora) {
+    if (parado) return;
     requestAnimationFrame(cuadro);
     // nunca negativo: si el reloj del navegador da un salto atrás, un dt
     // en negativo las mandaría caminando al revés, lejos de su sitio
@@ -207,7 +250,6 @@
     // Mientras caminan hace falta cada cuadro. Una vez puestas solo tiemblan
     // un poco, y con quince veces por segundo no se nota la diferencia: el
     // navegador hace la cuarta parte del trabajo.
-    if (quietas && ahora - ultimo_dibujo < 66) return;
     ultimo_dibujo = ahora;
     var lejanas = 0;
     // Solo se borra el trozo de ventana que se ensució en el cuadro anterior:
@@ -217,12 +259,9 @@
     var x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
     for (var i = 0; i < hormigas.length; i++) {
       var h = hormigas[i];
-      // tiembla un poco alrededor de su sitio, para que nunca quede inmóvil
-      var ox = Math.cos(ahora / 700 + h.fase) * 0.7;
-      var oy = Math.sin(ahora / 640 + h.fase) * 0.7;
-      var ex = h.dx + ox - h.x, ey = h.dy + oy - h.y;
+      var ex = h.dx - h.x, ey = h.dy - h.y;
       var lejos = Math.hypot(ex, ey);
-      if (lejos > 1.6) lejanas++;
+      if (lejos > 0.35) lejanas++;
       // El acercamiento es suave, pero con un tope de velocidad: si no, la
       // que entra desde la esquina opuesta cruzaría la pantalla de un salto.
       var avance = lejos * Math.min(1, (suave ? 1.1 : 2.2) * h.prisa * dt);
@@ -244,6 +283,14 @@
     sucio = (x2 > -Infinity)
       ? [x1 - LADO, y1 - LADO, x2 + LADO, y2 + LADO] : null;
     quietas = lejanas === 0;
+    // Ya están todas en su sitio: se encoge el lienzo a la caja del nombre,
+    // se estampan por última vez y se para. A partir de aquí la página no
+    // gasta nada en el nombre.
+    if (quietas && hormigas.length) {
+      parado = true;
+      encuadrar(false);
+      estampar();
+    }
   }
 
   var andando = false;
@@ -252,16 +299,23 @@
     andando = true;
     tallar();
     medir();
-    requestAnimationFrame(function (t) { t0 = t; ultimo_dibujo = t; cuadro(t); });
+    seguir();
   }
 
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(arrancar);
-  else arrancar();
+  // Se empieza ya, con la letra de reserva, que está medida para ocupar lo
+  // mismo. Esperar a la tipografía de la red dejaba la página en blanco.
+  // Cuando llega, se vuelve a medir: si algo cambió, caminan a su nuevo sitio.
+  arrancar();
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { medir(); seguir(); });
+  }
 
   var espera;
   window.addEventListener('resize', function () {
     clearTimeout(espera);
     espera = setTimeout(medir, 200);
+    encuadrar(true);
+    seguir();
   });
   window.addEventListener('scroll', reasentar, { passive: true });
 })();
