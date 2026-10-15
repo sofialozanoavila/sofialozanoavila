@@ -1396,13 +1396,17 @@ def render_cv(idioma='es'):
                          '<span class="hecho">%s</span></li>'
                          % (fecha, (texto_en or texto) if en else texto))
     cabecera = ['bogot\u00e1, colombia (1997)', 'CV']
+    # La flecha arriba, y debajo dos columnas: a la izquierda quién y dónde,
+    # a la derecha todo lo que ha hecho.
     return ('<section class="sec sec-catalogo sec-cv">\n'
             '<div class="lienzo">\n'
             '<div class="cabecera">'
             '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
-            '<div class="rt titulo"><h1>%s</h1></div>'
             '</div>\n'
-            '<ul class="hoja-vida">%s</ul>\n'
+            '<div class="fila-cv">'
+            '<div class="rt titulo"><h1>%s</h1></div>'
+            '<ul class="hoja-vida">%s</ul>'
+            '</div>\n'
             '</div>\n'
             '</section>' % ('<br>'.join(cabecera), ''.join(filas)))
 

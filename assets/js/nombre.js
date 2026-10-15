@@ -66,7 +66,8 @@
     return salida;
   }
 
-  function medir() {
+  var antes_medido = '';
+  function medir(reinicia) {
     var cs = getComputedStyle(parrafo);
     var cuerpo = parseFloat(cs.fontSize) || 48;
     var letra = cs.fontFamily;
@@ -82,6 +83,13 @@
     ancho += cuerpo * 0.15;
     var alto = salto * (lineas.length - 1) + cuerpo * 1.35;
 
+    // Si nada ha cambiado, no se vuelve a empezar: al cargar, el navegador
+    // dispara más de un cambio de tamaño y la entrada se veía dos veces.
+    var firma = [ancho, alto, cuerpo, lineas.join('|')].join(',');
+    if (firma === antes_medido) return;
+    var primera = antes_medido === '';
+    antes_medido = firma;
+
     lienzo.style.width = ancho + 'px';
     lienzo.style.height = alto + 'px';
     lienzo.width = Math.ceil(ancho * dpr);
@@ -89,11 +97,16 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     var destinos = puntos(lineas, ancho, alto, cuerpo, letra, salto);
-    hormigas = destinos.map(function (d) {
+    var viejas = hormigas;
+    hormigas = destinos.map(function (d, i) {
+      // La primera vez entran desde fuera. Si solo ha cambiado el tamaño de la
+      // ventana, cada una sigue donde estaba y camina a su nuevo sitio.
+      var v = (!primera && viejas[i]) ? viejas[i] : null;
       return {
-        // entran desde fuera, cada una por su lado
-        x: Math.random() * ancho,
-        y: Math.random() < 0.5 ? -40 - Math.random() * 60 : alto + 40 + Math.random() * 60,
+        x: v ? v.x : Math.random() * ancho,
+        y: v ? v.y
+             : (Math.random() < 0.5 ? -40 - Math.random() * 60
+                                    : alto + 40 + Math.random() * 60),
         dx: d.x, dy: d.y,
         rumbo: Math.random() * Math.PI * 2,
         prisa: 0.9 + Math.random() * 1.5,
@@ -146,7 +159,10 @@
     requestAnimationFrame(cuadro);
   }
 
+  var andando = false;
   function arrancar() {
+    if (andando) return;
+    andando = true;
     medir();
     requestAnimationFrame(function (t) { t0 = t; cuadro(t); });
   }

@@ -232,6 +232,59 @@ body.con-ampliada { overflow: hidden; }
   pointer-events: none;
 }
 
+/* El polvo que se levanta al pasar por encima de un enlace. Cada bocanada
+   son varios borrones desenfocados que se abren juntos: de cerca son manchas,
+   de lejos una nube. */
+.humo {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  overflow: hidden;
+}
+.humo .nube {
+  position: absolute;
+  width: 0;
+  height: 0;
+  filter: blur(1.6px);
+  animation: sube 1.2s cubic-bezier(.22, .7, .3, 1) forwards;
+}
+.humo .nube i {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  background: radial-gradient(circle at 42% 38%,
+              rgba(104, 104, 104, .66), rgba(104, 104, 104, .22) 66%,
+              rgba(104, 104, 104, 0) 100%);
+  animation: abre 1.2s cubic-bezier(.16, .8, .3, 1) forwards;
+}
+@keyframes sube {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  14%  { opacity: 1; }
+  70%  { opacity: .75; }
+  100% { transform: translate(var(--lado), var(--sube)); opacity: 0; }
+}
+@keyframes abre {
+  0%   { transform: scale(.35); }
+  100% { transform: scale(var(--crece, 2)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .humo .nube, .humo .nube i { animation-duration: 1.8s; }
+}
+
+/* El nombre del inicio, dibujado por hormigas. El texto sigue ahí pero sin
+   verse: lo leen los lectores de pantalla y los buscadores. */
+.nombre.con-hormigas { position: relative; }
+.nombre.con-hormigas > p {
+  visibility: hidden;
+}
+.nombre-hormigas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
 /* El polvo que se levanta al pasar por encima de un enlace. */
 .humo {
   position: fixed;
@@ -787,8 +840,20 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
   line-height: 1.55em;
   margin: 0;
 }
+/* El CV se lee como el resto del sitio: la cabecera en el riel de la
+   izquierda y todo el contenido en la columna de la derecha, alineados por
+   la línea de base del primer renglón. */
+.sec-cv .cabecera { margin-bottom: 0; }
+.fila-cv { display: grid; align-items: baseline; }
 @media (min-width: 860px) {
-  .sec-cv .cabecera { margin-bottom: 44px; }
+  .fila-cv {
+    grid-template-columns: 420px 1fr;
+    column-gap: 56px;
+  }
+}
+@media (max-width: 859px) {
+  .fila-cv { grid-template-columns: 1fr; }
+  .fila-cv .hoja-vida { margin-top: 30px; }
 }
 @media (max-width: 859px) {
   .hoja-vida li { grid-template-columns: 72px 1fr; column-gap: 12px; }
