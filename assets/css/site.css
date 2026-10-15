@@ -1000,6 +1000,13 @@ body.p-index .nombre span,
 body.p-index .lugar p,
 body.p-index .lugar span { font-weight: 300 !important; }
 
+/* La frase del inicio es más larga que el «Artista» suelto que traía el Wix.
+   La caja se estira hacia la izquierda —el texto va alineado a la derecha, así
+   que no se mueve de sitio— para que «Bogotá, Colombia.» no se parta en dos. */
+@media (min-width: 860px) {
+  body.p-index #comp-mtx3uuyd { left: 40%; width: 60%; }
+}
+
 /* Las dos listas, tres puntos por debajo de lo que traían del Wix. */
 .lista-proyectos p,
 .lista-proyectos span { font-size: 17px !important; }

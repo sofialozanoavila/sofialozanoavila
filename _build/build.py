@@ -119,14 +119,14 @@ NOMBRES_EN = {
     'la línea no es recta': 'the line is not straight',
     'dejar que la forma se haga': 'letting the form happen',
     'cuerpo residual': 'residual body',
-    'otros proyectos': 'other projects',
+    'otros proyectos': 'other artworks',
     'inventario sobre lo que no veo': 'inventory of what I cannot see',
     'medir el aire': 'medir el aire',
     'todo lo que no cabe en una vitrina': 'todo lo que no cabe en una vitrina',
 }
 
 MENU_EN = {
-    'proyectos': 'projects',
+    'proyectos': 'artworks',
     'talleres': 'workshops',
     'tienda': 'shop',
     'contacto': 'contact',
@@ -134,7 +134,7 @@ MENU_EN = {
 
 TITULO_EN = {
     'index': 'sofía lozano ávila | artist',
-    'proyectos': 'projects | sofialozanoavila',
+    'proyectos': 'artworks | sofialozanoavila',
     'tienda': 'shop | sofialozanoavila',
     'contacto': 'contact | sofialozanoavila',
     'cv': 'cv | sofialozanoavila',
@@ -144,12 +144,15 @@ TITULO_EN = {
 # completas dentro de una misma etiqueta.
 TEXTO_EN = {
     'index': [
-        ('>proyectos', '>projects'),
+        ('>proyectos', '>artworks'),
         ('>contacto', '>contact'),
-        ('>Artista<', '>Artist<'),
+        # El inicio en inglés viene ya en inglés desde Wix: no pasa por las
+        # sustituciones del castellano, así que se parte de su propio texto.
+        ('>Artist<', '>I am an artist.<'),
+        ('>Bogotá, Colombia<', '>I live and work in Bogotá, Colombia.<'),
     ],
     'proyectos': [
-        ('>proyectos', '>projects'),
+        ('>proyectos', '>artworks'),
         ('>contacto', '>contact'),
     ],
     'paisaje-interior': [
@@ -232,7 +235,10 @@ TEXTOS = {
     'desmesura': [('>desmedida<', '>nada de lo que se mide es basura<')],
     'paisaje-interior': [('>TIENDA<', '>tienda<')],
     'index': [('<span style="color:#FF0006;">\u27ac tienda</span>',
-               '<span>\u27ac tienda</span>')],
+               '<span>\u27ac tienda</span>'),
+              ('>Artista<', '>soy artista.<'),
+              ('>Bogot&aacute;, Colombia<',
+               '>Vivo y trabajo en Bogot&aacute;, Colombia.<')],
     'proyectos': [('<span style="color:#FF0006;">\u27ac tienda</span>',
                    '<span>\u27ac tienda</span>'),
                   ('2020 / desmedida',
@@ -1454,7 +1460,7 @@ def render_proyectos_reticula(idioma='es'):
             '</div>\n'
             '<ul class="rejilla">\n%s\n</ul>\n'
             '</div>\n'
-            '</section>' % ('projects' if en else 'proyectos', '\n'.join(fichas)))
+            '</section>' % ('artworks' if en else 'proyectos', '\n'.join(fichas)))
 
 
 def render_talleres(idioma='es'):
@@ -1464,8 +1470,10 @@ def render_talleres(idioma='es'):
     for ano, nombre, destino, archivo in TALLERES:
         if en:
             nombre = NOMBRES_EN.get(nombre, nombre)
+        # Los tres talleres son a la vez proyectos: el «#desde-talleres» le
+        # dice a la página de destino que la flecha tiene que volver aquí.
         fichas.append(
-            '<li><a href="%s.html">'
+            '<li><a href="%s.html#desde-talleres">'
             '<div class="marco"><img src="assets/img/%s" alt="%s" '
             'loading="lazy"></div>'
             '<h3>%s</h3><p class="ano">%d</p></a></li>'

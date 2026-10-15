@@ -65,3 +65,23 @@
   });
   reflow();
 })();
+
+/* Superficies de paso, doblar una flor y vasija/ver/vaciar son a la vez
+   proyecto y taller, y la flecha de volver está escrita en la página: siempre
+   diría «proyectos». Si se llegó desde talleres —por la marca que dejan sus
+   enlaces, o por la página de la que se viene— la flecha devuelve a talleres. */
+(function () {
+  var volver = document.querySelector('.volver-fila a[href$="proyectos.html"]');
+  if (!volver) return;
+
+  var desde = location.hash === '#desde-talleres';
+  if (!desde && document.referrer) {
+    try {
+      desde = /\/talleres\.html$/.test(new URL(document.referrer).pathname);
+    } catch (e) { /* una dirección rara: se queda como está */ }
+  }
+  if (!desde) return;
+
+  volver.setAttribute('href',
+    volver.getAttribute('href').replace(/proyectos\.html$/, 'talleres.html'));
+})();
