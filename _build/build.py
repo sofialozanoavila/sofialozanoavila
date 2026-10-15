@@ -114,6 +114,17 @@ def traducir_pieza(origen, cid, cuerpo):
 PUBLICAR_EN = True
 IDIOMAS = ('es', 'en')
 
+NOMBRES_EN = {
+    'nada de lo que se mide es basura': 'nada de lo que se mide es basura',
+    'la línea no es recta': 'the line is not straight',
+    'dejar que la forma se haga': 'letting the form happen',
+    'cuerpo residual': 'residual body',
+    'otros proyectos': 'other projects',
+    'inventario sobre lo que no veo': 'inventory of what I cannot see',
+    'medir el aire': 'medir el aire',
+    'todo lo que no cabe en una vitrina': 'todo lo que no cabe en una vitrina',
+}
+
 MENU_EN = {
     'proyectos': 'projects',
     'talleres': 'workshops',
@@ -1396,6 +1407,52 @@ def render_cv(idioma='es'):
             '</section>' % ('<br>'.join(cabecera), ''.join(filas)))
 
 
+# Cada proyecto con una fotograf\xeda que lo represente, su nombre y su a\xf1o.
+# Si cambias la portada de una entrada, basta con nombrar otro archivo.
+PORTADAS = [
+    ('protesis', 'pr\xf3tesis', 2026, 'protesis-15.jpg'),
+    ('copia-de-antejardin', 'medir el aire', 2025, '9af1ea_1a65bd022dab40409be95595f9e7f4c6_1082x976.jpg'),
+    ('antejardin', 'antejard\xedn', 2025, '9af1ea_6d12b15ef098416eba03dcf9c409752e_1092x1500.jpg'),
+    ('todo-lo-que-no-cabe-en-una-vitrina', 'todo lo que no cabe en una vitrina', 2025, '9af1ea_c04d74b80028404f8328a9a4444028f7_1082x820.jpg'),
+    ('bache', 'bache', 2024, '9af1ea_9da186028f824e5da954efe2b00699a3_1082x724.jpg'),
+    ('procedimiento-fertil', 'procedimiento f\xe9rtil', 2023, '9af1ea_93b00ea0eb6b427b9eddf7caa58e2bff_1082x800.jpg'),
+    ('de-dudosa-procedencia', 'de dudosa procedencia', 2023, '9af1ea_17d35f12802c4579bf9095e7377bf4ca_1082x652.jpg'),
+    ('semi-preciosas', 'semipreciosas', 2023, '9af1ea_c841ea3fd63a4f73a2bc55f3cf2d1cf7_1082x832.jpg'),
+    ('revisitar', 'revisitar', 2022, '9af1ea_793fdb6b16e148eb812dcc86e1e42490_1960x1280.jpg'),
+    ('inventario-sobre-lo-que-no-veo', 'inventario sobre lo que no veo', 2022, '9af1ea_7cdb87e871db47d5bdeeb6d73a0ec819_1960x878.jpeg'),
+    ('senales', 'se\xf1ales', 2021, '9af1ea_b055e09e46a04752aff7e88dead6631b_1082x1044.jpg'),
+    ('desmesura', 'nada de lo que se mide es basura', 2020, 'desmesura-montaje.jpg'),
+    ('la-linea-no-es-recta', 'la l\xednea no es recta', '', '9af1ea_7475a082fe61455083a536da1791f1f3_1082x746.jpg'),
+    ('dejar-que-la-forma-se-haga', 'dejar que la forma se haga', '', '9af1ea_e19524d96577497bacc40e98876086e4_1082x724.jpg'),
+    ('cuerpo-residual', 'cuerpo residual', '', '9af1ea_6db7a7798e7944a5a88b376d60b14832_829x556.jpg'),
+    ('otros-proyectos', 'otros proyectos', '', '9af1ea_8e177b9c7883411e8d0ee8979cb12c75_1400x1020.jpg'),
+]
+
+
+def render_proyectos_reticula(idioma='es'):
+    """Los proyectos como retícula de imágenes: foto, nombre y año."""
+    en = idioma == 'en'
+    fichas = []
+    for slug, nombre, ano, archivo in PORTADAS:
+        if en:
+            nombre = NOMBRES_EN.get(nombre, nombre)
+        fichas.append(
+            '<li><a href="%s.html">'
+            '<div class="marco"><img src="assets/img/%s" alt="%s" '
+            'loading="lazy"></div>'
+            '<h3>%s</h3><p class="ano">%s</p></a></li>'
+            % (slug, archivo, nombre, nombre, ano or ''))
+    return ('<section class="sec sec-catalogo sec-rejilla">\n'
+            '<div class="lienzo">\n'
+            '<div class="cabecera">'
+            '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
+            '<div class="rt titulo"><h1>%s</h1></div>'
+            '</div>\n'
+            '<ul class="rejilla">\n%s\n</ul>\n'
+            '</div>\n'
+            '</section>' % ('projects' if en else 'proyectos', '\n'.join(fichas)))
+
+
 def render_talleres(idioma='es'):
     """Los talleres, en su propia página."""
     en = idioma == 'en'
@@ -1861,6 +1918,9 @@ def render_page(slug, page, idioma='es', origen=None):
 
     if slug == 'cv':
         return render_cv(idioma), '', 0
+
+    if slug == 'proyectos':
+        return render_proyectos_reticula(idioma), '', 0
 
     if slug in [g[0] for g in GRUPOS]:
         return render_catalogo(slug, idioma), '', 0
