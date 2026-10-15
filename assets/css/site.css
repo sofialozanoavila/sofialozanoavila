@@ -824,11 +824,13 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
   column-gap: 24px;
   font-family: var(--grotesca);
   font-size: 14px;
+  /* todo el CV en el peso ligero; solo los apartados van en negrilla */
+  font-weight: 300;
   line-height: 1.55em;
   color: rgb(var(--color_18));
   margin: 0 0 6px;
 }
-.hoja-vida .fecha { font-weight: 300; color: rgb(118, 118, 118); white-space: nowrap; }
+.hoja-vida .fecha { color: rgb(118, 118, 118); white-space: nowrap; }
 .hoja-vida .hecho { max-width: 54em; }
 /* Los apartados abren con su nombre, en negrilla y ocupando el ancho. */
 .hoja-vida .apartado { display: block; margin: 34px 0 12px; }
