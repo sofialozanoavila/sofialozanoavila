@@ -2136,6 +2136,7 @@ TEMPLATE = """<!doctype html>
 <script src="{pre}assets/js/ampliar.js?v={vamp}" defer></script>
 <script src="{pre}assets/js/hormiguero.js?v={vhgo}" defer></script>
 <script src="{pre}assets/js/humo.js?v={vhum}" defer></script>
+<script src="{pre}assets/js/nombre.js?v={vnom}" defer></script>
 </body>
 </html>
 """
@@ -2189,6 +2190,7 @@ for slug, page in pages.items():
             vamp=version('assets/js/ampliar.js'),
             vhgo=version('assets/js/hormiguero.js'),
             vhum=version('assets/js/humo.js'),
+            vnom=version('assets/js/nombre.js'),
             hormiga=HORMIGA_SVG + HORMIGA_RECTA,
             title=(TITULO_EN.get(out) if idioma == 'en' else None)
                   or TITULOS.get(out, page['title']),

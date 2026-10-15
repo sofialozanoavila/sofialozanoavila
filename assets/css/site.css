@@ -219,6 +219,19 @@ body.con-ampliada { overflow: hidden; }
 /* las fotografías del catálogo avisan de que se pueden abrir */
 .catalogo [data-ampliar] { cursor: inherit; }
 
+/* El nombre del inicio, dibujado por hormigas. El texto sigue ahí pero sin
+   verse: lo leen los lectores de pantalla y los buscadores. */
+.nombre.con-hormigas { position: relative; }
+.nombre.con-hormigas > p {
+  visibility: hidden;
+}
+.nombre-hormigas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
 /* El polvo que se levanta al pasar por encima de un enlace. */
 .humo {
   position: fixed;
