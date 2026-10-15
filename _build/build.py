@@ -1483,13 +1483,17 @@ def render_tienda(idioma='es'):
     filas = ''.join(
         '<li><a href="%s.html">%s</a></li>' % (slug, nom_en if en else nom_es)
         for slug, nom_es, nom_en, _ in GRUPOS)
+    # El título y las técnicas comparten renglón: así la primera palabra
+    # arranca justo enfrente de «tienda», sin medidas a mano.
     return ('<section class="sec sec-catalogo sec-tienda">\n'
             '<div class="lienzo">\n'
             '<div class="cabecera">'
             '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
-            '<div class="rt titulo"><h1>%s</h1></div>'
             '</div>\n'
-            '<ul class="tecnicas lista-proyectos">%s</ul>\n'
+            '<div class="fila-tienda">'
+            '<div class="rt titulo"><h1>%s</h1></div>'
+            '<ul class="tecnicas lista-proyectos">%s</ul>'
+            '</div>\n'
             '</div>\n'
             '</section>' % ('shop' if en else 'tienda', filas))
 

@@ -805,33 +805,19 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 
 /* En la tienda las tres técnicas van al lado del título, en la columna donde
    empieza el texto en las páginas de proyecto. */
-@media (max-width: 859px) {
-  .sec-tienda .lienzo {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: 26px;
-    align-items: start;
-  }
-  .sec-tienda .cabecera { grid-column: 1; margin-bottom: 0; }
-  /* Los 87,86 px bajan la primera palabra hasta que sus mayúsculas arrancan
-     a la altura de las de «tienda». Medido sobre la tinta. */
-  .sec-tienda .tecnicas { grid-column: 2; margin-top: 87.86px; }
+/* En la tienda, el título y las tres técnicas comparten renglón. Se alinean
+   por la línea de base —no por la caja ni por la altura de las mayúsculas—,
+   así la primera palabra queda justo enfrente de «tienda» en cualquier
+   pantalla y con cualquier cuerpo de letra. */
+.fila-tienda {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 26px;
+  align-items: baseline;
 }
+.sec-tienda .cabecera { margin-bottom: 0; }
 @media (min-width: 860px) {
-  .sec-tienda .lienzo {
-    display: grid;
-    /* 160 px después del margen del texto: en una ventana de 1440 eso deja
-       las palabras a 200 px del borde de la pantalla. */
-    grid-template-columns: 160px 1fr;
-    column-gap: 0;
-    align-items: start;
-  }
-  .sec-tienda .cabecera { grid-column: 1; margin-bottom: 0; }
-  /* Los 92,42 px bajan la primera palabra hasta que sus mayúsculas arrancan
-     a la misma altura que las de «tienda»: medido sobre la tinta, no sobre
-     la caja. Si cambia el cuerpo de alguno de los dos, hay que volver a
-     medirlo. */
-  .sec-tienda .tecnicas { grid-column: 2; margin-top: 92.42px; }
+  .fila-tienda { grid-template-columns: 160px 1fr; column-gap: 0; }
 }
 
 /* La tienda es solo la lista de las tres técnicas, en una columna y con la
@@ -841,6 +827,7 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
   margin: 0;
   padding: 0;
 }
+.tecnicas { margin-top: 0; }
 .tecnicas li + li { margin-top: 4px; }
 .tecnicas a {
   display: inline-block;
