@@ -523,7 +523,14 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
   cursor: pointer;
   line-height: 1.4em;
 }
-.menu a[aria-current="page"] { font-weight: 700; }
+/* El menú siempre en claro. La entrada de la página en la que uno está se
+   ponía en negrilla, y navegando parecía que el menú se quedaba pegado en
+   negrita; quién es la página actual lo sigue diciendo el aria-current, que es
+   lo que leen los lectores de pantalla. */
+.menu,
+.menu a,
+.menu button,
+.submenu a { font-weight: 300 !important; }
 
 /* Los nombres de los proyectos viven dentro del «+». Se ocultan desde la
    hoja de estilos, no desde el guion: si no, el navegador alcanza a pintar
