@@ -225,11 +225,10 @@ body.con-ampliada { overflow: hidden; }
    nada, y así no se alcanza a ver el nombre en negro antes de las hormigas.
    Sin guiones vuelve a verse, con la regla del <noscript>. */
 body.p-index .nombre > p { visibility: hidden; }
-.nombre.con-hormigas { position: relative; }
 .nombre-hormigas {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -260,6 +259,14 @@ body.p-index .nombre > p { visibility: hidden; }
 }
 @media (prefers-reduced-motion: reduce) {
   .humo .nube i { animation-duration: 1s; }
+}
+
+/* El trazo del lápiz en talleres, por debajo de la tierra y del contenido. */
+.trazo-lapiz {
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
 }
 
 
@@ -1182,13 +1189,17 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
        botón. A 15 px caben en un solo renglón; a 16 ya se parte en dos. */
     font-size: 15px;
     letter-spacing: normal;
+    /* si aun así no caben, que bajen de renglón antes que salirse */
+    flex-wrap: wrap;
   }
+  /* En los teléfonos más estrechos los siete no caben a 15 px. */
+  @media (max-width: 389px) { .menu { font-size: 13.5px; } }
   .site-header nav { max-width: none; padding: 0 var(--margen); }
   /* el primer enlace arranca en el margen, sin el respiro que separa a los
      demás entre sí */
   .menu > li:first-child > a { padding-left: 0; }
-  .menu > li > a, .menu button { padding: 0 6px; }
-  .menu .idioma { margin-left: .2em; }
+  .menu > li > a, .menu button { padding: 0 4px; }
+  .menu .idioma { margin-left: .1em; }
 
   /* El desplegable cuelga de la barra, no del botón: si viviera dentro del
      «+», su ancho empujaría al propio «+» a un segundo renglón al abrirlo. */

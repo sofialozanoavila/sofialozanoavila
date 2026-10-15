@@ -16,6 +16,8 @@
   // con el que escarba queda abajo: hay que bajar los granos hasta ahí. El
   // lápiz y la hormiga sí tocan el suelo justo en el punto sensible.
   var cl = document.body.classList;
+  // En talleres no salta tierra: el lápiz deja su trazo (ver trazo.js).
+  if (cl.contains('p-talleres')) return;
   var hay_pala = cl.contains('p-proyectos') || cl.contains('con-obras');
   var desx = hay_pala ? 6 : 0;
   var desy = hay_pala ? 11 : 0;

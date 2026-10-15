@@ -128,7 +128,7 @@ NOMBRES_EN = {
 MENU_EN = {
     'proyectos': 'projects',
     'talleres': 'workshops',
-    '\u27ac tienda': '\u27ac shop',
+    'tienda': 'shop',
     'contacto': 'contact',
 }
 
@@ -179,7 +179,7 @@ MENU = [
     ('talleres', 'talleres'),
     ('prótesis', 'protesis'), ('antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
-    ('\u27ac tienda', 'paisaje-interior'), ('bache', 'bache'),
+    ('tienda', 'paisaje-interior'), ('bache', 'bache'),
     ('superficies de paso', 'superficies-de-paso'),
     ('doblar una flor', 'doblar-una-flor'),
     ('vasija/ver/vaciar', 'vasija-ver-vaciar'), ('procedimiento fértil', 'procedimiento-fertil'),
@@ -189,7 +189,7 @@ MENU = [
     ('la línea no es recta', 'la-linea-no-es-recta'),
     ('dejar que la forma se haga', 'dejar-que-la-forma-se-haga'),
     ('cuerpo residual', 'cuerpo-residual'), ('otros proyectos', 'otros-proyectos'),
-    ('\ufe61CV', 'cv'), ('contacto', 'contacto'),
+    ('CV', 'cv'), ('contacto', 'contacto'),
 ]
 
 
@@ -2154,6 +2154,7 @@ TEMPLATE = """<!doctype html>
 <script src="{pre}assets/js/hormiguero.js?v={vhgo}" defer></script>
 <script src="{pre}assets/js/humo.js?v={vhum}" defer></script>
 <script src="{pre}assets/js/nombre.js?v={vnom}" defer></script>
+<script src="{pre}assets/js/trazo.js?v={vtrz}" defer></script>
 </body>
 </html>
 """
@@ -2208,6 +2209,7 @@ for slug, page in pages.items():
             vhgo=version('assets/js/hormiguero.js'),
             vhum=version('assets/js/humo.js'),
             vnom=version('assets/js/nombre.js'),
+            vtrz=version('assets/js/trazo.js'),
             hormiga=HORMIGA_SVG + HORMIGA_RECTA,
             title=(TITULO_EN.get(out) if idioma == 'en' else None)
                   or TITULOS.get(out, page['title']),
