@@ -13,13 +13,13 @@
    y el gasto apenas bajaba. Con un lienzo por hormiga, del tamaño del bicho,
    moverse es solo una transformación —que lleva el compositor sin repintar— y
    solo hay que volver a dibujar cuando la pata cambia de postura. El dibujo es
-   el mismo de antes: se rasteriza ese SVG en unas pocas posturas del paso. */
+   el mismo de antes: se estampa una postura ya dibujada (ver cunos.js). */
 (function () {
   if (!document.body.classList.contains('p-index')) return;
   var molde = document.getElementById('dibujo-hormiga-recta');
   if (!molde) return;
   var svgMolde = molde.querySelector('svg');
-  if (!svgMolde) return;
+  if (!svgMolde || !window.cunosHormiga) return;
 
   var CUANTAS = 9;
   var LADO = 20;              // lo que mide en pantalla
@@ -42,50 +42,11 @@
     factor = Math.min(Math.max(ancho / 500, 1), 3);
   }
 
-  /* Las posturas: el mismo SVG con las patas giradas, rasterizado una vez.
-     Los ángulos salen de los fotogramas clave que tenía en la hoja de estilos
-     —±14° las patas, ±7° las antenas, con aceleración suave—, que es lo que
-     describe un seno. */
-  var cunos = [], listos = 0;
-  function tallar() {
-    for (var i = 0; i < POSTURAS; i++) {
-      (function (i) {
-        var onda = Math.sin(i / POSTURAS * Math.PI * 2);
-        var copia = svgMolde.cloneNode(true);
-        copia.setAttribute('width', Math.round(LADO * dpr));
-        copia.setAttribute('height', Math.round(LADO * dpr));
-        function girar(clase, grados) {
-          var g = copia.querySelector('.' + clase);
-          if (g) g.setAttribute('transform',
-            'rotate(' + (grados * onda).toFixed(2) + ' 32 26)');
-        }
-        girar('h-patas-a', 14);
-        girar('h-patas-b', -14);
-        girar('h-antenas', 7);
-        // El trazo del molde va en unidades del dibujo, pensado para los 32 px
-        // del cursor. A 20 px adelgaza hasta deshacerse en gris al suavizar los
-        // bordes: se engorda en la misma proporción, como hacía la hoja.
-        var trazos = copia.querySelectorAll('[stroke-width]');
-        for (var t = 0; t < trazos.length; t++) {
-          trazos[t].setAttribute('stroke-width',
-            (parseFloat(trazos[t].getAttribute('stroke-width')) * 1.5).toFixed(2));
-        }
-        var img = new Image();
-        img.onload = function () {
-          var c = document.createElement('canvas');
-          c.width = c.height = Math.round(LADO * dpr);
-          c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-          cunos[i] = c;
-          listos++;
-        };
-        img.src = 'data:image/svg+xml;charset=utf-8,'
-          + encodeURIComponent(new XMLSerializer().serializeToString(copia));
-      })(i);
-    }
-  }
+  var juego = window.cunosHormiga
+    ? window.cunosHormiga(svgMolde, LADO, dpr, { posturas: POSTURAS, grosor: 1.5 })
+    : { cunos: [], listos: 0, posturas: POSTURAS };
 
   medir();
-  tallar();
   window.addEventListener('resize', medir);
 
   var hormigas = [];
@@ -182,7 +143,7 @@
       if (postura < 0) postura += POSTURAS;
     }
     if (postura === h.postura) return;
-    var cuno = cunos[postura] || cunos[0];
+    var cuno = juego.cunos[postura] || juego.cunos[0];
     if (!cuno) return;
     h.postura = postura;
     h.pincel.clearRect(0, 0, h.nodo.width, h.nodo.height);
@@ -194,7 +155,7 @@
     requestAnimationFrame(cuadro);
     var dt = Math.max(0, Math.min((ahora - antes) / 1000, 0.05));
     antes = ahora;
-    if (!listos) return;
+    if (!juego.listos) return;
 
     if (modo === 'molino') {
       // El molino: todas en rueda, girando en el mismo sentido. La entrada se

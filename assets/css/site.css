@@ -149,50 +149,17 @@ html, body {
   position: fixed;
   top: 0;
   left: 0;
+  /* el lienzo se dibuja al doble en pantallas densas: aquí va su tamaño real */
+  width: 32px;
+  height: 32px;
   z-index: 9999;
   pointer-events: none;
   transition: opacity .15s ease;
 }
-/* Las seis patas se mueven en dos tríos alternos, que es como camina una
-   hormiga: tres apoyadas mientras las otras tres avanzan. */
-.hormiga-cursor .h-patas-a,
-.hormiga-cursor .h-patas-b,
-.hormiga-cursor .h-antenas { transform-origin: 32px 26px; }
-/* El paso con aceleración suave en vez de velocidad constante: la pata frena
-   al final del recorrido y arranca otra vez, que es como se mueve de verdad.
-   La cadencia la pone cada hormiga según lo rápido que ande. */
-.hormiga-cursor.anda .h-patas-a {
-  animation: paso var(--cadencia, .26s) ease-in-out infinite;
-}
-.hormiga-cursor.anda .h-patas-b {
-  animation: paso var(--cadencia, .26s) ease-in-out infinite reverse;
-}
-.hormiga-cursor.anda .h-antenas {
-  animation: antena calc(var(--cadencia, .26s) * 2.6) ease-in-out infinite;
-}
-@keyframes paso {
-  0%   { transform: rotate(-14deg); }
-  50%  { transform: rotate(14deg); }
-  100% { transform: rotate(-14deg); }
-}
-@keyframes antena {
-  0%   { transform: rotate(-7deg); }
-  50%  { transform: rotate(7deg); }
-  100% { transform: rotate(-7deg); }
-}
-/* Quien pide en su sistema que haya menos movimiento no se queda sin la
-   hormiga: camina más despacio y con el paso más corto. Antes se le apagaba
-   del todo, y eso dejaba sin ella a cualquiera con esa opción activada. */
-@media (prefers-reduced-motion: reduce) {
-  .hormiga-cursor.anda .h-patas-a,
-  .hormiga-cursor.anda .h-patas-b { animation-duration: .6s; }
-  .hormiga-cursor.anda .h-antenas { animation-duration: 1.2s; }
-  @keyframes paso {
-    0%   { transform: rotate(-7deg); }
-    50%  { transform: rotate(7deg); }
-    100% { transform: rotate(-7deg); }
-  }
-}
+/* Las patas ya no se animan aquí: la hormiga se estampa dibujada, postura a
+   postura, desde el lienzo (ver cunos.js). Quien pide en su sistema que haya
+   menos movimiento no se queda sin ella: camina más despacio, y de eso se
+   encarga el guion. */
 
 /* La fotografía ampliada, encima de todo lo demás. */
 .ampliada {
@@ -254,23 +221,11 @@ body.p-index .nombre > p { visibility: hidden; }
   pointer-events: none;
   overflow: hidden;
 }
-.humo .nube { position: absolute; }
-.humo .nube i {
+/* Cada salto es un lienzo pequeño; el movimiento lo lleva el guion. */
+.humo .granos {
   position: absolute;
-  display: block;
-  border-radius: 50%;
-  background: rgb(84, 84, 84);
-  animation: grano var(--rato, .62s) cubic-bezier(.33, .05, .55, 1) forwards;
-}
-/* sube rápido, se frena arriba y cae: el salto de un grano de tierra */
-@keyframes grano {
-  0%   { transform: translate(0, 0) scale(1); opacity: 0; }
-  10%  { opacity: 1; }
-  42%  { transform: translate(calc(var(--dx) * .55), var(--alto)) scale(1); opacity: 1; }
-  100% { transform: translate(var(--dx), var(--caida)) scale(.7); opacity: 0; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .humo .nube i { animation-duration: 1s; }
+  width: 80px;
+  height: 80px;
 }
 
 /* El trazo del lápiz en talleres, por debajo de la tierra y del contenido. */

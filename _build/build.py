@@ -2182,6 +2182,7 @@ TEMPLATE = """<!doctype html>
 {hormiga}
 <script src="{pre}assets/js/escala.js?v={vesc}" defer></script>
 <script src="{pre}assets/js/menu.js?v={vmenu}" defer></script>
+<script src="{pre}assets/js/cunos.js?v={vcun}" defer></script>
 <script src="{pre}assets/js/hormiga.js?v={vhor}" defer></script>
 <script src="{pre}assets/js/ampliar.js?v={vamp}" defer></script>
 <script src="{pre}assets/js/hormiguero.js?v={vhgo}" defer></script>
@@ -2237,6 +2238,7 @@ for slug, page in pages.items():
             vcss=version('assets/css/site.css'),
             vesc=version('assets/js/escala.js'),
             vmenu=version('assets/js/menu.js'),
+            vcun=version('assets/js/cunos.js'),
             vhor=version('assets/js/hormiga.js'),
             vamp=version('assets/js/ampliar.js'),
             vhgo=version('assets/js/hormiguero.js'),
