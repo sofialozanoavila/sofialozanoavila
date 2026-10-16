@@ -144,7 +144,7 @@ html, body {
 
 /* Cuando el guion dibuja la hormiga, el puntero del sistema se apaga: si no,
    se verían dos. Sin guion se queda la imagen fija de arriba. */
-.con-hormiga, .con-hormiga body, .con-hormiga a, .con-hormiga button { cursor: none; }
+/* (el puntero del sistema se apaga al final de esta hoja) */
 .hormiga-cursor {
   position: fixed;
   top: 0;
@@ -221,11 +221,11 @@ body.p-index .nombre > p { visibility: hidden; }
   pointer-events: none;
   overflow: hidden;
 }
-/* Cada salto es un lienzo pequeño; el movimiento lo lleva el guion. */
+/* Cada salto es un lienzo pequeño donde se reproduce la tira de fotogramas. */
 .humo .granos {
   position: absolute;
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
 }
 
 /* El trazo del lápiz en talleres, por debajo de la tierra y del contenido. */
@@ -1219,4 +1219,20 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   .sec-catalogo .volver,
   .sec-contacto .volver,
   .sec-galeria .volver { margin-top: 0; }
+}
+
+
+/* --- el puntero del sistema, apagado ----------------------------------
+   Cuando el guion dibuja la hormiga hay que apagar la flecha del sistema: si
+   no, se ven las dos. Esto va al final del archivo y con «!important» a
+   propósito: más abajo hay botones que piden «pointer» —el «+» del menú, el
+   de abrir el menú— con la misma especificidad, y al ganar ellos el sistema
+   volvía a dibujar su flecha encima de la hormiga. El «*» cubre además
+   cualquier elemento que se nos escape.
+
+   Delante del «none» va un píxel transparente: Safari no siempre respeta
+   «cursor: none», y así, si lo ignora, lo que dibuja es un cursor invisible.
+   Sin guiones no se añade la clase y se queda la imagen fija de arriba. */
+html.con-hormiga, html.con-hormiga * {
+  cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=') 0 0, none !important;
 }
