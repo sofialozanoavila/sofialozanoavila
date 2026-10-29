@@ -1655,15 +1655,15 @@ def titulo_en_minuscula(html):
 
 # La presentación de la página de contacto, tal como la escribió Sofía.
 SOBRE_MI = [
-    'Hola. Soy Sofía y soy artista plástica. Mi práctica ha sido una búsqueda constante acerca de las cosas que están ocultas, las partes o fragmentos de una cosa o imagen, o una excavación constante entre mis recuerdos o las anécdotas que me cuentan mis familiares. El dibujo ha sido, desde que era muy pequeña, un impulso casi frenético por capturar todo lo que me rodeaba. Luego, años después, descubrí la cerámica, un mundo que al día de hoy sigo estudiando y al que me acerco desde una permanente curiosidad.',
+    'Hola. Soy Sofía y soy artista plástica. Mi práctica ha sido una búsqueda constante de lo incompleto. Y es, probablemente, la razón por la cual soy artista y no otra cosa. Mi obra sugiere caminos para explorar esa condición. El dibujo y la cerámica son centrales en mi práctica. A través de ellos, me pregunto sobre su materialidad, y sus posibilidades técnicas.',
     'La obra surge de un encuentro con un objeto, un texto, un recuerdo, un concepto o una imagen. De ahí se desprenden otras preguntas acerca de su ubicación, de su contexto, de su posible continuación, de aquello que no dice y de aquello que revela. En varias ocasiones mi trabajo ha tomado forma de instalación, es decir, de la inmersión en un espacio más allá del objeto.',
-    'Esta página ha sido creada con esas mismas inquietudes, que son el motor de mi práctica. He integrado elementos que generan nuevas interacciones. Abajo podrás encontrar los canales a través de los cuales puedes contactarme si algo de lo que aquí se muestra te interesa.',
+    'Abajo podrás encontrar los canales a través de los cuales puedes contactarme si algo de lo que aquí se muestra te interesa.',
 ]
 
 SOBRE_MI_EN = [
-    'Hello. I am Sofía and I am a visual artist. My practice has been a constant search into the things that lie hidden, the parts or fragments of a thing or an image, or a constant excavation among my memories and the stories my family tells me. Drawing has been, since I was very small, an almost frantic impulse to capture everything around me. Then, years later, I came upon ceramics, a world I am still studying today and approach with unending curiosity.',
+    'Hello. I am Sofía and I am a visual artist. My practice has been a constant search for the incomplete. It is probably the reason I am an artist and not something else. My work suggests paths for exploring that condition. Drawing and ceramics are central to my practice. Through them, I ask about their materiality and their technical possibilities.',
     'The work arises from an encounter with an object, a text, a memory, a concept or an image. From there other questions unfold: about where it is, about its context, about how it might continue, about what it does not say and what it reveals. Several times my work has taken the form of an installation — of immersion in a space beyond the object.',
-    'This page was made out of those same preoccupations, which are what drives my practice. I have built into it elements that give rise to new interactions. Below you will find the channels through which you can reach me, if something shown here interests you.',
+    'Below you will find the channels through which you can reach me, if something shown here interests you.',
 ]
 
 
