@@ -1177,6 +1177,10 @@ html.con-hormiga, html.con-hormiga * {
     text-decoration-color: var(--subrayado);
     text-decoration-thickness: 1.5px;
     text-underline-offset: .22em;
+    /* De punta a punta: por defecto el navegador corta la raya donde bajan
+       las letras —la «p», la «y», la «g»— y la palabra no quedaba subrayada
+       entera. */
+    text-decoration-skip-ink: none;
   }
   /* En la retícula de proyectos, talleres y tienda se subraya solo el
      nombre: con el año debajo quedaban dos rayas seguidas. */
