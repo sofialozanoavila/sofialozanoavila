@@ -824,6 +824,7 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 .catalogo .consultar:hover {
   opacity: 1;
   text-decoration: none;
+  box-shadow: none;
   background-color: var(--resalte);
   border-bottom-color: var(--resalte);
   color: #FFFFFF;
@@ -1162,22 +1163,36 @@ html.con-hormiga, html.con-hormiga * {
 }
 
 
-/* --- el subrayado al pasar el cursor ----------------------------------
-   Los enlaces se subrayan en café con leche, tirando a rosa: es el aviso que
-   antes daba la tierra que levantaba la hormiga. Va al final y con «html
-   body» delante a propósito: el menú, el desplegable, la retícula y contacto
-   quitan el subrayado más arriba con reglas propias, y le ganarían. El botón
-   «consultar» de la tienda conserva su recuadro terracota sin subrayado.
-   Solo donde hay ratón: en el celular un toque dejaría el subrayado pegado. */
+/* --- el resaltado al pasar el cursor ---------------------------------
+   Al pasar el cursor, el texto del enlace queda dentro de un rectángulo de
+   café con leche que tira a rosa, como un marcador. Es el aviso que antes
+   daba la tierra que levantaba la hormiga. El texto se pone en negro para que
+   se lea bien sobre el color (el correo y los años son grises).
+
+   Va al final y con «html body» delante a propósito: el menú, el desplegable,
+   la retícula y contacto tienen reglas propias más arriba que le ganarían.
+   El rectángulo se ensancha con una sombra sin desplazar nada; si se hiciera
+   con relleno, el texto se movería al pasar el cursor. Cuando un enlace ocupa
+   dos renglones, cada renglón lleva su propio rectángulo.
+
+   Solo donde hay ratón: en el celular un toque dejaría el resaltado pegado. */
+/* el pie de cada ficha de la retícula —nombre y año— mide lo que su texto */
+.rejilla .pie { width: fit-content; }
+
 @media (hover: hover) {
-  html body a:hover {
-    text-decoration: underline;
-    text-decoration-color: var(--subrayado);
-    text-decoration-thickness: 1.5px;
-    text-underline-offset: .22em;
-    /* De punta a punta: por defecto el navegador corta la raya donde bajan
-       las letras —la «p», la «y», la «g»— y la palabra no quedaba subrayada
-       entera. */
-    text-decoration-skip-ink: none;
+  html body a:hover,
+  html body .rejilla a:hover .pie {
+    text-decoration: none;
+    background-color: var(--subrayado);
+    box-shadow: 0 0 0 .16em var(--subrayado);
+    color: #000;
+    -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
   }
+  /* En la retícula el enlace envuelve también la foto: se resalta solo el
+     pie, nombre y año juntos en un mismo rectángulo. */
+  html body .rejilla a:hover { background-color: transparent; box-shadow: none; }
+  html body .rejilla a:hover .ano { color: #000; }
+  /* La flecha de volver no tiene texto: se aclara un poco, como siempre. */
+  html body .volver a:hover { background-color: transparent; box-shadow: none; }
 }

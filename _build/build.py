@@ -1450,7 +1450,7 @@ def render_proyectos_reticula(idioma='es'):
             '<li><a href="%s.html">'
             '<div class="marco"><img src="assets/img/%s" alt="%s" '
             'loading="lazy"></div>'
-            '<h3>%s</h3><p class="ano">%s</p></a></li>'
+            '<div class="pie"><h3>%s</h3><p class="ano">%s</p></div></a></li>'
             % (slug, archivo, nombre, nombre, ano or ''))
     return ('<section class="sec sec-catalogo sec-rejilla">\n'
             '<div class="lienzo">\n'
@@ -1476,7 +1476,7 @@ def render_talleres(idioma='es'):
             '<li><a href="%s.html#desde-talleres">'
             '<div class="marco"><img src="assets/img/%s" alt="%s" '
             'loading="lazy"></div>'
-            '<h3>%s</h3><p class="ano">%d</p></a></li>'
+            '<div class="pie"><h3>%s</h3><p class="ano">%d</p></div></a></li>'
             % (destino, archivo, nombre, nombre, ano))
     return ('<section class="sec sec-catalogo sec-rejilla">\n'
             '<div class="lienzo">\n'
@@ -1505,7 +1505,7 @@ def render_tienda(idioma='es'):
             '<li><a href="%s.html">'
             '<div class="marco"><img src="assets/img/pieza-%s.jpg" alt="%s" '
             'loading="lazy"></div>'
-            '<h3>%s</h3></a></li>'
+            '<div class="pie"><h3>%s</h3></div></a></li>'
             % (slug, PORTADA_GRUPO.get(slug, claves[0]), nombre, nombre))
     return ('<section class="sec sec-catalogo sec-rejilla">\n'
             '<div class="lienzo">\n'
