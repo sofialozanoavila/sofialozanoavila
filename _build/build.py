@@ -192,7 +192,7 @@ MENU = [
     ('la línea no es recta', 'la-linea-no-es-recta'),
     ('dejar que la forma se haga', 'dejar-que-la-forma-se-haga'),
     ('cuerpo residual', 'cuerpo-residual'), ('otros proyectos', 'otros-proyectos'),
-    ('CV', 'cv'), ('contacto', 'contacto'),
+    ('contacto', 'contacto'), ('CV', 'cv'),
 ]
 
 

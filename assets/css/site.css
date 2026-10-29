@@ -483,13 +483,12 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 .more[data-open="true"] .submenu { display: block; }
 .more[hidden] { display: none; }
 
-/* Orden de la barra, el mismo del inicio:
-   proyectos · contacto · cv · piezas disponibles · EN · + */
+/* Orden de la barra: proyectos · talleres · tienda · contacto · CV · EN · + */
 .menu .m-proyectos { order: 1; }
 .menu .m-talleres { order: 2; }
-.menu .m-contacto { order: 3; }
-.menu .m-cv { order: 4; }
-.menu .m-tienda { order: 5; }
+.menu .m-tienda { order: 3; }
+.menu .m-contacto { order: 4; }
+.menu .m-cv { order: 5; }
 .menu .idioma { order: 6; margin-left: .4em; }
 .menu .more { order: 7; }
 .submenu { order: 7; }
@@ -1171,8 +1170,7 @@ html.con-hormiga, html.con-hormiga * {
    «consultar» de la tienda conserva su recuadro terracota sin subrayado.
    Solo donde hay ratón: en el celular un toque dejaría el subrayado pegado. */
 @media (hover: hover) {
-  html body a:hover,
-  html body .rejilla a:hover h3 {
+  html body a:hover {
     text-decoration: underline;
     text-decoration-color: var(--subrayado);
     text-decoration-thickness: 1.5px;
@@ -1182,7 +1180,4 @@ html.con-hormiga, html.con-hormiga * {
        entera. */
     text-decoration-skip-ink: none;
   }
-  /* En la retícula de proyectos, talleres y tienda se subraya solo el
-     nombre: con el año debajo quedaban dos rayas seguidas. */
-  html body .rejilla a:hover { text-decoration: none; }
 }
