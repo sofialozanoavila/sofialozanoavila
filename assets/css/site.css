@@ -195,21 +195,6 @@ body.con-ampliada { overflow: hidden; }
 /* las fotografías del catálogo avisan de que se pueden abrir */
 .catalogo [data-ampliar] { cursor: inherit; }
 
-/* El nombre del inicio, dibujado por hormigas. El texto sigue ahí pero sin
-   verse: lo leen los lectores de pantalla y los buscadores. Se esconde desde
-   aquí, no desde el guion: la hoja de estilos llega antes de que se pinte
-   nada, y así no se alcanza a ver el nombre en negro antes de las hormigas.
-   Sin guiones vuelve a verse, con la regla del <noscript>. */
-body.p-index .nombre > p { visibility: hidden; }
-/* El guion le da tamaño y posición: toda la ventana mientras las hormigas
-   entran, y la caja del nombre en cuanto se paran. */
-.nombre-hormigas {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 0;
-  pointer-events: none;
-}
 
 
 /* Tierra removida: al pasar por encima de un enlace saltan unos granos que
