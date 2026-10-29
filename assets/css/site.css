@@ -77,6 +77,8 @@
   --margen: 40px;
   --resalte: #A9481F;
   --resalte-menu: #7B5230;
+  /* el subrayado de los enlaces: café con leche, tirando a rosa */
+  --subrayado: #C99A8B;
   --font_0: normal normal normal 33px/1.4em forum,serif;
   --font_1: normal normal normal 15px/1.4em 'open sans',sans-serif;
   --font_2: normal normal bold 45px/1.4em forum,serif;
@@ -197,23 +199,7 @@ body.con-ampliada { overflow: hidden; }
 
 
 
-/* Tierra removida: al pasar por encima de un enlace saltan unos granos que
-   suben, caen y se apagan, como si la hormiga escarbara. */
-.humo {
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-  pointer-events: none;
-  overflow: hidden;
-}
-/* Cada salto es un lienzo pequeño donde se reproduce la tira de fotogramas. */
-.humo .granos {
-  position: absolute;
-  width: 64px;
-  height: 64px;
-}
-
-/* El trazo del lápiz en talleres, por debajo de la tierra y del contenido. */
+/* El trazo del lápiz en talleres, por debajo del contenido. */
 .trazo-lapiz {
   position: fixed;
   inset: 0;
@@ -284,7 +270,8 @@ body {
 img { max-width: 100%; display: block; }
 
 a { color: inherit; }
-a:hover { opacity: .65; }
+/* la flecha de volver no tiene texto que subrayar: se aclara un poco */
+.volver a:hover { opacity: .65; }
 
 /* --- clases tipográficas del tema ------------------------------------ */
 .font_0 { font: var(--font_0); }
@@ -382,18 +369,7 @@ body, body * { font-family: var(--grotesca) !important; }
 /* --- bloques de texto ------------------------------------------------ */
 .rt p, .rt h1, .rt h2, .rt h3, .rt h4, .rt h5, .rt h6 { margin: 0; }
 .rt a { text-decoration: none; }
-.rt a:hover { text-decoration: underline; }
 
-/* Al pasar el cursor, los enlaces ya no se resaltan con un color: lo que
-   avisa es la nube de polvo que levanta la hormiga. Solo se les quita el
-   subrayado para que el gesto quede limpio. */
-.lista-proyectos a:hover,
-.site-header .menu a:hover,
-.enlaces a:hover,
-.enlaces-proyectos a:hover,
-.nombre a:hover,
-.nombre-proyectos a:hover,
-.rejilla a:hover { text-decoration: none; opacity: 1; }
 
 /* --- flecha de volver ------------------------------------------------
    Dibujo vectorial en lugar del carácter ↩, que algunos móviles convierten
@@ -803,40 +779,6 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 }
 
 
-/* Los proyectos como retícula: una imagen por proyecto, con el nombre y el
-   año debajo. En el celular van uno debajo de otro. */
-.rejilla {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 56px 48px;
-}
-.rejilla a { display: block; text-decoration: none; color: inherit; }
-.rejilla .marco {
-  aspect-ratio: 4 / 3;
-  background: rgb(var(--color_11));
-  overflow: hidden;
-  margin-bottom: 12px;
-}
-.rejilla img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.rejilla h3,
-.rejilla .ano {
-  font-family: var(--grotesca);
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.4em;
-  margin: 0;
-}
-.rejilla h3 { color: rgb(var(--color_18)); }
-.rejilla .ano { color: rgb(130, 130, 130); }
-@media (max-width: 1100px) {
-  .rejilla { grid-template-columns: repeat(2, 1fr); gap: 44px 36px; }
-}
-@media (max-width: 859px) {
-  .rejilla { grid-template-columns: 1fr; gap: 34px; }
-}
 
 
 
@@ -882,6 +824,7 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 }
 .catalogo .consultar:hover {
   opacity: 1;
+  text-decoration: none;
   background-color: var(--resalte);
   border-bottom-color: var(--resalte);
   color: #FFFFFF;
@@ -1019,12 +962,9 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
   transition: opacity .25s ease;
 }
 .contactos svg { width: 1.05em; height: 1.05em; flex: 0 0 auto; }
-.contactos span { border-bottom: 1px solid transparent; transition: border-color .25s ease; }
 /* Los dígitos del correo van en su propia etiqueta para que el celular no los
    lea como un número de teléfono. No debe verse ninguna diferencia. */
 .contactos i { font-style: inherit; }
-.contactos a:hover { opacity: 1; }
-.contactos a:hover span { border-bottom-color: currentColor; }
 
 @media (max-width: 859px) {
   .sec-contacto { padding: 0 20px 60px; }
@@ -1220,4 +1160,25 @@ body.p-cv #comp-lrjhvqx41 h1 { line-height: 1.65em !important; }
    Sin guiones no se añade la clase y se queda la imagen fija de arriba. */
 html.con-hormiga, html.con-hormiga * {
   cursor: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=') 0 0, none !important;
+}
+
+
+/* --- el subrayado al pasar el cursor ----------------------------------
+   Los enlaces se subrayan en café con leche, tirando a rosa: es el aviso que
+   antes daba la tierra que levantaba la hormiga. Va al final y con «html
+   body» delante a propósito: el menú, el desplegable, la retícula y contacto
+   quitan el subrayado más arriba con reglas propias, y le ganarían. El botón
+   «consultar» de la tienda conserva su recuadro terracota sin subrayado.
+   Solo donde hay ratón: en el celular un toque dejaría el subrayado pegado. */
+@media (hover: hover) {
+  html body a:hover,
+  html body .rejilla a:hover h3 {
+    text-decoration: underline;
+    text-decoration-color: var(--subrayado);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: .22em;
+  }
+  /* En la retícula de proyectos, talleres y tienda se subraya solo el
+     nombre: con el año debajo quedaban dos rayas seguidas. */
+  html body .rejilla a:hover { text-decoration: none; }
 }
