@@ -1241,8 +1241,9 @@ def render_lista(slug, origen, page, idioma):
 
 
 # --- catálogo de cerámica ------------------------------------------
-# Datos y fotografías tomados del portafolio de obra disponible. Los precios
-# llevan ya el aumento de 100.000 pesos acordado.
+# Datos y fotografías tomados del portafolio de obra disponible. La tienda no
+# muestra precios: el sexto campo de cada obra solo dice si está disponible
+# (True) o vendida (None).
 CORREO = 'sofia771199@gmail.com'
 # El botón «consultar» abre una conversación de WhatsApp con el mensaje ya
 # escrito. wa.me pide el número sin signos: indicativo del país y después
@@ -1251,29 +1252,28 @@ WHATSAPP = '573223940719'
 
 CATALOGO = [
     ('medir-el-aire', 'Medir el aire', 'Tejido ca\u00f1a flecha, fibras naturales',
-     '250 x 50 cm', 2025, 2500000, ''),
+     '250 x 50 cm', 2025, True, ''),
     ('filtraciones', 'Filtraciones', 'Dibujo. L\u00e1piz sobre papel',
-     '35 x 50 cm', 2026, 1500000, ''),
+     '35 x 50 cm', 2026, True, ''),
     ('nada-basura', 'Nada de lo que se mide es basura',
      'Serie de tres dibujos. Impresi\u00f3n digital y tinta blanca sobre papel',
-     '50 x 35 cm c/u', 2020, 0, ''),
+     '50 x 35 cm c/u', 2020, True, ''),
     ('collar-1', 'Variaciones de un collar', 'Dibujo. L\u00e1piz sobre papel',
-     'Medidas variables', 2023, 0, ''),
+     'Medidas variables', 2023, True, ''),
     ('collar-2', 'Variaciones de un collar', 'Dibujo. L\u00e1piz sobre papel',
-     'Medidas variables', 2023, 0, ''),
-    ('monos-1', 'De la serie moños', 'Cerámica', '', 2026, 160000, ''),
-    ('monos-2', 'De la serie moños', 'Cerámica', '5 x 6 x 4 cm', 2026, 160000, ''),
-    ('monos-serie', 'Moños', 'Cerámica', '30 x 20 x 6 cm', 2026, 380000, 'Serie completa'),
-    ('palas', 'Palas', 'Cerámica', '30 x 25 x 5 cm', 2025, 600000, 'Queda una disponible'),
+     'Medidas variables', 2023, True, ''),
+    ('monos-1', 'De la serie moños', 'Cerámica', '', 2026, True, ''),
+    ('monos-2', 'De la serie moños', 'Cerámica', '5 x 6 x 4 cm', 2026, True, ''),
+    ('monos-serie', 'Moños', 'Cerámica', '30 x 20 x 6 cm', 2026, True, 'Serie completa'),
+    ('palas', 'Palas', 'Cerámica', '30 x 25 x 5 cm', 2025, True, 'Queda una disponible'),
     ('apariciones-instalacion', 'Apariciones', 'Cerámica y tierra', '50 x 50 x 50 cm', 2025,
-     2100000, 'Instalación completa'),
-    ('apariciones-piezas', 'Apariciones', 'Cerámica', '10 x 10 x 8 cm', 2025, 170000,
-     'Por pieza · serie completa 400.000'),
-    ('banda-elastica', 'Banda elástica', 'Cerámica', '12 x 5 x 3 cm', 2026, 160000, ''),
-    ('concha', 'Concha', 'Cerámica', '16,5 x 10,5 cm', 2026, 180000, ''),
-    ('caja-2', 'Caja 2', 'Cerámica', '16,5 x 11 cm', 2026, 180000, ''),
-    ('pocillo', 'Pocillo', 'Cerámica', '8 x 8 x 10 cm', 2022, 150000, ''),
-    ('flor-borrachero', 'Flor borrachero', 'Cerámica', '12 x 12 x 12 cm', 2026, 180000, ''),
+     True, 'Instalación completa'),
+    ('apariciones-piezas', 'Apariciones', 'Cerámica', '10 x 10 x 8 cm', 2025, True,
+     'Por pieza o serie completa'),
+    ('banda-elastica', 'Banda elástica', 'Cerámica', '12 x 5 x 3 cm', 2026, True, ''),
+    ('concha', 'Concha', 'Cerámica', '16,5 x 10,5 cm', 2026, True, ''),
+    ('caja-2', 'Caja 2', 'Cerámica', '16,5 x 11 cm', 2026, True, ''),
+    ('flor-borrachero', 'Flor borrachero', 'Cerámica', '12 x 12 x 12 cm', 2026, True, ''),
     ('vertebra', 'Vértebra', 'Cerámica', '20 x 5 x 5 cm', 2024, None, ''),
     ('caja', 'Caja', 'Cerámica', '15 x 8,5 x 4,5 cm', 2026, None, ''),
     ('cuchara', 'Cuchara', 'Cerámica', '16 x 4 x 2 cm', 2025, None, ''),
@@ -1288,7 +1288,7 @@ CATALOGO_EN = {
     'Serie completa': 'Complete series',
     'Queda una disponible': 'One available',
     'Instalación completa': 'Complete installation',
-    'Por pieza · serie completa 400.000': 'Per piece · complete series 400,000',
+    'Por pieza o serie completa': 'Per piece or as a complete series',
     # descriptivo, no es un título de obra
     'De la serie moños': 'From the moños series',
     'Tejido ca\u00f1a flecha, fibras naturales': 'Ca\u00f1a flecha weaving, natural fibres',
@@ -1300,10 +1300,6 @@ CATALOGO_EN = {
 }
 
 
-def pesos(n):
-    return '$' + '{:,}'.format(n).replace(',', '.') + ' COP'
-
-
 # La tienda se divide por técnica. Cada grupo lleva las claves de sus obras,
 # en el orden en que se muestran.
 GRUPOS = [
@@ -1313,7 +1309,7 @@ GRUPOS = [
     ('ceramica', 'cer\u00e1mica', 'ceramics',
      ['monos-1', 'monos-2', 'monos-serie', 'palas',
       'apariciones-instalacion', 'apariciones-piezas', 'banda-elastica',
-      'concha', 'caja-2', 'pocillo', 'flor-borrachero',
+      'concha', 'caja-2', 'flor-borrachero',
       'vertebra', 'caja', 'cuchara']),
 ]
 
@@ -1558,19 +1554,13 @@ def ficha_pieza(obra, en, consultar, asunto):
         from urllib.parse import quote
         mensaje = '%s \u201c%s\u201d.' % (asunto, nombre)
         chat = 'https://wa.me/%s?text=%s' % (WHATSAPP, quote(mensaje))
+        # La tienda no muestra precios: las piezas disponibles llevan el botón
+        # para escribir por WhatsApp, y las vendidas lo dicen.
         if precio is None:
             cierre = '<p class="vendida">%s</p>' % ('Sold' if en else 'Vendida')
-        elif precio == 0:
-            cierre = ('<p class="precio">%s</p>'
-                      '<a class="consultar" href="%s" target="_blank"'
-                      ' rel="noopener">%s</a>'
-                      % ('Price on request' if en else 'Precio a consultar',
-                         chat, consultar))
         else:
-            cierre = ('<p class="precio">%s</p>'
-                      '<a class="consultar" href="%s" target="_blank"'
-                      ' rel="noopener">%s</a>'
-                      % (pesos(precio), chat, consultar))
+            cierre = ('<a class="consultar" href="%s" target="_blank"'
+                      ' rel="noopener">%s</a>' % (chat, consultar))
         return (
             '<li%s>'
             '<div class="marco"><img src="assets/img/%s" alt="%s" width="1000"'

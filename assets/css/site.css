@@ -789,7 +789,6 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 .catalogo h3,
 .catalogo .datos,
 .catalogo .nota,
-.catalogo .precio,
 .catalogo .vendida,
 .catalogo .consultar {
   font-family: var(--grotesca);
@@ -808,7 +807,6 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
   margin: 0;
 }
 .catalogo h3 { font-size: 10.3px; margin-bottom: 7px; }
-.catalogo .precio { margin-top: 0; }
 .catalogo .vendida { color: rgb(170, 170, 170); }
 
 /* El enlace de consulta se enciende al pasar el cursor, con el mismo
