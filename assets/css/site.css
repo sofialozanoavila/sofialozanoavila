@@ -154,7 +154,9 @@ html, body {
   /* el lienzo se dibuja al doble en pantallas densas: aquí va su tamaño real */
   width: 32px;
   height: 32px;
-  z-index: 9999;
+  /* siempre lo más alto de la página: por encima también de la foto
+     ampliada de la tienda, que antes la tapaba */
+  z-index: 2147483647;
   pointer-events: none;
   transition: opacity .15s ease;
 }
