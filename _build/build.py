@@ -180,6 +180,7 @@ def ruta_idioma(idioma, destino):
 MENU = [
     ('sofía lozano ávila', ''), ('proyectos', 'proyectos'),
     ('talleres', 'talleres'),
+    ('empaques', 'empaques'),
     ('prótesis', 'protesis'), ('antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
     ('tienda', 'paisaje-interior'), ('bache', 'bache'),
@@ -338,7 +339,57 @@ def enlazar(slug, h):
 # Se maquetan con la misma geometría que las páginas de proyecto existentes:
 # columna de texto a la izquierda (ancho 419, en x=0) y columna de imágenes a
 # la derecha (ancho 541, en x=439), dentro del lienzo de 980 px.
+# Todas las acuarelas de la serie llevan la misma ficha.
+PIE_EMPAQUES = 'De la serie Empaques, 2026. Pintura. Acuarela. 25 x 35 cm.'
+
 NUEVAS = {
+    'empaques': {
+        'titulo': 'empaques',
+        'volver': 'proyectos',
+        'texto': [
+            '\u00bfC\u00f3mo pintar lo que no se ve? Hace tiempo pienso en las bolsas y '
+            'los empaques, esos objetos gen\u00e9ricos donde puede venir cualquier cosa. '
+            'Sobres de manila, bolsas de pl\u00e1stico arrugadas, cierres autoadhesivos, '
+            'c\u00f3digos de barras, textos parciales, logotipos. Pintadas en acuarela '
+            'sobre fondos blancos, estas envolturas se sostienen solas. Me interesa ese '
+            'instante en que un objeto deja de se\u00f1alar hacia algo y empieza a '
+            'se\u00f1alarse a s\u00ed mismo. Los pliegues muestran manos que ya no '
+            'est\u00e1n. No se trata del contenido, sino del gesto de contener. Cada '
+            'paquete es una pregunta y es al mismo tiempo una inc\u00f3gnita.',
+        ],
+        'texto_en': [
+            'How do you paint what cannot be seen? For a long time I have been thinking '
+            'about bags and packaging, those generic objects in which anything at all '
+            'might arrive. Manila envelopes, crumpled plastic bags, self-adhesive seals, '
+            'barcodes, partial texts, logos. Painted in watercolour on white grounds, '
+            'these wrappings hold themselves up. I am interested in that instant when an '
+            'object stops pointing towards something and begins to point to itself. The '
+            'folds show hands that are no longer there. It is not about the contents, '
+            'but about the gesture of containing. Each package is a question and, at the '
+            'same time, an unknown.',
+        ],
+        'pies_en': {
+            PIE_EMPAQUES: 'From the series Empaques, 2026. Painting. Watercolour. 25 x 35 cm.',
+        },
+        'fotos': [
+            ('empaques-01.jpg', PIE_EMPAQUES),
+            ('empaques-02.jpg', PIE_EMPAQUES),
+            ('empaques-03.jpg', PIE_EMPAQUES),
+            ('empaques-04.jpg', PIE_EMPAQUES),
+            ('empaques-05.jpg', PIE_EMPAQUES),
+            ('empaques-06.jpg', PIE_EMPAQUES),
+            ('empaques-07.jpg', PIE_EMPAQUES),
+            ('empaques-08.jpg', PIE_EMPAQUES),
+            ('empaques-09.jpg', PIE_EMPAQUES),
+            ('empaques-10.jpg', PIE_EMPAQUES),
+            ('empaques-11.jpg', PIE_EMPAQUES),
+            ('empaques-12.jpg', PIE_EMPAQUES),
+            ('empaques-13.jpg', PIE_EMPAQUES),
+            ('empaques-14.jpg', PIE_EMPAQUES),
+            ('empaques-15.jpg', PIE_EMPAQUES),
+            ('empaques-16.jpg', PIE_EMPAQUES),
+        ],
+    },
     'superficies-de-paso': {
         'titulo': 'superficies de paso',
         'volver': 'proyectos',
@@ -1416,6 +1467,7 @@ def render_cv(idioma='es'):
 # Cada proyecto con una fotograf\xeda que lo represente, su nombre y su a\xf1o.
 # Si cambias la portada de una entrada, basta con nombrar otro archivo.
 PORTADAS = [
+    ('empaques', 'empaques', 2026, 'empaques-01.jpg'),
     ('protesis', 'pr\xf3tesis', 2026, 'protesis-15.jpg'),
     ('copia-de-antejardin', 'medir el aire', 2025, '9af1ea_1a65bd022dab40409be95595f9e7f4c6_1082x976.jpg'),
     ('antejardin', 'antejard\xedn', 2025, '9af1ea_6d12b15ef098416eba03dcf9c409752e_1092x1500.jpg'),
