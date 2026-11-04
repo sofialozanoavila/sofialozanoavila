@@ -1114,7 +1114,7 @@ LISTA = {
     'inventario-sobre-lo-que-no-veo', 'la-linea-no-es-recta', 'otros-proyectos',
     'procedimiento-fertil', 'revisitar', 'semi-preciosas', 'señales',
     'todo-lo-que-no-cabe-en-una-vitrina', 'vasija-ver-vaciar',
-    'protesis', 'doblar-una-flor', 'superficies-de-paso',
+    'protesis', 'doblar-una-flor', 'superficies-de-paso', 'empaques',
 }
 
 
