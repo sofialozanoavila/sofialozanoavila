@@ -2308,5 +2308,13 @@ for slug, page in pages.items():
         else:
             destino = ROOT
 
+        # Las imágenes se sirven con caché de un año (vercel.json): si una
+        # foto se reemplaza con el mismo nombre, el navegador seguiría
+        # mostrando la vieja. La huella del contenido cambia el enlace.
+        html = re.sub(r'(assets/img/[^"\'\s?)]+)',
+                      lambda m: m.group(1) + '?v=' + version(m.group(1))
+                      if os.path.isfile(os.path.join(ROOT, m.group(1))) else m.group(1),
+                      html)
+
         open(os.path.join(destino, out + '.html'), 'w', encoding='utf-8').write(html)
     print('->', out + '.html  (es + en)')
