@@ -1467,7 +1467,7 @@ def render_cv(idioma='es'):
 # Cada proyecto con una fotograf\xeda que lo represente, su nombre y su a\xf1o.
 # Si cambias la portada de una entrada, basta con nombrar otro archivo.
 PORTADAS = [
-    ('empaques', 'empaques', 2026, 'empaques-01.jpg'),
+    ('empaques', 'empaques', 2026, 'empaques-portada.jpg'),
     ('protesis', 'pr\xf3tesis', 2026, 'protesis-15.jpg'),
     ('copia-de-antejardin', 'medir el aire', 2025, '9af1ea_1a65bd022dab40409be95595f9e7f4c6_1082x976.jpg'),
     ('antejardin', 'antejard\xedn', 2025, '9af1ea_6d12b15ef098416eba03dcf9c409752e_1092x1500.jpg'),
