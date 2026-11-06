@@ -608,7 +608,7 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
    exactamente un renglón, ni más ni menos. */
 .sec-obras .encabezado p.sede.hueco { margin-top: 17.6px; }
 /* Los enlaces de la ficha no se salen del color del bloque. */
-.sec-obras .encabezado p.sede a { color: inherit; text-decoration: underline; }
+.sec-obras .encabezado p.sede a { color: #00A63E; text-decoration: underline; }
 .sec-obras .cuerpo p,
 .sec-obras .cuerpo p span { font-size: 14px !important; }
 .sec-obras .ficha p,
