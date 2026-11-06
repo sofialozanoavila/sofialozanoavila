@@ -339,6 +339,10 @@ def enlazar(slug, h):
 # Se maquetan con la misma geometría que las páginas de proyecto existentes:
 # columna de texto a la izquierda (ancho 419, en x=0) y columna de imágenes a
 # la derecha (ancho 541, en x=439), dentro del lienzo de 980 px.
+# La página de la artista en el catálogo de la Feria del Millón 2026.
+ENLACE_MILLON_2026 = ('<a href="https://feria-millon.immsai.com/artista/6a6e7dc3d63b8f9eccf34c17" '
+                      'target="_blank" rel="noreferrer noopener">')
+
 # Todas las acuarelas de la serie llevan la misma ficha.
 PIE_EMPAQUES = 'De la serie Empaques, 2026. Pintura. Acuarela. 25 x 35 cm.'
 
@@ -346,6 +350,14 @@ NUEVAS = {
     'empaques': {
         'titulo': 'empaques',
         'volver': 'proyectos',
+        'ficha': ['5 - 8 de Noviembre 2026',
+                  'Bogot\u00e1. Feria del Mill\u00f3n.',
+                  '\u279d %sFeria del Mill\u00f3n 2026 - Sof\u00eda Lozano.</a>' % ENLACE_MILLON_2026,
+                  '', 'Serie de 16 acuarelas.'],
+        'ficha_en': ['5 - 8 November 2026',
+                     'Bogot\u00e1. Feria del Mill\u00f3n.',
+                     '\u279d %sFeria del Mill\u00f3n 2026 - Sof\u00eda Lozano.</a>' % ENLACE_MILLON_2026,
+                     '', 'Series of 16 watercolours.'],
         'texto': [
             '\u00bfC\u00f3mo pintar lo que no se ve? Hace tiempo pienso en las bolsas y '
             'los empaques, esos objetos gen\u00e9ricos donde puede venir cualquier cosa. '
