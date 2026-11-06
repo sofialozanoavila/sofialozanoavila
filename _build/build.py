@@ -382,8 +382,10 @@ NUEVAS = {
         ],
         'pies_en': {
             PIE_EMPAQUES: 'From the series Empaques, 2026. Painting. Watercolour. 25 x 35 cm.',
+            'Vista general de la exposici\u00f3n.': 'General view of the exhibition.',
         },
         'fotos': [
+            ('empaques-montaje.jpg', 'Vista general de la exposici\u00f3n.'),
             ('empaques-01.jpg', PIE_EMPAQUES),
             ('empaques-02.jpg', PIE_EMPAQUES),
             ('empaques-03.jpg', PIE_EMPAQUES),
