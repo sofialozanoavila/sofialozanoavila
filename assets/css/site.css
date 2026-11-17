@@ -735,26 +735,22 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
   .rejilla { grid-template-columns: 1fr; gap: 34px; }
 }
 
-/* Las entradas de colectivo null: el render interactivo ocupa todo el ancho
-   del lienzo, así queda siempre centrado; lo que se ajusta es el alto, para
-   que se vea entero sin bajar, con el pie incluido. El render se reencuadra
-   solo a cualquier proporción. En el celular se hace alto, para que quepan
-   el joystick y la barra de altura que el render pone en las pantallas
-   táctiles. */
-.sec-render .cabecera { margin-bottom: 10px; }
-.sec-render .ficha-render,
-.sec-render .render-pie {
-  font-family: var(--grotesca);
-  font-size: 13px;
-  line-height: 1.4em;
-  margin: 0;
-}
-.sec-render .ficha-render { color: rgb(130, 130, 130); margin-bottom: 24px; }
-.sec-render .render-pie { margin-top: 12px; }
+/* Las entradas de colectivo null se maquetan como «señales»: la ficha en el
+   riel de la izquierda y, en la columna ancha, el render interactivo —a la
+   altura del título— y debajo el texto del proyecto. El render ocupa todo el
+   ancho de su columna, así que queda siempre centrado en ella, y se
+   reencuadra solo a cualquier proporción. En el celular va todo en una
+   columna y el render se hace alto, para que quepan el joystick y la barra
+   de altura que pone en las pantallas táctiles. */
+.sec-render .visor { grid-column: 2; grid-row: 2; margin-top: 12px; }
+.sec-render .cuerpo { grid-row: 3; margin-top: 48px; }
+/* el enlace a antejardín, subrayado: si no, no se sabe que es un enlace */
+.sec-render .cuerpo a { text-decoration: underline; text-underline-offset: 2px; }
 .render {
   position: relative;
   width: 100%;
-  height: clamp(420px, calc(100vh - 300px), 56vw);
+  aspect-ratio: 16 / 9;
+  min-height: 360px;
   background: #fff;
   /* un filo apenas visible: el render es blanco como la página y sin él no
      se sabe dónde empieza la parte con la que se puede jugar */
@@ -768,8 +764,15 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
   border: 0;
   display: block;
 }
+.sec-render .render-pie {
+  font-family: var(--grotesca);
+  font-size: 13px;
+  line-height: 1.4em;
+  margin: 12px 0 0;
+}
 @media (max-width: 859px) {
-  .render { height: 78vh; height: 78svh; }
+  .sec-render .visor { margin: 0 0 36px; }
+  .render { aspect-ratio: auto; height: 78vh; height: 78svh; min-height: 0; }
 }
 
 /* El CV: una columna estrecha con las fechas y, al lado, lo que ocurrió. */

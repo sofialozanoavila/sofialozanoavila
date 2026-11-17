@@ -1583,26 +1583,126 @@ def render_colectivo(idioma='es'):
             '</section>' % '\n'.join(fichas))
 
 
-def render_render(destino, idioma='es'):
-    """La página de una entrada del colectivo: el render ocupa la página.
+# La ficha y el texto de cada entrada del colectivo, en los dos idiomas.
+# Se componen como los de «señales»: el colectivo en negrilla cursiva, los
+# integrantes y, aparte, la convocatoria en cursiva.
+FICHA_COLECTIVO = {
+    'bejuco': {
+        'integrantes': ['Sofía Lozano', 'Nicolás Casas', 'Juan David Ramírez'],
+        'es': {
+            'convocatoria': ['Propuesta para la Beca Bienal de Arte 2027',
+                             'Arquitectura Sonora · Orquesta Filarmónica de Bogotá'],
+            'texto': [
+                'Bejuco se pregunta por la memoria de Bogotá a través de su '
+                'vegetación. Rara vez nos preguntamos quién eligió los árboles, '
+                'las flores y los arbustos de los parques, las plazas y los '
+                'jardines. La admiración que provoca la naturaleza lleva a pensar '
+                'que está allí por azar, pero cada gobierno también gobierna la '
+                'naturaleza, su distribución y sus especies. Aunque no toda la '
+                'vegetación fue plantada, sí es posible interrogar la memoria de '
+                'la que sí lo fue: ¿qué nos cuenta?',
+                'La obra es una instalación sonora interactiva de flores '
+                'cerámicas suspendidas. Cada flor guarda en su interior un sensor '
+                'de distancia y un pequeño parlante: cuando alguien se acerca, la '
+                'flor suena, y su sonido cambia con la cercanía de quien la '
+                'escucha. Los sonidos van desde los cantos de aves desplazadas de '
+                'los parques hasta las resonancias de los objetos que los '
+                'habitan: el golpe sobre un poste, una estatua, la gente jugando. '
+                'Un mapa de Bogotá con luces LED se enciende cuando alguien se '
+                'acerca a la flor correspondiente.',
+                'La propuesta continúa la investigación de '
+                '<a href="antejardin.html">antejardín</a> (2025) sobre el origen '
+                'del Parque Nacional y la lleva a las plazas y parques fundados '
+                'entre los siglos XIX y XX, a partir de <em>La vida privada de '
+                'los parques y jardines públicos. Bogotá, 1886-1938</em>, de '
+                'Claudia Cendales Paredes.',
+                'Arriba, un render interactivo de la instalación: se puede '
+                'caminar entre las flores, agacharse o ponerse en puntillas, y '
+                'escuchar cómo suenan. Se recomienda usar audífonos.',
+            ],
+        },
+        'en': {
+            'convocatoria': ['Proposal for the Beca Bienal de Arte 2027',
+                             'Arquitectura Sonora · Orquesta Filarmónica de Bogotá'],
+            'texto': [
+                'Bejuco asks about the memory of Bogotá through its vegetation. '
+                'We rarely ask who chose the trees, flowers and shrubs of the '
+                'city’s parks, squares and gardens. The admiration nature '
+                'inspires makes us think it is there by chance, but every '
+                'government also governs nature, its distribution and its '
+                'species. Not all vegetation was planted, but it is possible to '
+                'question the memory of what was: what does it tell us?',
+                'The work is an interactive sound installation of suspended '
+                'ceramic flowers. Each flower holds a distance sensor and a small '
+                'speaker inside: when someone comes near, the flower sounds, and '
+                'its sound changes with the closeness of the listener. The sounds '
+                'range from the songs of birds displaced from the parks to the '
+                'resonances of the objects that inhabit them: a knock on a post, '
+                'a statue, people playing. A map of Bogotá with LED lights turns '
+                'on when someone approaches the corresponding flower.',
+                'The proposal continues the research of '
+                '<a href="antejardin.html">antejardín</a> (2025) on the origin of '
+                'the Parque Nacional, and extends it to the squares and parks '
+                'founded between the 19th and 20th centuries, drawing on <em>La '
+                'vida privada de los parques y jardines públicos. Bogotá, '
+                '1886-1938</em>, by Claudia Cendales Paredes.',
+                'Above, an interactive render of the installation: you can walk '
+                'among the flowers, crouch or stand on tiptoe, and listen to how '
+                'they sound. Headphones are recommended.',
+            ],
+        },
+    },
+}
 
-    Va dentro de un iframe para que el menú y la flecha de volver sigan ahí.
-    «pantalla completa» agranda el iframe; si el navegador no sabe hacerlo
-    (el iPhone, por ejemplo), abre el render solo, en la misma pestaña."""
+FICHA_P = ('<p class="font_9" style="font-size:13px;"><span style="font-size:13px;">'
+           '<span style="color:#414141;">%s</span></span></p>')
+CUERPO_P = ('<p class="font_8" style="font-size:14px;"><span style="font-size:14px;">'
+            '<span style="font-weight:300;"><span style="font-family:almarai,sans-serif;">'
+            '<span style="color:#000000;">%s</span></span></span></span></p>')
+
+
+def render_render(destino, idioma='es'):
+    """La página de una entrada del colectivo, con la maquetación de
+    «señales»: la ficha en el riel de la izquierda y, en la columna ancha, el
+    render interactivo y debajo el texto del proyecto.
+
+    El render va dentro de un iframe para que el menú y la flecha de volver
+    sigan ahí. «pantalla completa» agranda el iframe; si el navegador no sabe
+    hacerlo (el iPhone, por ejemplo), abre el render solo, en la misma
+    pestaña."""
     en = idioma == 'en'
-    _, nombre, anos, _, carpeta = next(c for c in COLECTIVO if c[0] == destino)
+    _, nombre, _, _, carpeta = next(c for c in COLECTIVO if c[0] == destino)
+    ficha = FICHA_COLECTIVO[destino]
+    txt = ficha[idioma]
     src = ('../' if en else '') + carpeta + 'index.html'
     completa = 'full screen' if en else 'pantalla completa'
-    return ('<section class="sec sec-catalogo sec-render">\n'
+
+    renglones = ['<span style="font-style:italic;"><span style="font-weight:bold;">'
+                 'COLECTIVO NULL</span></span>',
+                 '<br>'.join(ficha['integrantes']),
+                 '​']
+    renglones += ['<span style="font-style:italic;">%s</span>' % c
+                  for c in txt['convocatoria']]
+    encabezado = ('<div class="encabezado">'
+                  '<div class="rt"><h1 class="font_0" style="font-size:34px;">%s</h1></div>'
+                  '<div class="rt">%s</div></div>'
+                  % (nombre, ' '.join(FICHA_P % r for r in renglones)))
+    cuerpo = ('<div class="cuerpo"><div class="rt">%s</div></div>'
+              % ' '.join(CUERPO_P % t for t in txt['texto']))
+    return ('<section class="sec sec-obras sec-render">\n'
             '<div class="lienzo">\n'
-            '<div class="cabecera">'
-            '<div class="rt volver"><p><a href="colectivo-null.html">\u21a9</a></p></div>'
-            '<div class="rt titulo"><h1>%s</h1></div>'
-            '</div>\n'
-            '<p class="ficha-render">%s \u00b7 colectivo null</p>\n'
+            '<div class="intro">'
+            '<div class="volver-fila"><div class="rt">'
+            '<p class="font_8" style="font-size:40px; line-height:normal;">'
+            '<a href="colectivo-null.html">↩</a></p></div></div>'
+            '%s'
+            '<div class="visor">'
             '<div class="render"><iframe src="%s" title="%s" '
-            'allow="fullscreen; autoplay"></iframe></div>\n'
-            '<p class="render-pie"><a class="pantalla-completa" href="%s">%s</a></p>\n'
+            'allow="fullscreen; autoplay"></iframe></div>'
+            '<p class="render-pie"><a class="pantalla-completa" href="%s">%s</a></p>'
+            '</div>'
+            '%s'
+            '</div>\n'
             '</div>\n'
             '</section>\n'
             '<script>\n'
@@ -1616,7 +1716,7 @@ def render_render(destino, idioma='es'):
             '  });\n'
             '})();\n'
             '</script>'
-            % (nombre, anos, src, nombre, src, completa))
+            % (encabezado, src, nombre, src, completa, cuerpo))
 
 
 # La obra que hace de portada de cada técnica. Si no se nombra aquí, se usa
