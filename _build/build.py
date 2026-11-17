@@ -1589,6 +1589,17 @@ def render_colectivo(idioma='es'):
 FICHA_COLECTIVO = {
     'bejuco': {
         'integrantes': ['Sofía Lozano', 'Nicolás Casas', 'Juan David Ramírez'],
+        # Fotografías debajo del texto, como las obras de «señales»: la foto
+        # en la columna ancha y su pie en el riel de la izquierda.
+        # (archivo, pie en español, pie en inglés); cada pie, renglón a renglón
+        'fotos': [
+            ('bejuco-flor-01.jpg',
+             ['Prototipo de flor en arcilla.', 'Vista interior.'],
+             ['Clay flower prototype.', 'Inside view.']),
+            ('bejuco-flor-02.jpg',
+             ['Prototipo de flor en arcilla.', 'Vista lateral.'],
+             ['Clay flower prototype.', 'Side view.']),
+        ],
         'es': {
             'convocatoria': ['Propuesta para la Beca Bienal de Arte 2027',
                              'Arquitectura Sonora · Orquesta Filarmónica de Bogotá'],
@@ -1689,6 +1700,20 @@ def render_render(destino, idioma='es'):
                   % (nombre, ' '.join(FICHA_P % r for r in renglones)))
     cuerpo = ('<div class="cuerpo"><div class="rt">%s</div></div>'
               % ' '.join(CUERPO_P % t for t in txt['texto']))
+
+    # Las fotos, con el mismo marcado que las obras de «señales». El ancho y
+    # el alto se leen del archivo para que el navegador reserve el espacio.
+    obras = []
+    for archivo, pie_es, pie_en in ficha.get('fotos', []):
+        ancho, alto = medidas(os.path.join(ROOT, 'assets', 'img', archivo))
+        pie = pie_en if en else pie_es
+        obras.append(
+            '<div class="obra"><div class="foto"><img src="assets/img/%s" '
+            'alt="%s" width="%d" height="%d" loading="lazy"></div>'
+            '<div class="ficha"><div class="rt">%s</div></div></div>'
+            % (archivo, ' '.join(pie), ancho // 2, alto // 2,
+               ''.join(TXT_PIE % r for r in pie)))
+    obras = ('<div class="obras">\n%s\n</div>\n' % '\n'.join(obras)) if obras else ''
     return ('<section class="sec sec-obras sec-render">\n'
             '<div class="lienzo">\n'
             '<div class="intro">'
@@ -1703,6 +1728,7 @@ def render_render(destino, idioma='es'):
             '</div>'
             '%s'
             '</div>\n'
+            '%s'
             '</div>\n'
             '</section>\n'
             '<script>\n'
@@ -1716,7 +1742,7 @@ def render_render(destino, idioma='es'):
             '  });\n'
             '})();\n'
             '</script>'
-            % (encabezado, src, nombre, src, completa, cuerpo))
+            % (encabezado, src, nombre, src, completa, cuerpo, obras))
 
 
 # La obra que hace de portada de cada técnica. Si no se nombra aquí, se usa
