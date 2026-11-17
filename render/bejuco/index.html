@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>bejuco</title>
+    <link rel="icon" href="data:,">
+    <script type="module" crossorigin src="/render/bejuco/assets/index-DXCf0anA.js"></script>
+    <link rel="stylesheet" crossorigin href="/render/bejuco/assets/index-fUSAcqgb.css">
+  </head>
+  <body>
+    <!-- Lienzo de Three.js -->
+    <div id="app"></div>
+
+    <!-- Pantalla de inicio: el audio solo puede arrancar después de un clic -->
+    <div id="intro">
+      <div class="intro-box">
+        <h1>bejuco</h1>
+        <p>Instalación sonora interactiva · render de presentación</p>
+        <p class="hint">Usa audífonos para escuchar de dónde viene cada flor.</p>
+        <button id="enter" disabled>Cargando audio…</button>
+      </div>
+    </div>
+
+    <!-- HUD discreto -->
+    <div id="hud">
+      <div id="hud-panel"></div>
+      <div id="hud-help"></div>
+    </div>
+
+  </body>
+</html>

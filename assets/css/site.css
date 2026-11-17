@@ -488,6 +488,7 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 /* Orden de la barra: proyectos · talleres · tienda · contacto · CV · EN · + */
 .menu .m-proyectos { order: 1; }
 .menu .m-talleres { order: 2; }
+.menu .m-colectivo-null { order: 2; }   /* justo después de talleres */
 .menu .m-tienda { order: 3; }
 .menu .m-contacto { order: 4; }
 .menu .m-cv { order: 5; }
@@ -732,6 +733,43 @@ body.p-proyectos .nombre-proyectos { display: none !important; }
 }
 @media (max-width: 859px) {
   .rejilla { grid-template-columns: 1fr; gap: 34px; }
+}
+
+/* Las entradas de colectivo null: el render interactivo ocupa todo el ancho
+   del lienzo, así queda siempre centrado; lo que se ajusta es el alto, para
+   que se vea entero sin bajar, con el pie incluido. El render se reencuadra
+   solo a cualquier proporción. En el celular se hace alto, para que quepan
+   el joystick y la barra de altura que el render pone en las pantallas
+   táctiles. */
+.sec-render .cabecera { margin-bottom: 10px; }
+.sec-render .ficha-render,
+.sec-render .render-pie {
+  font-family: var(--grotesca);
+  font-size: 13px;
+  line-height: 1.4em;
+  margin: 0;
+}
+.sec-render .ficha-render { color: rgb(130, 130, 130); margin-bottom: 24px; }
+.sec-render .render-pie { margin-top: 12px; }
+.render {
+  position: relative;
+  width: 100%;
+  height: clamp(420px, calc(100vh - 300px), 56vw);
+  background: #fff;
+  /* un filo apenas visible: el render es blanco como la página y sin él no
+     se sabe dónde empieza la parte con la que se puede jugar */
+  outline: 1px solid rgba(0, 0, 0, .1);
+}
+.render iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+@media (max-width: 859px) {
+  .render { height: 78vh; height: 78svh; }
 }
 
 /* El CV: una columna estrecha con las fechas y, al lado, lo que ocurrió. */

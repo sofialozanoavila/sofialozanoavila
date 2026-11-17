@@ -99,4 +99,11 @@
   document.documentElement.addEventListener('mouseenter', function () {
     lienzo.style.opacity = '';
   });
+  // Dentro de un iframe —el render de bejuco— la página deja de recibir el
+  // ratón y la hormiga se quedaba quieta en el borde: allí manda el puntero
+  // de lo que está dentro.
+  Array.prototype.forEach.call(document.querySelectorAll('iframe'), function (f) {
+    f.addEventListener('mouseenter', function () { lienzo.style.opacity = '0'; });
+    f.addEventListener('mouseleave', function () { lienzo.style.opacity = ''; });
+  });
 })();

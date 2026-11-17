@@ -180,6 +180,7 @@ def ruta_idioma(idioma, destino):
 MENU = [
     ('sofía lozano ávila', ''), ('proyectos', 'proyectos'),
     ('talleres', 'talleres'),
+    ('colectivo null', 'colectivo-null'),
     ('empaques', 'empaques'),
     ('prótesis', 'protesis'), ('antejardín', 'antejardín'),
     ('todo lo que no cabe en una vitrina', 'todo-lo-que-no-cabe-en-una-vitrina'),
@@ -1551,6 +1552,73 @@ def render_talleres(idioma='es'):
             '</section>' % ('workshops' if en else 'talleres', '\n'.join(fichas)))
 
 
+# --- colectivo null ------------------------------------------------------------
+# Sección propia, con la misma retícula que talleres. Cada entrada tiene su
+# página; la de bejuco muestra el render interactivo, que vive en
+# render/bejuco/ (lo genera el proyecto flores-ceramica con «npm run publicar»).
+COLECTIVO = [
+    # (dirección, nombre, años, portada, carpeta del render)
+    ('bejuco', 'bejuco', '2026 \u2013 2027', 'bejuco-portada.jpg', 'render/bejuco/'),
+]
+
+
+def render_colectivo(idioma='es'):
+    """colectivo null: sus entradas, en la retícula de los proyectos."""
+    fichas = []
+    for destino, nombre, anos, archivo, _ in COLECTIVO:
+        fichas.append(
+            '<li><a href="%s.html">'
+            '<div class="marco"><img src="assets/img/%s" alt="%s" '
+            'loading="lazy"></div>'
+            '<div class="pie"><h3>%s</h3><p class="ano">%s</p></div></a></li>'
+            % (destino, archivo, nombre, nombre, anos))
+    return ('<section class="sec sec-catalogo sec-rejilla">\n'
+            '<div class="lienzo">\n'
+            '<div class="cabecera">'
+            '<div class="rt volver"><p><a href="index.html">\u21a9</a></p></div>'
+            '<div class="rt titulo"><h1>colectivo null</h1></div>'
+            '</div>\n'
+            '<ul class="rejilla">\n%s\n</ul>\n'
+            '</div>\n'
+            '</section>' % '\n'.join(fichas))
+
+
+def render_render(destino, idioma='es'):
+    """La página de una entrada del colectivo: el render ocupa la página.
+
+    Va dentro de un iframe para que el menú y la flecha de volver sigan ahí.
+    «pantalla completa» agranda el iframe; si el navegador no sabe hacerlo
+    (el iPhone, por ejemplo), abre el render solo, en la misma pestaña."""
+    en = idioma == 'en'
+    _, nombre, anos, _, carpeta = next(c for c in COLECTIVO if c[0] == destino)
+    src = ('../' if en else '') + carpeta + 'index.html'
+    completa = 'full screen' if en else 'pantalla completa'
+    return ('<section class="sec sec-catalogo sec-render">\n'
+            '<div class="lienzo">\n'
+            '<div class="cabecera">'
+            '<div class="rt volver"><p><a href="colectivo-null.html">\u21a9</a></p></div>'
+            '<div class="rt titulo"><h1>%s</h1></div>'
+            '</div>\n'
+            '<p class="ficha-render">%s \u00b7 colectivo null</p>\n'
+            '<div class="render"><iframe src="%s" title="%s" '
+            'allow="fullscreen; autoplay"></iframe></div>\n'
+            '<p class="render-pie"><a class="pantalla-completa" href="%s">%s</a></p>\n'
+            '</div>\n'
+            '</section>\n'
+            '<script>\n'
+            '(function () {\n'
+            '  var a = document.querySelector(".pantalla-completa");\n'
+            '  var f = document.querySelector(".render iframe");\n'
+            '  if (!a || !f || !f.requestFullscreen) return;\n'
+            '  a.addEventListener("click", function (e) {\n'
+            '    e.preventDefault();\n'
+            '    f.requestFullscreen().catch(function () { location.href = a.href; });\n'
+            '  });\n'
+            '})();\n'
+            '</script>'
+            % (nombre, anos, src, nombre, src, completa))
+
+
 # La obra que hace de portada de cada técnica. Si no se nombra aquí, se usa
 # la primera del grupo.
 PORTADA_GRUPO = {'dibujo': 'collar-1'}
@@ -2026,6 +2094,12 @@ def render_page(slug, page, idioma='es', origen=None):
     if slug == 'talleres':
         return render_talleres(idioma), '', 0
 
+    if slug == 'colectivo-null':
+        return render_colectivo(idioma), '', 0
+
+    if slug in [c[0] for c in COLECTIVO]:
+        return render_render(slug, idioma), '', 0
+
     if slug == 'cv':
         return render_cv(idioma), '', 0
 
@@ -2182,7 +2256,7 @@ HORMIGA_RECTA = """<div id="dibujo-hormiga-recta" hidden>
 
 
 # Entradas que se quedan siempre en la barra; el resto va dentro del «+».
-PRINCIPALES = {'proyectos', 'talleres', 'paisaje-interior', 'cv', 'contacto'}
+PRINCIPALES = {'proyectos', 'talleres', 'colectivo-null', 'paisaje-interior', 'cv', 'contacto'}
 
 
 def header_html(active, idioma):
@@ -2258,6 +2332,14 @@ pages['talleres'] = {'title': 'talleres | sofialozanoavila', 'landing': False,
                      'sections': []}
 SLUG['talleres'] = 'talleres'
 TITULO_EN['talleres'] = 'workshops | sofialozanoavila'
+
+pages['colectivo-null'] = {'title': 'colectivo null | sofialozanoavila',
+                           'landing': False, 'sections': []}
+SLUG['colectivo-null'] = 'colectivo-null'
+for _c in COLECTIVO:
+    pages[_c[0]] = {'title': '%s | colectivo null' % _c[1], 'landing': False,
+                    'sections': []}
+    SLUG[_c[0]] = _c[0]
 
 # Las tres técnicas de la tienda son páginas por derecho propio.
 for _g, _es, _en, _ in GRUPOS:
