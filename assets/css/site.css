@@ -1237,3 +1237,12 @@ html.con-hormiga, html.con-hormiga * {
   /* La flecha de volver no tiene texto: se aclara un poco, como siempre. */
   html body .volver a:hover { background-color: transparent; box-shadow: none; }
 }
+
+/* bejuco: los colores del colectivo null (fondo gris, letra verde oscura),
+   menú incluido. Solo en esta entrada. El texto trae colores en línea del
+   Wix, por eso el !important. */
+html:has(body.p-bejuco), body.p-bejuco { background: #7F7F7F !important; }
+body.p-bejuco, body.p-bejuco * { color: #072500 !important; }
+body.p-bejuco .submenu { background: #7F7F7F; }
+body.p-bejuco .flecha { stroke: #072500; }
+body.p-bejuco .render { outline-color: rgba(7, 37, 0, .35); }
