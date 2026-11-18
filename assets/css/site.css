@@ -1241,8 +1241,14 @@ html.con-hormiga, html.con-hormiga * {
 /* bejuco: los colores del colectivo null (fondo gris, letra verde oscura),
    menú incluido. Solo en esta entrada. El texto trae colores en línea del
    Wix, por eso el !important. */
-html:has(body.p-bejuco), body.p-bejuco { background: #7F7F7F !important; }
+html:has(body.p-bejuco), body.p-bejuco { background: #A6A6A6 !important; }
 body.p-bejuco, body.p-bejuco * { color: #072500 !important; }
-body.p-bejuco .submenu { background: #7F7F7F; }
+/* reglas más específicas que fuerzan el negro: el título de cada entrada
+   y el texto de un enlace al pasar el ratón */
+body.p-bejuco .sec-obras .encabezado h1,
+body.p-bejuco .sec-obras .encabezado h1 span,
+html body.p-bejuco a:hover,
+html body.p-bejuco a:hover * { color: #072500 !important; }
+body.p-bejuco .submenu { background: #A6A6A6; }
 body.p-bejuco .flecha { stroke: #072500; }
 body.p-bejuco .render { outline-color: rgba(7, 37, 0, .35); }
