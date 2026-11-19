@@ -1570,7 +1570,7 @@ def render_colectivo(idioma='es'):
             '<li><a href="%s.html">'
             '<div class="marco"><img src="assets/img/%s" alt="%s" '
             'loading="lazy"></div>'
-            '<div class="pie"><h3><em>%s</em></h3><p class="ano">%s</p></div></a></li>'
+            '<div class="pie"><h3>%s</h3><p class="ano">%s</p></div></a></li>'
             % (destino, archivo, nombre, nombre, anos))
     return ('<section class="sec sec-catalogo sec-rejilla">\n'
             '<div class="lienzo">\n'
@@ -1736,7 +1736,7 @@ def render_render(destino, idioma='es'):
     renglones += ['<span style="font-style:italic;">%s</span>' % c
                   for c in txt['convocatoria']]
     encabezado = ('<div class="encabezado">'
-                  '<div class="rt"><h1 class="font_0" style="font-size:34px;"><em>%s</em></h1></div>'
+                  '<div class="rt"><h1 class="font_0" style="font-size:34px;">%s</h1></div>'
                   '<div class="rt">%s</div></div>'
                   % (nombre, ' '.join(FICHA_P % r for r in renglones)))
     cuerpo = ('<div class="cuerpo"><div class="rt">%s</div></div>'
