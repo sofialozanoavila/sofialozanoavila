@@ -1649,7 +1649,7 @@ FICHA_COLECTIVO = {
                 '1886-1938</em>, de Claudia Cendales Paredes.',
                 'Arriba, un render interactivo de la instalación: se puede '
                 'caminar entre las flores, agacharse o ponerse en puntillas, y '
-                'escuchar cómo suenan. Se recomienda usar audífonos.',
+                'escuchar cómo suenan.',
             ],
         },
         'en': {
@@ -1700,7 +1700,7 @@ FICHA_COLECTIVO = {
                 '1886-1938</em>, by Claudia Cendales Paredes.',
                 'Above, an interactive render of the installation: you can walk '
                 'among the flowers, crouch or stand on tiptoe, and listen to how '
-                'they sound. Headphones are recommended.',
+                'they sound.',
             ],
         },
     },
