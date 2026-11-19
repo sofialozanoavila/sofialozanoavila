@@ -33,7 +33,11 @@
   lienzo.width = lienzo.height = Math.round(LADO * dpr);
   document.body.appendChild(lienzo);
   var ctx = lienzo.getContext('2d');
-  document.documentElement.classList.add('con-hormiga');
+  // El puntero del sistema —la hormiga fija de la hoja de estilos— no se
+  // apaga aquí sino al estampar la primera postura. Antes se apagaba de
+  // entrada, y como las posturas tardan un instante en rasterizarse, al
+  // cambiar de página quedaba la flecha, o nada, hasta mover el ratón.
+  var encendida = false;
 
   // Al cambiar de página la hormiga aparecía solo cuando se movía el ratón,
   // y entre tanto no había cursor ninguno. Se guarda la última posición para
@@ -57,12 +61,21 @@
       cual = Math.floor(ahora / 1000 / CADENCIA * juego.posturas) % juego.posturas;
       if (cual < 0) cual += juego.posturas;
     }
-    if (cual === postura) return;
-    var cuno = juego.cunos[cual] || juego.cunos[0];
-    if (!cuno) return;
-    postura = cual;
-    ctx.clearRect(0, 0, lienzo.width, lienzo.height);
-    ctx.drawImage(cuno, 0, 0);
+    if (cual !== postura) {
+      var cuno = juego.cunos[cual] || juego.cunos[0];
+      // aún no hay posturas: se vuelve a intentar en el cuadro siguiente,
+      // sin esperar a que se mueva el ratón
+      if (!cuno) { pedir(); return; }
+      postura = cual;
+      ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+      ctx.drawImage(cuno, 0, 0);
+    }
+    // solo si ya se sabe dónde está el ratón: en la primera visita no hay
+    // posición guardada y la hormiga estaría fuera de la pantalla
+    if (!encendida && x >= 0 && y >= 0) {
+      encendida = true;
+      document.documentElement.classList.add('con-hormiga');
+    }
   }
 
   function pedir() {
