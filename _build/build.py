@@ -1558,7 +1558,7 @@ def render_talleres(idioma='es'):
 # render/bejuco/ (lo genera el proyecto flores-ceramica con «npm run publicar»).
 COLECTIVO = [
     # (dirección, nombre, años, portada, carpeta del render)
-    ('bejuco', 'bejuco', '2026 \u2013 2027', 'bejuco-portada.jpg', 'render/bejuco/'),
+    ('bejuco', 'bejuco. memoria viva', '2026 \u2013 2027', 'bejuco-portada.jpg', 'render/bejuco/'),
 ]
 
 
@@ -1570,7 +1570,7 @@ def render_colectivo(idioma='es'):
             '<li><a href="%s.html">'
             '<div class="marco"><img src="assets/img/%s" alt="%s" '
             'loading="lazy"></div>'
-            '<div class="pie"><h3>%s</h3><p class="ano">%s</p></div></a></li>'
+            '<div class="pie"><h3><em>%s</em></h3><p class="ano">%s</p></div></a></li>'
             % (destino, archivo, nombre, nombre, anos))
     return ('<section class="sec sec-catalogo sec-rejilla">\n'
             '<div class="lienzo">\n'
@@ -1604,7 +1604,7 @@ FICHA_COLECTIVO = {
             'convocatoria': ['Propuesta para la Beca Bienal de Arte 2027',
                              'Arquitectura Sonora · Orquesta Filarmónica de Bogotá'],
             'texto': [
-                'Bejuco. Memoria viva se pregunta por la memoria de Bogotá a '
+                '<em>Bejuco. Memoria viva</em> se pregunta por la memoria de Bogotá a '
                 'través de su vegetación. Rara vez nos preguntamos quién eligió '
                 'los árboles, las flores y los arbustos de las plazas y los '
                 'parques. La admiración que provoca la naturaleza lleva a pensar '
@@ -1656,7 +1656,7 @@ FICHA_COLECTIVO = {
             'convocatoria': ['Proposal for the Beca Bienal de Arte 2027',
                              'Arquitectura Sonora · Orquesta Filarmónica de Bogotá'],
             'texto': [
-                'Bejuco. Memoria viva asks about the memory of Bogotá through its '
+                '<em>Bejuco. Memoria viva</em> asks about the memory of Bogotá through its '
                 'vegetation. We rarely ask who chose the trees, flowers and '
                 'shrubs of the city’s squares and parks. The admiration nature '
                 'inspires makes us think it is there by chance, but every '
@@ -1736,7 +1736,7 @@ def render_render(destino, idioma='es'):
     renglones += ['<span style="font-style:italic;">%s</span>' % c
                   for c in txt['convocatoria']]
     encabezado = ('<div class="encabezado">'
-                  '<div class="rt"><h1 class="font_0" style="font-size:34px;">%s</h1></div>'
+                  '<div class="rt"><h1 class="font_0" style="font-size:34px;"><em>%s</em></h1></div>'
                   '<div class="rt">%s</div></div>'
                   % (nombre, ' '.join(FICHA_P % r for r in renglones)))
     cuerpo = ('<div class="cuerpo"><div class="rt">%s</div></div>'
